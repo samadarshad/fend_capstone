@@ -12,36 +12,23 @@ body {
 //     border: 1px dotted black;
 // }
 
-.entry-img img {
-    width: 100%;
-    height: 100%;
-}
-
 .entry {
-    background: url('img/background.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: #D690A0;
+    // background: url('img/background.png');
+    // background-size: cover;
+    // background-repeat: no-repeat;
+    // background-position: center;
+    // background-color: #D690A0;
     height: 95vh;
-}
 
-.entry-caption {
-    /* position: absolute; */
-    text-align: center;
-    top: 50%;
-    transform: translateY(50%);
-    margin-bottom: 0;
-}
+    .form-label {
+        transform: translateY(10%);
+        text-align: right;        
+        text-shadow: 1px 1px 10px #000;
+    }
 
-.entry .form-label {
-    /* position: absolute; */
-    /* text-align: right; */
-    /* top: 50%; */
-    transform: translateY(10%);
-    text-align: right;
-    
-    text-shadow: 1px 1px 10px #000;
+    p {
+        background-color: rgba(255, 255, 255, 0.205)
+    }
 }
 
 .navbar {
@@ -60,40 +47,77 @@ body {
     font-size: 1.1em !important;
 }
 
-.entry p {
-    background-color: rgba(255, 255, 255, 0.205)
-}
 
 .card {
     padding-top: 0vh;
 }
-.card-body {
-    padding-bottom: 0;
-}
+.results {
+    .card-body {
+        padding-bottom: 0;
+    }
 
-.card-body form { 
-    padding-left: 3vw;
-    padding-bottom: 0vh;
+    form { 
+        padding-left: 2.5vw;
+        padding-right: 2.5vw;
+        padding-bottom: 0vh;
+    }
+}
+.saved-trips {
+    background-color: #D690A0;
+    .card {
+        background-color: #ffffff;
+    }
+    .card-body {
+        padding-bottom: 2vh;
+    }
+
+    small {
+        text-align: left;
+    }
+
+    .card-text {
+        padding-top: 0;
+        padding-left: 0;
+    }
+    
+    .card-votes {
+        padding-top: 0;
+        padding-left: 0;
+        line-height: 1em;
+    }
 }
 
 #countryCarousel {
     padding: 0%;
     background-color: #000;
-    /* justify-content: center; */
-    /* align-content: center; */
     margin: auto;
-}
 
-#countryCarousel img {
-    max-height: 25vh;
-    object-fit: cover;
+    img {
+        max-height: 25vh;
+        object-fit: cover;
+    }
 }
 
 .entry-caption {
     color: #fff;
-    /* position: relative; */
-    /* top: 50%; */
-    /* transform: translateY(-100%) */
+    text-align: center;
+    top: 50%;
+    transform: translateY(50%);
+    margin-bottom: 0;
+
+    h1 {
+        font-size: 400%;
+        font-style: italic;
+        text-shadow: 1px 1px 10px #000;
+    }
+    
+    h3 {
+        font-size: 200%;
+        font-weight: 500;
+        text-shadow: 1px 1px 10px #000;
+        padding-bottom: 1rem;
+    }
+    
 }
 
 .weather-card {
@@ -117,83 +141,33 @@ body {
     padding: 1.88rem 1.81rem;
     flex: 1 1 auto;
     padding: 1.25rem;
-    background: #ffffff
-}
-
-.weather-card .weekly-weather {
     background: #ffffff;
-    overflow-x: auto
+
+    .weekly-weather {
+        background: #ffffff;
+        overflow-x: auto;
+
+        .weekly-weather-item {
+            flex: 0 0 14.28%;
+            border-right: 1px solid #f2f2f2;
+            padding: 1rem;
+            text-align: center
+
+            i {
+                font-size: 1.2rem
+            }
+        }
+    }
 }
 
-.weather-card .weekly-weather .weekly-weather-item {
-    flex: 0 0 14.28%;
-    border-right: 1px solid #f2f2f2;
-    padding: 1rem;
-    text-align: center
-}
+
 
 .mb-0,
 .my-0 {
     margin-bottom: 0 !important
 }
 
-.card-weather .weekly-weather .weekly-weather-item i {
-    font-size: 1.2rem
-}
 
-.album .card-text {
-    padding-top: 0;
-    padding-left: 0;
-}
-
-.album .card-votes {
-    padding-top: 0;
-    padding-left: 0;
-    line-height: 1em;
-    // align-content: center;
-    // justify-content: center;
-    // align: center;
-}
-
-
-/* .carousel-inner {
-    height: 100%;
-    object-fit: cover;
-    margin: auto;
-} */
-
-.carousel-item img {
-    /* margin: auto; */
-    /* padding-top: 50%; */
-    /* height: 100%; */
-    /* height: auto; */
-    /* width: 100%; */
-    /* object-fit: cover; */
-}
-
-.entry-caption h1 {
-    font-size: 400%;
-    font-style: italic;
-    text-shadow: 1px 1px 10px #000;
-}
-
-.entry-caption h3 {
-    font-size: 200%;
-    font-weight: 500;
-    text-shadow: 1px 1px 10px #000;
-    padding-bottom: 1rem;
-}
-
-
-/* .entry button {
-    background-color: #6648b1;
-    border: 1px solid #6648b1;
-}
-
-.entry button:hover {
-    background-color: #563d7c;
-    border: 1px solid #563d7c;
-} */
 
 .nopadding {
     padding: 0 !important;
@@ -227,59 +201,30 @@ body {
     margin-bottom: 1rem;
 }
 
-.fa-code {
-    color: #e54d26;
-}
-
-.fa-bold {
-    color: #563d7c;
-}
-
-.fa-css3 {
-    color: #2163af;
-}
-
-.fa-code,
-.fa-bold,
-.fa-css3 {
-    font-size: 4em;
-    margin: 1rem;
-}
-
-.fun {
-    width: 100%;
-    margin-bottom: 2rem;
-}
-
-.gif {
-    max-width: 100%;
-}
-
-main,
-.album {
+main {
     background-color: #D690A0;
 }
 
-.main-card .card,
-.saved-trips .card {
+.results .card {
     background-color: #ffffff;
 }
 
 .social {
     transform: translateY(-25%);
-}
-
-.social a {
-    font-size: 2em;
-    padding: 1rem;
-    text-align: center;
+    a {
+        font-size: 2em;
+        padding: 1rem;
+        text-align: center;
+    }
 }
 
 .fa-linkedin {
     color: #0e76a8;
+    &:hover {
+        color: #d5d5d5;
+    }
 }
 
-.fa-linkedin:hover,
 .fa-github:hover {
     color: #d5d5d5;
 }
@@ -288,6 +233,14 @@ footer {
     background-color: #3f3f3f;
     color: #d5d5d5;
     padding-top: 2rem;
+
+    a {
+        color: #d5d5d5;
+
+        &:hover {
+            color: #a7a7a7;
+        }
+    }
 }
 
 hr.light {
@@ -297,13 +250,6 @@ hr.light {
     margin-bottom: 1rem;
 }
 
-footer a {
-    color: #d5d5d5;
-}
-
-footer a:hover {
-    color: #a7a7a7;
-}
 
 hr.light-100 {
     border-top: 1px solid #d5d5d5;
@@ -312,9 +258,6 @@ hr.light-100 {
     margin-bottom: 1rem;
 }
 
-.saved-trips small {
-    text-align: left;
-}
 
 .btn-primary {
     background-color: #6648b1;
@@ -333,7 +276,7 @@ hr.light-100 {
     .entry-caption h1 {
         font-size: 300%;
     }
-    .main-card .card-text {
+    .results .card-text {
         margin-left: 2vw;
         margin-right: 2vw;
     }
@@ -345,19 +288,23 @@ hr.light-100 {
 @media (max-width: 768px) {
     .entry-caption {
         top: 45%;
+
+        h1 {
+            font-size: 200%;
+        }
+
+        h3 {
+            font-size: 140%;
+            font-weight: 400;
+            padding-bottom: 0.2rem;
+        }
+
+        .btn {
+            font-size: 95%;
+            padding: 8px 14px;
+        }
     }
-    .entry-caption h1 {
-        font-size: 200%;
-    }
-    .entry-caption h3 {
-        font-size: 140%;
-        font-weight: 400;
-        padding-bottom: 0.2rem;
-    }
-    .entry-caption .btn {
-        font-size: 95%;
-        padding: 8px 14px;
-    }
+
     .display-4 {
         font-size: 200%;
     }
@@ -366,48 +313,45 @@ hr.light-100 {
 @media (max-width: 576px) {
     .entry-caption {
         top: 40%;
-    }
-    .entry-caption h1 {
-        font-size: 150%;
-    }
-    .entry-caption h3 {
-        font-size: 110%;
-    }
-    .entry-caption .btn {
-        font-size: 90%;
-        padding: 4px 8px;
-    }
-    .entry-indicators {
-        display: none;
+        transform: none;
+
+        h1 {
+            font-size: 150%;
+        }
+
+        h3 {
+            font-size: 110%;
+        }
+
+        .btn {
+            font-size: 90%;
+            padding: 4px 8px;
+        }
     }
     .display-4 {
         font-size: 160%;
     }
-    .entry .form-label {
-        margin-bottom: 0%;
-        padding-bottom: 0%;
-    }
-    .entry .form-input {
-        margin-top: 0;
-        padding-top: 0;
-        text-align: center;
-    }
-    .entry .form-label p {
-        margin-bottom: 0%;
-        padding-bottom: 0%;
-        text-align: center;
-    }
     .entry {
-        background: url('img/background.png');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-color: #D690A0;
         height: auto;
+
+        .form-label {
+            margin-bottom: 0%;
+            padding-bottom: 0%;
+            p {
+                margin-bottom: 0%;
+                padding-bottom: 0%;
+                text-align: center;
+            }
+        }
+
+        .form-input {
+            margin-top: 0;
+            padding-top: 0;
+            text-align: center;
+        }
+
     }
-    .entry-caption {
-        transform: none;
-    }
+
     .weather {
         padding-right: 1rem;
     }
@@ -444,7 +388,7 @@ figure {
 }
 
 #fixed {
-    background-image: url('img/mac.png');
+    background-image: url('img/background.png');
     position: fixed;
     display: block;
     top: 0;
