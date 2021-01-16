@@ -31,3 +31,9 @@ var chart = new ApexCharts(document.querySelector("#chart"), options);
 
 chart.render();
 console.log("rendered")
+
+// $(document).ready(function(){
+//     $('#datepicker').datepicker(); 
+//    });
+$('.input-group.date').datepicker({
+});
