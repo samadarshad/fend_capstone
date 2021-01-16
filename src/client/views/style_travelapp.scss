@@ -64,7 +64,19 @@ body {
     background-color: rgba(255, 255, 255, 0.205)
 }
 
-#carouselExampleIndicators {
+.card {
+    padding-top: 0vh;
+}
+.card-body {
+    padding-bottom: 0;
+}
+
+.card-body form { 
+    padding-left: 3vw;
+    padding-bottom: 0vh;
+}
+
+#countryCarousel {
     padding: 0%;
     background-color: #000;
     /* justify-content: center; */
@@ -72,7 +84,7 @@ body {
     margin: auto;
 }
 
-#carouselExampleIndicators img {
+#countryCarousel img {
     max-height: 25vh;
     object-fit: cover;
 }
@@ -96,11 +108,13 @@ body {
     border-radius: 0.25rem
 }
 
-.weather-card .weather-card-body {
-    padding: 1.88rem 1.81rem
+.weather {
+    padding-right: 1rem;
+    text-align: center;
 }
 
-.weather-card-body {
+.weather-card {
+    padding: 1.88rem 1.81rem;
     flex: 1 1 auto;
     padding: 1.25rem;
     background: #ffffff
@@ -323,6 +337,9 @@ hr.light-100 {
         margin-left: 2vw;
         margin-right: 2vw;
     }
+    .weather {
+        padding-right: 0;
+    }
 }
 
 @media (max-width: 768px) {
@@ -390,6 +407,9 @@ hr.light-100 {
     }
     .entry-caption {
         transform: none;
+    }
+    .weather {
+        padding-right: 1rem;
     }
 }
 
