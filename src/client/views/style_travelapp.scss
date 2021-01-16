@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,700');
+/*---Media Queries --*/
+@import "~bootstrap/scss/_functions.scss";
+@import "~bootstrap/scss/_variables.scss";
+@import "~bootstrap/scss/mixins/_breakpoints.scss";
+
 html,
 body {
     height: 100%;
@@ -13,11 +18,6 @@ body {
 // }
 
 .entry {
-    // background: url('img/background.png');
-    // background-size: cover;
-    // background-repeat: no-repeat;
-    // background-position: center;
-    // background-color: #D690A0;
     height: 95vh;
 
     .form-label {
@@ -29,7 +29,37 @@ body {
     p {
         background-color: rgba(255, 255, 255, 0.205)
     }
+
+
+    // @media (max-width: 576px) {
+    @include media-breakpoint-down(xs) {
+        height: auto;
+
+        .form-label {
+            margin-bottom: 0%;
+            padding-bottom: 0%;
+            p {
+                margin-bottom: 0%;
+                padding-bottom: 0%;
+                text-align: center;
+            }
+        }
+
+        .form-input {
+            margin-top: 0;
+            padding-top: 0;
+            text-align: center;
+        }
+    }
+
+
+
+
+
+
+
 }
+
 
 .navbar {
     padding: .8rem;
@@ -270,9 +300,15 @@ hr.light-100 {
 }
 
 
-/*---Media Queries --*/
 
-@media (max-width: 992px) {
+// @include media-breakpoint-down(sm) { ... }
+// @include media-breakpoint-down(md) { ... }
+// @include media-breakpoint-down(lg) { ... }
+// @include media-breakpoint-down(xl) { ... }
+// @include media-breakpoint-down(xxl) { ... }
+// @include media-breakpoint-down(md) {
+@include media-breakpoint-down(md) {
+// @media (max-width: 992px) {
     .entry-caption h1 {
         font-size: 300%;
     }
@@ -285,7 +321,8 @@ hr.light-100 {
     }
 }
 
-@media (max-width: 768px) {
+@include media-breakpoint-down(sm) {
+// @media (max-width: 768px) {
     .entry-caption {
         top: 45%;
 
@@ -310,7 +347,8 @@ hr.light-100 {
     }
 }
 
-@media (max-width: 576px) {
+@include media-breakpoint-down(xs) {
+// @media (max-width: 576px) {
     .entry-caption {
         top: 40%;
         transform: none;
@@ -331,26 +369,26 @@ hr.light-100 {
     .display-4 {
         font-size: 160%;
     }
-    .entry {
-        height: auto;
+    // .entry {
+    //     height: auto;
 
-        .form-label {
-            margin-bottom: 0%;
-            padding-bottom: 0%;
-            p {
-                margin-bottom: 0%;
-                padding-bottom: 0%;
-                text-align: center;
-            }
-        }
+    //     .form-label {
+    //         margin-bottom: 0%;
+    //         padding-bottom: 0%;
+    //         p {
+    //             margin-bottom: 0%;
+    //             padding-bottom: 0%;
+    //             text-align: center;
+    //         }
+    //     }
 
-        .form-input {
-            margin-top: 0;
-            padding-top: 0;
-            text-align: center;
-        }
+    //     .form-input {
+    //         margin-top: 0;
+    //         padding-top: 0;
+    //         text-align: center;
+    //     }
 
-    }
+    // }
 
     .weather {
         padding-right: 1rem;
