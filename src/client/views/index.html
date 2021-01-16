@@ -1,12 +1,10 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <title>Travel Planner</title>    
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -14,20 +12,15 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" />
-
-
 </head>
 
 <body>
-
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
             <div class="container-fluid justify-content-end">
                 <div class="nav">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
-                                         
-                    <span class="navbar-toggler-icon"></span>
-                   
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">                                         
+                    <span class="navbar-toggler-icon"></span>                   
                 </button>
                 </div>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -41,9 +34,9 @@
                     </ul>
                 </div>
             </div>
-
         </nav>
     </header>
+
 
     <main>
         <div class="entry">
@@ -53,12 +46,12 @@
                     <div class="col-12">
                         <h1 class="fw-light">When is the best time to visit...</h1>
                     </div>
-                    <form class="col-lg-6 col-md-8 mx-auto">
+                    <form class="col-lg-6 col-md-8 col-sm-10 mx-auto">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <p class="form-label">Destination</p>
+                            <div class="col-sm-6 form-label">
+                                <p>Destination</p>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 form-input">
                                 <input type="text" class="form-control" id="destination-input" placeholder="(required) Berlin" value="" required>
                                 <div class="invalid-feedback">
                                     Valid last name is required.
@@ -66,18 +59,18 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6">
-                                <p class="form-label">Travelling from</p>
+                            <div class="col-sm-6 form-label">
+                                <p>Travelling from</p>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 form-input">
                                 <input type="text" class="form-control" id="travelling-from-input" placeholder="London" value="">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6">
-                                <p class="form-label">Departure date</p>
+                            <div class="col-sm-6 form-label">
+                                <p>Departure date</p>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 form-input">
                                 <div class="input-group date">
                                     <input type="text" class="form-control" id="date-input" placeholder="01/01/2021" data-provide="datepicker" value="">
                                     <div class="input-group-append">

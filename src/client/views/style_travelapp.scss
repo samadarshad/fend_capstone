@@ -8,9 +8,9 @@ body {
 }
 
 
-/* * {
-    border: 1px dotted black;
-} */
+// * {
+//     border: 1px dotted black;
+// }
 
 .entry-img img {
     width: 100%;
@@ -38,7 +38,9 @@ body {
     /* position: absolute; */
     /* text-align: right; */
     /* top: 50%; */
-    transform: translateY(30%);
+    transform: translateY(10%);
+    text-align: right;
+    
     text-shadow: 1px 1px 10px #000;
 }
 
@@ -363,6 +365,16 @@ hr.light-100 {
     .entry .form-label {
         margin-bottom: 0%;
         padding-bottom: 0%;
+    }
+    .entry .form-input {
+        margin-top: 0;
+        padding-top: 0;
+        text-align: center;
+    }
+    .entry .form-label p {
+        margin-bottom: 0%;
+        padding-bottom: 0%;
+        text-align: center;
     }
     .entry {
         background: url('img/background.png');
