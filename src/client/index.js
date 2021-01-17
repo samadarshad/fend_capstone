@@ -1,6 +1,6 @@
 // import './styles/resets.scss'
 
-import './styles/style_travelapp.scss'
+import './styles/utils.scss'
 import './styles/navbar.scss'
 import './styles/entryform.scss'
 import './styles/footer.scss'
