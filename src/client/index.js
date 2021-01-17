@@ -1,9 +1,12 @@
 // import './styles/resets.scss'
-// import './styles/base.scss'
-// import './styles/form.scss'
-// import './styles/footer.scss'
-// import './styles/header.scss'
-import './views/style_travelapp.scss'
+
+import './styles/style_travelapp.scss'
+import './styles/navbar.scss'
+import './styles/entryform.scss'
+import './styles/footer.scss'
+import './styles/results.scss'
+import './styles/saved_trips.scss'
+import './styles/base.scss'
 import ApexCharts from 'apexcharts'
 
 // const fetch = window.fetch.bind(window);

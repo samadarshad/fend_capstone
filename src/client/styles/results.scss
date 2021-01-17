@@ -1,0 +1,93 @@
+@import "~bootstrap/scss/_functions.scss";
+@import "~bootstrap/scss/_variables.scss";
+@import "~bootstrap/scss/mixins/_breakpoints.scss";
+.results {
+    .card-body {
+        padding-bottom: 0;
+    }
+
+    form { 
+        padding-left: 2.5vw;
+        padding-right: 2.5vw;
+        padding-bottom: 0vh;
+    }
+
+    .card {
+        background-color: #ffffff;
+    }
+
+    @include media-breakpoint-down(md) {
+        .card-text {
+            margin-left: 2vw;
+            margin-right: 2vw;
+        }
+    }
+}
+
+#countryCarousel {
+    padding: 0%;
+    background-color: #000;
+    margin: auto;
+
+    img {
+        max-height: 25vh;
+        object-fit: cover;
+    }
+}
+
+
+
+.weather-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem
+}
+
+.weather {
+    padding-right: 1rem;
+    text-align: center;
+
+    @include media-breakpoint-down(md) {
+            padding-right: 0;
+    }
+
+    @include media-breakpoint-down(xs) {
+            padding-right: 1rem;
+    }
+}
+
+.weather-card {
+    padding: 1.88rem 1.81rem;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+    background: #ffffff;
+
+    .weekly-weather {
+        background: #ffffff;
+        overflow-x: auto;
+
+        .weekly-weather-item {
+            flex: 0 0 14.28%;
+            border-right: 1px solid #f2f2f2;
+            padding: 1rem;
+            text-align: center
+
+            i {
+                font-size: 1.2rem
+            }
+        }
+    }
+}
+
+
+
+.mb-0,
+.my-0 {
+    margin-bottom: 0 !important
+}
