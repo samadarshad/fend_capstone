@@ -1,5 +1,4 @@
 import "regenerator-runtime/runtime";
-// const fetch = require('node-fetch');
 const axios = require('axios');
 const requestsServiceClass = require('../src/shared/requests_axios.js');
 const request = new requestsServiceClass(axios);
