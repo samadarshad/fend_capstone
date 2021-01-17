@@ -9,8 +9,13 @@ import './styles/saved_trips.scss'
 import './styles/base.scss'
 import ApexCharts from 'apexcharts'
 
+
+
+import axios from 'axios';
 // const fetch = window.fetch.bind(window);
-// Client.setFetch(fetch)
+// Client.setFetch(axios)
+let res = axios.get("https://abdus-samad-weather-journal-test.free.beeceptor.com")
+console.log("axios get", res)
 // let user_input = document.getElementsByClassName('user-input');
 // for (const element of user_input) {
 //     element.addEventListener("submit", e => Client.respondToSubmit(e, document) );
