@@ -45,7 +45,7 @@ class geonamesApi {
         }
         const locationData = this.getJson(
             data.geonames[0].lat, 
-            data.geonames[0].lon, 
+            data.geonames[0].lng, 
             data.geonames[0].name, 
             data.geonames[0].countryCode
             )

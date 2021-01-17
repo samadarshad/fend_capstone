@@ -3,6 +3,8 @@ const router = express.Router();
 
 const textApi = require('./text_api.js');
 const geonamesApi = require('./geonames_api.js');
+const weatherbitApi = require('./weatherbit_api.js');
+
 const messageScheme = require('../shared/messageScheme');
 
 function sendErrorToClient(error, res) {
@@ -20,7 +22,16 @@ router.post('/search', async function (req, res) {
         const destination = new messageScheme().get_destination(input);
         const geonames = new geonamesApi()
         const locationData = await geonames.getLocation(destination);
-        res.send(locationData)
+        console.log(locationData)
+
+        const weatherbit = new weatherbitApi()
+        const weatherData = await weatherbit.getWeather(
+            geonames.get_lat(locationData), 
+            geonames.get_lon(locationData)
+            )
+
+        console.log(weatherData)
+        // res.send(locationData)
     } catch (error) {
         console.log("routes error", error);
         sendErrorToClient(error, res);
