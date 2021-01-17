@@ -11,7 +11,7 @@
     .card-body {
         padding-top: 0vh;
         padding-bottom: 1vh;
-    }
+    } 
     
 
     .card-text {
@@ -23,6 +23,13 @@
         line-height: 1em;
         font-size: 30px; 
         color:#606060;
+
+        a {        
+            color:#606060;
+            &:hover {            
+            color:#006eff;
+            }
+        }
     }
 
     @include media-breakpoint-down(md) {
