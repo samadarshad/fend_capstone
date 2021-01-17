@@ -5,21 +5,52 @@ const base_url = `http://api.geonames.org/searchJSON`//process.env.GEONAMES_API_
 
 const requests = require('./server-side-requests');
 
-module.exports = {
-    getLatLon: async function (city) { 
+class geonamesApi {
+    getJson = function (lat, lon, name, countryCode) {
+         return {
+              'lat': lat,
+              'lon': lon,
+              'name': name,
+              'countryCode': countryCode
+         }
+    }
+
+    get_lat = function (jsonData) {
+         return jsonData.lat
+    }
+    get_lon = function (jsonData) {
+         return jsonData.lon
+    }
+    get_name = function (jsonData) {
+        return jsonData.name
+    }  
+    get_countryCode = function (jsonData) {
+        return jsonData.countryCode
+    }
+    
+    getLocation = async function (city) { 
         if (city === undefined) {
             return Promise.reject(new Error(400));
         }
-        const latLon = await _getLatLon(city);
+        const latLon = await this._getLocation(city);
         return latLon;
+    }
+
+    _getLocation = async function (city) {
+        const cityUtf8 = Buffer.from(city, 'utf-8');
+        const url = `${base_url}?formatted=true&q=${cityUtf8}&maxRows=1&lang=en&username=${username}&style=short`
+        const data = await requests.getData(url);
+        if (data.totalResultsCount == 0) {
+            return Promise.reject(new Error(404));
+        }
+        const locationData = this.getJson(
+            data.geonames[0].lat, 
+            data.geonames[0].lon, 
+            data.geonames[0].name, 
+            data.geonames[0].countryCode
+            )
+        return locationData;
     }
 }
 
-const _getLatLon = async (city) => {
-    const cityUtf8 = Buffer.from(city, 'utf-8');
-    const url = `${base_url}?formatted=true&q=${cityUtf8}&maxRows=1&lang=en&username=${username}&style=short`
-    console.log("_getLatLon url: ", url);
-    const data = await requests.getData(url);
-    console.log("_getLatLon data: ", data);
-    return data;
-}
+module.exports = geonamesApi

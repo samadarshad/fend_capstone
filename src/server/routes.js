@@ -18,8 +18,9 @@ router.post('/search', async function (req, res) {
         const input = req.body;
         console.log(input)
         const destination = new messageScheme().get_destination(input);
-        const geonamesData = await geonamesApi.getLatLon(destination);
-        res.send(geonamesData)
+        const geonames = new geonamesApi()
+        const locationData = await geonames.getLocation(destination);
+        res.send(locationData)
     } catch (error) {
         console.log("routes error", error);
         sendErrorToClient(error, res);
