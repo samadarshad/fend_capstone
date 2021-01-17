@@ -1,13 +1,22 @@
 export async function respondToSubmit (event, document) {
     try {
         event.preventDefault()
-        let formText = document.getElementById('name').value
-        if (Client.validate(formText) == false) {
-            alert("Please enter sentence")
-            return
+
+        let entry_input = {
+            destination_input: event.target['destination-input'].value,
+            travelling_from_input: event.target['travelling-from-input'].value,
+            date_input: event.target['date-input'].value
         }
-        const data = await Client.sendForm(formText)
-        await Client.updateUI(data, document);
+        console.log(entry_input)
+
+
+        // let formText = document.getElementById('name').value
+        // if (Client.validate(formText) == false) {
+        //     alert("Please enter sentence")
+        //     return
+        // }
+        // const data = await Client.sendForm(formText)
+        // await Client.updateUI(data, document);
     } catch (error) {
         console.log("respondToSubmit error", error);
     }

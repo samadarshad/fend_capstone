@@ -22,19 +22,7 @@ Client.setFetch(axios)
 // let travelling_from_input = document.getElementById('travelling-from-input');
 // let date_input = document.getElementById('date-input');
 let entry_form = document.getElementById('entry-form');
-entry_form.addEventListener("submit", e => {
-    // Client.respondToSubmit(e, document) 
-    e.preventDefault();
-    // console.log(e.target[0].value)
-
-    let entry_input = {
-        destination_input: e.target['destination-input'].value,
-        travelling_from_input: e.target['travelling-from-input'].value,
-        date_input: e.target['date-input'].value
-    }
-    console.log(entry_input)
-    // console.log(e);
-});
+entry_form.addEventListener("submit", e => Client.respondToSubmit(e, document));
 // let user_input = document.getElementsByClassName('user-input');
 // for (const element of user_input) {
 //     element.addEventListener("submit", e => Client.respondToSubmit(e, document) );
