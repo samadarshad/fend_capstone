@@ -57,7 +57,6 @@ class weatherbitApi {
             return Promise.reject(new Error(404));
         }
         const weatherForecast = response.data.map(day => this.getJsonWeatherForecast(day.valid_date, day.temp, day.weather.code))
-        console.log("weatherForecast", weatherForecast)
         const weather = this.getJson(
             response.city_name,
             response.country_code, 
