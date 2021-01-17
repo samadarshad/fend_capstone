@@ -1,30 +1,33 @@
 class requestsServiceClass {
-     constructor(fetch) {
-          this.fetch = fetch
+     constructor(axios) {
+          this.axios = axios
      }
 
      getData = async function ( url = '' ) {
-          const response = await this.fetch(url); 
-          if (!response.ok) {
-               return Promise.reject(new Error(response.status));
-          }
-          const newData = response.json();
+          const response = await this.axios.get(url)
+          .catch(function(error) {
+               console.log("caught error error.response.status", error.response.status)
+               return Promise.reject(new Error(error.response.status));
+          }); 
+          const newData = response.data;
           return newData
      }
 
      postData = async function ( url = '', data = {}) {
-          const response = await this.fetch(url, {
+          const response = await this.axios({
                method: 'POST',
+               url: url,
                credentials: 'same-origin',
                headers: {
                     'Content-Type': 'application/json',
                },
-               body: JSON.stringify(data),
-          });
-          if (!response.ok) {
-               return Promise.reject(new Error(response.status));
-          }
-          const newData = response.json();
+               data: data,
+          })       
+          .catch(function(error) {
+               console.log("caught error error.response.status", error.response.status)
+               return Promise.reject(new Error(error.response.status));
+          }); 
+          const newData = response.data;
           return newData
      };     
 }; 

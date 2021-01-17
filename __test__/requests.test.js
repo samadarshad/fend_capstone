@@ -1,6 +1,6 @@
 import "regenerator-runtime/runtime";
 const axios = require('axios');
-const requestsServiceClass = require('../src/shared/requests_axios.js');
+const requestsServiceClass = require('../src/shared/requests.js');
 const request = new requestsServiceClass(axios);
 
 // assumed to be always online, only 50 requests per day

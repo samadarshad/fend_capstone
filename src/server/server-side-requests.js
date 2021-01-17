@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const axios = require('axios');
 const requestsServiceClass = require('../shared/requests.js');
-const serverSideRequests = new requestsServiceClass(fetch);
+const serverSideRequests = new requestsServiceClass(axios);
 module.exports = serverSideRequests
