@@ -67,7 +67,7 @@ router.post('/saved_trips', async function (req, res) {
     try {
         const input = req.body;
         console.log("Search term:", input)
-        saved_trips('2', input)
+        saved_trips(input.id, input.data)
         // store.getStore().setItem('1', JSON.stringify(input))
         res.sendStatus(200)
     } catch (error) {
