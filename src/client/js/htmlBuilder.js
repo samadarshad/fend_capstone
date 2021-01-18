@@ -1,3 +1,5 @@
+
+
 export function createResults(city_name, country_code, weather, pictures) {
     console.log("createResults")
     const results_section = document.getElementById('results')
@@ -28,6 +30,29 @@ export function createResults(city_name, country_code, weather, pictures) {
         }
  
     })
+    
+
+    // function importAll(r) {
+    //     return r.keys().map(r);
+    // }
+
+    function importAll(r) {
+        let images = {};
+        r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+        return images;
+    }
+    const weatherIcons = importAll(require.context('../views/weatherIcons/', false, /\.(png|jpe?g|svg)$/));
+    // const images = importAll(require.context('../views/weatherIcons', false, /\.(png|jpe?g|svg)$/));
+    // console.log(images[0])
+    // const frag2 = document.createDocumentFragment();
+    // for (const image of images) {
+        
+    //     const imageElement = document.createElement('img');
+    //     // console.log(image)
+    //     imageElement.src = image;
+    //     frag2.appendChild(imageElement);
+    // }
+    // document.getElementById("results").appendChild(frag2);
 
     const weatherMessage = new Client.weatherMessageScheme()
     let weekly_weather_innerHTML = '';
@@ -38,6 +63,7 @@ export function createResults(city_name, country_code, weather, pictures) {
 
         const dayTempC = weatherMessage.get_temp_celcius(day)
         const dayWeatherIcon = weatherMessage.get_weatherIcon(day)
+        const weatherIcon = weatherIcons[`${dayWeatherIcon}.png`]
         const dayWeatherDescription = weatherMessage.get_weatherDescription(day)
 
         weekly_weather_innerHTML += 
@@ -45,7 +71,7 @@ export function createResults(city_name, country_code, weather, pictures) {
         <div class="weekly-weather-item">
             <p class="mb-0"> ${shortDate} </p> 
             <p class="mb-0"> ${shortDateNum} </p> 
-            <img class="w-100" src="<%=require('../js/weatherIcons/${dayWeatherIcon}.png')%>" alt="${dayWeatherDescription}">
+            <img class="w-100" src="${weatherIcon}" alt="${dayWeatherDescription}">
             <i class="mdi mdi-weather-cloudy" style="font-size: 30px"></i>
             <p class="mb-0"> ${dayTempC}° </p>
         </div>

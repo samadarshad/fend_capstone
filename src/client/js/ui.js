@@ -7,6 +7,9 @@ export async function updateUI(data, document) {
         responseMessageScheme.get_country_code(data),
         responseMessageScheme.get_weather_forecast(data),
         responseMessageScheme.get_pictures(data))
+    // Client.createResults()
+
+
     // console.log(data.sentence_list[0].text)
     // document.getElementById('results').innerHTML = JSON.stringify(data)
     // document.getElementById('agreement').innerHTML = data.agreement
