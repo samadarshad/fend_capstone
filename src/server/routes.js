@@ -7,7 +7,7 @@ const pixabayApi = require('./pixabay_api.js');
 
 const requestMessageScheme = require('../shared/requestMessageScheme');
 const responseMessageScheme = require('../shared/responseMessageScheme');
-const store = require('./store.js')
+const saved_trips = require('./store.js')
 
 function sendErrorToClient(error, res) {
     res.status(error.message).send(error)  
@@ -21,7 +21,7 @@ router.post('/search', async function (req, res) {
     try {
         const input = req.body;
         console.log("Search term:", input)
-        store.setItem('1', JSON.stringify(input))
+        // store.setItem('1', JSON.stringify(input))
 
         const destination = new requestMessageScheme().get_destination(input);
         const geonames = new geonamesApi()
@@ -52,5 +52,29 @@ router.post('/search', async function (req, res) {
         sendErrorToClient(error, res);
     }    
 })
+
+router.get('/saved_trips', async function (req, res) {
+    try {
+        const items = saved_trips();
+        res.send(items)
+    } catch (error) {
+        console.log("routes error", error);
+        sendErrorToClient(error, res);
+    }    
+})
+
+router.post('/saved_trips', async function (req, res) {
+    try {
+        const input = req.body;
+        console.log("Search term:", input)
+        saved_trips('2', input)
+        // store.getStore().setItem('1', JSON.stringify(input))
+        res.sendStatus(200)
+    } catch (error) {
+        console.log("routes error", error);
+        sendErrorToClient(error, res);
+    }    
+})
+
 
 module.exports = router;

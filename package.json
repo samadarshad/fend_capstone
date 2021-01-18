@@ -32,8 +32,8 @@
     "express": "^4.17.1",
     "follow-redirects": "^1.13.1",
     "node-fetch": "^2.6.1",
-    "node-localstorage": "^2.1.6",
     "regenerator-runtime": "^0.13.7",
+    "store2": "^2.12.0",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5"
   },
