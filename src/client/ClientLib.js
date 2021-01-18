@@ -9,7 +9,11 @@ import responseMessageScheme from 'Shared/responseMessageScheme.js'
 import { validate } from './js/validate-input'
 import { createResults } from './js/htmlBuilder.js'
 
+
 import "regenerator-runtime/runtime";
+import { importAll } from './js/importImages.js'
+
+const weatherIcons = importAll(require.context('./views/weatherIcons/', false, /\.(png|jpe?g|svg)$/));
 
 export {
     respondToSubmit,    
@@ -23,5 +27,6 @@ export {
     pictureMessageScheme,
     weatherMessageScheme,
     validate,
-    createResults
+    createResults,
+    weatherIcons
 }
