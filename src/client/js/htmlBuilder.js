@@ -37,13 +37,15 @@ export function createResults(city_name, country_code, weather, pictures) {
         const shortDateNum = new Date(dayDate).toLocaleDateString(undefined,  {day: 'numeric' })
 
         const dayTempC = weatherMessage.get_temp_celcius(day)
-        const dayWeatherCode = weatherMessage.get_weatherCode(day)
+        const dayWeatherIcon = weatherMessage.get_weatherIcon(day)
+        const dayWeatherDescription = weatherMessage.get_weatherDescription(day)
 
         weekly_weather_innerHTML += 
         `
         <div class="weekly-weather-item">
             <p class="mb-0"> ${shortDate} </p> 
             <p class="mb-0"> ${shortDateNum} </p> 
+            <img class="w-100" src="<%=require('../js/weatherIcons/${dayWeatherIcon}.png')%>" alt="${dayWeatherDescription}">
             <i class="mdi mdi-weather-cloudy" style="font-size: 30px"></i>
             <p class="mb-0"> ${dayTempC}° </p>
         </div>
