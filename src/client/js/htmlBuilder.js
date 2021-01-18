@@ -6,17 +6,40 @@ export function createResults(city_name, country_code, weather, pictures) {
     const frag = document.createDocumentFragment();
     const results_card = document.createElement('div');
 
-    const carousel_inner_innerHTML = `
-        <div class="carousel-item active">
-            <img class="w-100" src="https://pixabay.com/get/55e0d340485aa814f1dc846096293e761d36dde45a4c704f742f72d39249c65c_640.jpg" alt="First slide">
-        </div>
-        <div class="carousel-item">
-            <img class="w-100" src="https://pixabay.com/get/55e1d4404953a414f1dc846096293e761d36dde45a4c704f742f72d39249c65c_640.jpg" alt="Second slide">
-        </div>
-        <div class="carousel-item">
-            <img class="w-100" src="https://pixabay.com/get/55e2dc414351ae14f1dc846096293e761d36dde45a4c704f742f72d39249c65c_640.jpg" alt="Third slide">
-        </div>
-    `
+    const pictureMessage = new Client.pictureMessageScheme()
+    let carousel_inner_innerHTML = '';
+    pictures.forEach(function(picture, i) {
+        const pictureUrl = pictureMessage.get_url(picture)
+
+        if (i == 0) {
+            carousel_inner_innerHTML += 
+            `
+                <div class="carousel-item active">
+                    <img class="w-100" src="${pictureUrl}" alt="Slide ${i}">
+                </div>
+            `
+        } else {
+            carousel_inner_innerHTML += 
+            `
+                <div class="carousel-item">
+                    <img class="w-100" src="${pictureUrl}" alt="Slide ${i}">
+                </div>
+            `
+        }
+ 
+    })
+
+    // const carousel_inner_innerHTML = `
+    //     <div class="carousel-item active">
+    //         <img class="w-100" src="https://pixabay.com/get/55e0d340485aa814f1dc846096293e761d36dde45a4c704f742f72d39249c65c_640.jpg" alt="First slide">
+    //     </div>
+    //     <div class="carousel-item">
+    //         <img class="w-100" src="https://pixabay.com/get/55e1d4404953a414f1dc846096293e761d36dde45a4c704f742f72d39249c65c_640.jpg" alt="Second slide">
+    //     </div>
+    //     <div class="carousel-item">
+    //         <img class="w-100" src="https://pixabay.com/get/55e2dc414351ae14f1dc846096293e761d36dde45a4c704f742f72d39249c65c_640.jpg" alt="Third slide">
+    //     </div>
+    // `    
 
     const week_weather_forecast_innerHTML = `
     <h5>Week weather forecast</h5>

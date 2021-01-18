@@ -1,6 +1,12 @@
 export async function updateUI(data, document) {
     // console.log(data)
-    Client.createResults("Paris", "FR")
+    const responseMessageScheme = new Client.responseMessageScheme()
+
+    Client.createResults(
+        responseMessageScheme.get_city_name(data),
+        responseMessageScheme.get_country_code(data),
+        responseMessageScheme.get_weather_forecast(data),
+        responseMessageScheme.get_pictures(data))
     // console.log(data.sentence_list[0].text)
     // document.getElementById('results').innerHTML = JSON.stringify(data)
     // document.getElementById('agreement').innerHTML = data.agreement

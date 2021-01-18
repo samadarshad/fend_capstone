@@ -8,7 +8,8 @@ export async function respondToSubmit (event, document) {
             )
         const response = await Client.sendForm(jsonMessage)
         console.log(response)
-        // await Client.updateUI(data, document);
+        // const response = "abc"
+        await Client.updateUI(response, document);
     } catch (error) {
         console.log("respondToSubmit error", error);
     }
