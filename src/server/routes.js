@@ -6,6 +6,7 @@ const weatherbitApi = require('./weatherbit_api.js');
 const pixabayApi = require('./pixabay_api.js');
 
 const requestMessageScheme = require('../shared/requestMessageScheme');
+const responseMessageScheme = require('../shared/responseMessageScheme');
 
 function sendErrorToClient(error, res) {
     res.status(error.message).send(error)  
@@ -38,9 +39,14 @@ router.post('/search', async function (req, res) {
         const pictures = await pixabay.getPictures(searchTerm, 3)
         console.log(pictures)
 
-        const response = {
-            
-        }
+        const response = new responseMessageScheme().getJson(
+            weatherbit.get_name(weatherData), 
+            weatherbit.get_countryCode(weatherData),
+            weatherbit.get_weatherForecast(weatherData),
+            pictures
+        )
+        console.log(response)
+        res.send(response)
     } catch (error) {
         console.log("routes error", error);
         sendErrorToClient(error, res);

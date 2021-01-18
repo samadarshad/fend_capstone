@@ -1,20 +1,24 @@
 class responseMessageScheme {
-     getJson = function (destination, travelling_from, date) {
+     getJson = function (city_name, country_code, weather_forecast, pictures) {
           return {
-               'destination': destination,
-               'travelling_from': travelling_from,
-               'date': date
+               'city_name': city_name,
+               'country_code': country_code,
+               'weather_forecast': weather_forecast,
+               'pictures': pictures
           }
      }
 
-     get_destination = function (jsonData) {
-          return jsonData.destination
+     get_city_name = function (jsonData) {
+          return jsonData.city_name
      }
-     get_travelling_from = function (jsonData) {
-          return jsonData.travelling_from
+     get_country_code = function (jsonData) {
+          return jsonData.country_code
      }
-     get_date = function (jsonData) {
-          return jsonData.date
+     get_weather_forecast = function (jsonData) {
+          return jsonData.weather_forecast
+     }
+     get_pictures = function (jsonData) {
+          return jsonData.pictures
      }
 
 }; 
