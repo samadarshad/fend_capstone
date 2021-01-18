@@ -1,7 +1,7 @@
 export async function respondToSubmit (event, document) {
     try {
         event.preventDefault()
-        const jsonMessage = new Client.messageScheme().getJson(
+        const jsonMessage = new Client.requestMessageScheme().getJson(
             event.target['destination-input'].value, 
             event.target['travelling-from-input'].value, 
             event.target['date-input'].value

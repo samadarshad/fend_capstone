@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const textApi = require('./text_api.js');
 const geonamesApi = require('./geonames_api.js');
 const weatherbitApi = require('./weatherbit_api.js');
+const pixabayApi = require('./pixabay_api.js');
 
-const messageScheme = require('../shared/messageScheme');
+const requestMessageScheme = require('../shared/requestMessageScheme');
 
 function sendErrorToClient(error, res) {
     res.status(error.message).send(error)  
@@ -19,7 +19,7 @@ router.post('/search', async function (req, res) {
     try {
         const input = req.body;
         console.log(input)
-        const destination = new messageScheme().get_destination(input);
+        const destination = new requestMessageScheme().get_destination(input);
         const geonames = new geonamesApi()
         const locationData = await geonames.getLocation(destination);
         console.log(locationData)
@@ -32,17 +32,15 @@ router.post('/search', async function (req, res) {
 
         console.log(weatherData)
         // res.send(locationData)
-    } catch (error) {
-        console.log("routes error", error);
-        sendErrorToClient(error, res);
-    }    
-})
 
-router.post('/sentiment', async function (req, res) {
-    try {
-        const inputText = req.body;
-        const sentimentData = await textApi.getSentimentData(inputText);
-        res.send(sentimentData)
+        const pixabay = new pixabayApi()
+        const searchTerm = `${geonames.get_name(locationData)}`
+        const pictures = await pixabay.getPictures(searchTerm, 3)
+        console.log(pictures)
+
+        const response = {
+            
+        }
     } catch (error) {
         console.log("routes error", error);
         sendErrorToClient(error, res);

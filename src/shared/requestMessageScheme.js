@@ -1,4 +1,4 @@
-class messageScheme {
+class requestMessageScheme {
      getJson = function (destination, travelling_from, date) {
           return {
                'destination': destination,
@@ -19,4 +19,4 @@ class messageScheme {
 
 }; 
 
-module.exports = messageScheme
+module.exports = requestMessageScheme
