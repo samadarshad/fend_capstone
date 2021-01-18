@@ -29,50 +29,28 @@ export function createResults(city_name, country_code, weather, pictures) {
  
     })
 
-    // const carousel_inner_innerHTML = `
-    //     <div class="carousel-item active">
-    //         <img class="w-100" src="https://pixabay.com/get/55e0d340485aa814f1dc846096293e761d36dde45a4c704f742f72d39249c65c_640.jpg" alt="First slide">
-    //     </div>
-    //     <div class="carousel-item">
-    //         <img class="w-100" src="https://pixabay.com/get/55e1d4404953a414f1dc846096293e761d36dde45a4c704f742f72d39249c65c_640.jpg" alt="Second slide">
-    //     </div>
-    //     <div class="carousel-item">
-    //         <img class="w-100" src="https://pixabay.com/get/55e2dc414351ae14f1dc846096293e761d36dde45a4c704f742f72d39249c65c_640.jpg" alt="Third slide">
-    //     </div>
-    // `    
+    const weatherMessage = new Client.weatherMessageScheme()
+    let weekly_weather_innerHTML = '';
+    for (const day of weather) {
+        const dayDate = weatherMessage.get_date(day)
+        const dayTempC = weatherMessage.get_temp_celcius(day)
+        const dayWeatherCode = weatherMessage.get_weatherCode(day)
+
+        weekly_weather_innerHTML += 
+        `
+        <div class="weekly-weather-item">
+            <p class="mb-0"> Sun 20th </p> 
+            <i class="mdi mdi-weather-cloudy" style="font-size: 30px"></i>
+            <p class="mb-0"> ${dayTempC}° </p>
+        </div>
+        `
+    }
 
     const week_weather_forecast_innerHTML = `
     <h5>Week weather forecast</h5>
     <div class="weather-card p-0">
         <div class="d-flex weekly-weather">
-            <div class="weekly-weather-item">
-                <p class="mb-0"> Sun </p> <i class="mdi mdi-weather-cloudy"></i>
-                <p class="mb-0"> 30° </p>
-            </div>
-            <div class="weekly-weather-item">
-                <p class="mb-1"> Mon </p> <i class="mdi mdi-weather-hail"></i>
-                <p class="mb-0"> 31° </p>
-            </div>
-            <div class="weekly-weather-item">
-                <p class="mb-1"> Tue </p> <i class="mdi mdi-weather-partlycloudy"></i>
-                <p class="mb-0"> 28° </p>
-            </div>
-            <div class="weekly-weather-item">
-                <p class="mb-1"> Wed </p> <i class="mdi mdi-weather-pouring"></i>
-                <p class="mb-0"> 30° </p>
-            </div>
-            <div class="weekly-weather-item">
-                <p class="mb-1"> Thu </p> <i class="mdi mdi-weather-pouring"></i>
-                <p class="mb-0"> 29° </p>
-            </div>
-            <div class="weekly-weather-item">
-                <p class="mb-1"> Fri </p> <i class="mdi mdi-weather-snowy-rainy"></i>
-                <p class="mb-0"> 31° </p>
-            </div>
-            <div class="weekly-weather-item">
-                <p class="mb-1"> Sat </p> <i class="mdi mdi-weather-snowy"></i>
-                <p class="mb-0"> 32° </p>
-            </div>
+            ${weekly_weather_innerHTML}
         </div>
     </div>
     `
