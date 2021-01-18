@@ -33,13 +33,17 @@ export function createResults(city_name, country_code, weather, pictures) {
     let weekly_weather_innerHTML = '';
     for (const day of weather) {
         const dayDate = weatherMessage.get_date(day)
+        const shortDate = new Date(dayDate).toLocaleDateString(undefined,  { weekday: 'short' })
+        const shortDateNum = new Date(dayDate).toLocaleDateString(undefined,  {day: 'numeric' })
+
         const dayTempC = weatherMessage.get_temp_celcius(day)
         const dayWeatherCode = weatherMessage.get_weatherCode(day)
 
         weekly_weather_innerHTML += 
         `
         <div class="weekly-weather-item">
-            <p class="mb-0"> Sun 20th </p> 
+            <p class="mb-0"> ${shortDate} </p> 
+            <p class="mb-0"> ${shortDateNum} </p> 
             <i class="mdi mdi-weather-cloudy" style="font-size: 30px"></i>
             <p class="mb-0"> ${dayTempC}° </p>
         </div>
