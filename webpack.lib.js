@@ -9,6 +9,7 @@ module.exports = {
     output: {
         libraryTarget: 'umd',
         library: 'Client',
+        filename: 'lib/[name].js'
     },
     resolve: {
         alias: {
@@ -32,6 +33,7 @@ module.exports = {
                     loader: 'file-loader',
                     options: {
                         esModule: false,
+                        name: 'lib/img/[name].[ext]'
                       }
                     }
                 ],
