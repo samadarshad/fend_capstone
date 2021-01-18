@@ -27,16 +27,7 @@ export function createResults(city_name, country_code, weather, pictures) {
             `
         }
  
-    })
-    
-
-    // function importAll(r) {
-    //     let images = {};
-    //     r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-    //     return images;
-    // }
-    // const weatherIcons = importAll(require.context('../views/weatherIcons/', false, /\.(png|jpe?g|svg)$/));
-
+    })  
 
     const weatherMessage = new Client.weatherMessageScheme()
     let weekly_weather_innerHTML = '';
