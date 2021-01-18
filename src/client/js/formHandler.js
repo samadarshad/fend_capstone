@@ -7,8 +7,6 @@ export async function respondToSubmit (event, document) {
             event.target['date-input'].value
             )
         const response = await Client.sendForm(jsonMessage)
-        console.log(response)
-        // const response = "abc"
         await Client.updateUI(response, document);
     } catch (error) {
         console.log("respondToSubmit error", error);

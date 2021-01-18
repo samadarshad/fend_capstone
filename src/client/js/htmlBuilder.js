@@ -1,5 +1,3 @@
-
-
 export function createResults(city_name, country_code, weather, pictures) {
     console.log("createResults")
     const results_section = document.getElementById('results')
@@ -71,7 +69,7 @@ export function createResults(city_name, country_code, weather, pictures) {
         <div class="weekly-weather-item">
             <p class="mb-0"> ${shortDate} </p> 
             <p class="mb-0"> ${shortDateNum} </p> 
-            <img class="w-100" src="${weatherIcon}" alt="${dayWeatherDescription}">
+            <img class="w-100" src="${weatherIcon}" alt="${dayWeatherDescription}" title="${dayWeatherDescription}">
             <i class="mdi mdi-weather-cloudy" style="font-size: 30px"></i>
             <p class="mb-0"> ${dayTempC}° </p>
         </div>
