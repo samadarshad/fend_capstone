@@ -19,11 +19,10 @@ router.get('/', function (req, res) {
 router.post('/search', async function (req, res) {
     try {
         const input = req.body;
-        console.log(input)
+        console.log("Search term:", input)
         const destination = new requestMessageScheme().get_destination(input);
         const geonames = new geonamesApi()
         const locationData = await geonames.getLocation(destination);
-        console.log(locationData)
 
         const weatherbit = new weatherbitApi()
         const weatherData = await weatherbit.getWeather(
@@ -31,13 +30,9 @@ router.post('/search', async function (req, res) {
             geonames.get_lon(locationData)
             )
 
-        console.log(weatherData)
-        // res.send(locationData)
-
         const pixabay = new pixabayApi()
         const searchTerm = `${geonames.get_name(locationData)}`
         const pictures = await pixabay.getPictures(searchTerm, 3)
-        console.log(pictures)
 
         const response = new responseMessageScheme().getJson(
             weatherbit.get_name(weatherData), 
@@ -45,8 +40,9 @@ router.post('/search', async function (req, res) {
             weatherbit.get_weatherForecast(weatherData),
             pictures
         )
-        console.log(response)
+
         res.send(response)
+
     } catch (error) {
         console.log("routes error", error);
         sendErrorToClient(error, res);
