@@ -7,6 +7,7 @@ const pixabayApi = require('./pixabay_api.js');
 
 const requestMessageScheme = require('../shared/requestMessageScheme');
 const responseMessageScheme = require('../shared/responseMessageScheme');
+const store = require('./store.js')
 
 function sendErrorToClient(error, res) {
     res.status(error.message).send(error)  
@@ -20,6 +21,8 @@ router.post('/search', async function (req, res) {
     try {
         const input = req.body;
         console.log("Search term:", input)
+        store.setItem('1', JSON.stringify(input))
+
         const destination = new requestMessageScheme().get_destination(input);
         const geonames = new geonamesApi()
         const locationData = await geonames.getLocation(destination);
@@ -40,7 +43,8 @@ router.post('/search', async function (req, res) {
             weatherbit.get_weatherForecast(weatherData),
             pictures
         )
-
+        
+        
         res.send(response)
 
     } catch (error) {
