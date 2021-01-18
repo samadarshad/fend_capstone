@@ -19,9 +19,7 @@ class pixabayApi {
     _getPictures = async function (searchTerm, numPictures) {
         const searchTermUtf8 = Buffer.from(searchTerm, 'utf-8');
         const url = `${base_url}?key=${api_key}&&q=${searchTermUtf8}&image_type=photo&per_page=${numPictures}`
-        console.log(url)
         const response = await requests.getData(url);
-        console.log(response)
         if (response.total == 0) {
             return Promise.reject(new Error(404));
         }
