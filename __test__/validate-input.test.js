@@ -1,4 +1,4 @@
-global.Client = require('../dist/ClientLib')
+global.Client = require('../dist/lib/ClientLib')
 
 describe('validate-input', () => {
     it('when user input empty, then return false', done => {

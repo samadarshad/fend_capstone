@@ -2,7 +2,7 @@ const axios = require('axios');
 const MockAcapter = require('axios-mock-adapter');
 const mock = new MockAcapter(axios);
 
-global.Client = require('../dist/ClientLib')
+global.Client = require('../dist/lib/ClientLib')
 
 describe('formHandler', () => {
     it('when sendForm then expect /api/search to be called', async done => {
