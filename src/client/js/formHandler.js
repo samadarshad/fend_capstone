@@ -22,7 +22,7 @@ export async function sendForm(jsonMessage) {
 export async function save (event, document) {
     try {
         event.preventDefault()
-        
+
         const city_name = document.getElementById("city_name").innerHTML
         const country_code = document.getElementById("country_code").innerHTML
         const from_city_name = document.getElementById("from_city_name").innerHTML
@@ -44,6 +44,10 @@ export async function save (event, document) {
 
         const response = await Client.saveForm(jsonMessage)
         console.log(response)
+
+        //get request for all saved trips
+
+        await Client.updateSavedTrips(response, document);
     } catch (error) {
         console.log("save error", error);
     }

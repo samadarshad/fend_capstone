@@ -133,3 +133,151 @@ export function createResults(city_name, country_code, weather, pictures) {
 
 
 }
+
+export function createSavedTrips(savedTrips) {
+    console.log("createSavedTrips")
+    const saved_trips_section = document.getElementById('saved-trips')
+    saved_trips_section.innerHTML = '';
+
+    saved_trips_section.innerHTML = `
+    <div class="container-fluid">
+
+    <div class="row">
+
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-1 card-votes">
+                            <a href="#"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+                            <br>
+                            <span>0</span>
+                            <br>
+                            <a href="#"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="col-9 card-text">
+                            <h4 class="card-title">Paris, France</h4>
+                            <p class="card-text">From London, UK</p>
+                            <p class="card-text">Wednesday, 1/1/2021</p>
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                            <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                        </div>
+                        <small class="text-muted pl-2">Added 9 mins ago</small>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-1 card-votes">
+                            <a href="#"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+                            <br>
+                            <span>0</span>
+                            <br>
+                            <a href="#"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="col-9 card-text">
+                            <h4 class="card-title">Paris, France</h4>
+                            <p class="card-text">From London, UK</p>
+                            <p class="card-text">Wednesday, 1/1/2021</p>
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                            <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                        </div>
+                        <small class="text-muted pl-2">Added 9 mins ago</small>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-1 card-votes">
+                            <a href="#"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+                            <br>
+                            <span>0</span>
+                            <br>
+                            <a href="#"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="col-9 card-text">
+                            <h4 class="card-title">Paris, France</h4>
+                            <p class="card-text">From London, UK</p>
+                            <p class="card-text">Wednesday, 1/1/2021</p>
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                            <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                        </div>
+                        <small class="text-muted pl-2">Added 9 mins ago</small>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-1 card-votes">
+                            <a href="#"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+                            <br>
+                            <span>0</span>
+                            <br>
+                            <a href="#"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="col-9 card-text">
+                            <h4 class="card-title">Paris, France</h4>
+                            <p class="card-text">From London, UK</p>
+                            <p class="card-text">Wednesday, 1/1/2021</p>
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                            <button type="button" class="btn btn-sm btn-danger">Delete</button>
+                        </div>
+                        <small class="text-muted pl-2">Added 9 mins ago</small>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+    </div>
+    `
+}
