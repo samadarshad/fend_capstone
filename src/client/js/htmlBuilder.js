@@ -43,7 +43,7 @@ export function createResults(city_name, country_code, weather, pictures, date) 
         const dayDate = weatherMessage.get_date(day)
 
         let departureDateIsLater = false
-        if (date != undefined) {            
+        if (date) {            
             const dayDateStandard = parse(dayDate, weatherMessage.get_weather_date_scheme, new Date())
             console.log("dayDateStandard", dayDateStandard)
             departureDateIsLater = compareAsc(dayDateStandard, user_date_standard)
