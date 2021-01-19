@@ -72,12 +72,18 @@ export async function vote(change, trip_id) {
         change
     )
 
-    const res = await requests.postData(`/api/saved_trips/${trip_id}`, jsonMessage);    
+    const res = await requests.postData(`/api/saved_trips/${trip_id}`, jsonMessage);
+    
+    const savedTrips = await Client.getSavedTrips()        
+    await Client.updateSavedTrips(savedTrips, document);    
     return res
 }
 
 export async function deleteTrip(trip_id) {
     const requests = new Client.requestsServiceClass(Client.getFetch());
-    const res = await requests.delete(`/api/saved_trips/${trip_id}`);    
+    const res = await requests.delete(`/api/saved_trips/${trip_id}`);
+
+    const savedTrips = await Client.getSavedTrips()        
+    await Client.updateSavedTrips(savedTrips, document);
     return res
 }
