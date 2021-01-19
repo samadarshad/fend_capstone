@@ -12,6 +12,9 @@ export async function updateUI(response, input, document) {
 
 export async function updateSavedTrips(data, document) {
     const saved_trips_section = document.getElementById('saved-trips')
+    if (data.length == 0) {
+        localStorage.clear()
+    }
     saved_trips_section.innerHTML = Client.createSavedTrips(data);
 }
 
