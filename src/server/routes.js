@@ -132,4 +132,14 @@ router.delete('/saved_trips/:id', async function (req, res) {
     }    
 })
 
+router.get('/clear_saved_trips', async function (req, res) {
+    try {
+        savedTrips(false)
+        res.sendStatus(200)
+    } catch (error) {
+        console.log("routes error", error);
+        sendErrorToClient(error, res);
+    }    
+})
+
 module.exports = router;
