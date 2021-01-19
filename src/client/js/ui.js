@@ -15,4 +15,4 @@ export async function updateSavedTrips(data, document) {
     saved_trips_section.innerHTML = Client.createSavedTrips(data);
 }
 
-export const user_date_scheme = 'dd/mm/yyyy';
+export const user_date_scheme = 'dd/MM/yyyy';
