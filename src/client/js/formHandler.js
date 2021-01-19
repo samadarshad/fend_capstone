@@ -24,12 +24,16 @@ export async function save (event, document) {
     try {
         event.preventDefault()
 
-        const city_name = document.getElementById("city_name").innerHTML
-        const country_code = document.getElementById("country_code").innerHTML
-        const from_city_name = document.getElementById("from_city_name").innerHTML
-        const from_country_code = document.getElementById("from_country_code").innerHTML
-        const departure_date = document.getElementById("departure_date").innerHTML
-        const user_input_notes = document.getElementById("user-input-notes").value
+        function getValueOfNull(obj, prop) {
+            return( obj == null ? undefined : obj[prop] );
+          }
+
+        const city_name = getValueOfNull(document.getElementById("city_name"), 'innerHTML')
+        const country_code = getValueOfNull(document.getElementById("country_code"), 'innerHTML')
+        const from_city_name = getValueOfNull(document.getElementById("from_city_name"), 'innerHTML')
+        const from_country_code = getValueOfNull(document.getElementById("from_country_code"), 'innerHTML')
+        const departure_date = getValueOfNull(document.getElementById("departure_date"), 'innerHTML')
+        const user_input_notes = getValueOfNull(document.getElementById("user-input-notes"), 'value')
         const date_added = new Date()
         const votes = 0;
         
