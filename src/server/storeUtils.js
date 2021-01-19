@@ -18,10 +18,11 @@ class StoreUtils {
         //find the biggest key in this.store, return the next value
         const arrayKeys = this.store.keys();
         console.log("arrayKeys", arrayKeys)
-        let maxValue = Math.max(...arrayKeys)
-        if (maxValue == null) {
+        if (arrayKeys.length == 0) {
             return 0;
         }
+        
+        let maxValue = Math.max(...arrayKeys)        
         console.log("maxValue", maxValue)
         return maxValue + 1
     }

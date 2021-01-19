@@ -11,6 +11,12 @@ describe('store', () => {
         store(1, "hello")
         expect(store(1)).toBe("hello")
         done()
-    })    
+    })
+
+    it('when append item to store then it should show in list with ID', done => {
+        storeUtils.append({data: "world"})
+        expect(store(0)).toStrictEqual({data: "world", id: 0})
+        done()
+    })   
 
 })
