@@ -59,7 +59,7 @@ router.post('/search', async function (req, res) {
 
 router.get('/saved_trips', async function (req, res) {
     try {
-        const items = savedTrips();
+        const items = Object.entries(savedTrips())
         res.send(items)
     } catch (error) {
         console.log("routes error", error);

@@ -46,7 +46,7 @@ export async function save (event, document) {
         const response = await Client.saveForm(jsonMessage)
         console.log(response)
 
-        const savedTrips = await Client.getSavedTrips()
+        const savedTrips = await Client.getSavedTrips()        
         await Client.updateSavedTrips(savedTrips, document);
     } catch (error) {
         console.log("save error", error);

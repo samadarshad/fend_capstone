@@ -147,10 +147,14 @@ export function createSavedTrips(savedTrips) {
     let saved_trips_section = `
     <div class="container-fluid">
     <div class="row">
-    `;
-    
-    Client.reverseForIn(savedTrips, function(id) { //TODO order by date or id, instead of just reversing the keys, because theres no gaurantee of keys being in order
-        const data = this[id]
+    `;    
+
+    const orderedSavedTrips = savedTrips.sort(function(a, b) {
+        return b[0] - a[0];
+    })
+    for (const trip of orderedSavedTrips) {
+        const id = trip[0]
+        const data = trip[1]
         saved_trips_section += `
         <div class="col-md-6 col-lg-4" id=${IdToHtmlId(id)}>
             <div class="card">
@@ -183,42 +187,7 @@ export function createSavedTrips(savedTrips) {
             </div>
         </div>
         `
-    })
-    // for (const [id, data] of Object.entries(savedTrips)) {
-    //     console.log(id, data)
-    //     saved_trips_section += `
-    //     <div class="col-md-6 col-lg-4" id=${IdToHtmlId(id)}>
-    //         <div class="card">
-    //             <div class="card-body">
-    //                 <div class="row">
-    //                     <div class="col-1 card-votes">
-    //                         <a href="#"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
-    //                         <br>
-    //                         <span>${data.votes}</span>
-    //                         <br>
-    //                         <a href="#"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
-    //                     </div>
-    //                     <div class="col-9 card-text">
-    //                         <h4 class="card-title">${data.city_name}, ${data.country_code}</h4>
-    //                         <p class="card-text">From ${data.travelling_from_city}, ${data.travelling_from_country_code}</p>
-    //                         <p class="card-text">${data.departure_date}</p>
-    //                         <p class="card-text">${data.notes}</p>
-
-    //                     </div>
-    //                 </div>
-    //                 <div class="d-flex justify-content-between align-items-center">
-    //                     <div class="btn-group">
-    //                         <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-    //                         <button type="button" class="btn btn-sm btn-danger">Delete</button>
-    //                     </div>
-    //                     <small class="text-muted pl-2">Added ${data.date_added}</small>
-    //                 </div>
-
-    //             </div>
-    //         </div>
-    //     </div>
-    //     `
-    // }
+    }
 
     saved_trips_section += `
     </div> 

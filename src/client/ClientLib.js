@@ -10,7 +10,6 @@ import storeDataScheme from 'Shared/storeDataScheme.js'
 import storeScheme from 'Shared/storeScheme.js'
 import { validate } from './js/validate-input'
 import { createResults, createSavedTrips, IdToHtmlId, HtmlIdToId } from './js/htmlBuilder.js'
-import { reverseForIn } from './js/utils.js'
 
 import "regenerator-runtime/runtime";
 import { importAll } from './js/importImages.js'
@@ -44,5 +43,4 @@ export {
 
     weatherIcons,
 
-    reverseForIn
 }
