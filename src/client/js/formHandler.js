@@ -39,7 +39,7 @@ export async function save (event, document) {
             from_country_code,
             user_input_notes,
             date_added,
-            null
+            0
         )
 
         const response = await Client.saveForm(jsonMessage)

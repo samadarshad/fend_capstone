@@ -143,7 +143,6 @@ export function HtmlIdToId(htmlId) {
 }
 
 export function createSavedTrips(savedTrips) {
-    console.log("createSavedTrips")
     
     let saved_trips_section = `
     <div class="container-fluid">
@@ -160,7 +159,7 @@ export function createSavedTrips(savedTrips) {
                         <div class="col-1 card-votes">
                             <a href="#"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
                             <br>
-                            <span>0</span>
+                            <span>${data.votes}</span>
                             <br>
                             <a href="#"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
                         </div>
@@ -187,8 +186,8 @@ export function createSavedTrips(savedTrips) {
     }
 
     saved_trips_section += `
-    </div>test test
-    </div>  test
+    </div> 
+    </div> 
     `
 
     return saved_trips_section

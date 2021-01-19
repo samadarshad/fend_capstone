@@ -9,7 +9,6 @@ export async function updateUI(data, document) {
 }
 
 export async function updateSavedTrips(data, document) {
-    console.log("updateSavedTrips", data)
     const saved_trips_section = document.getElementById('saved-trips')
     saved_trips_section.innerHTML = Client.createSavedTrips(data);
 }
