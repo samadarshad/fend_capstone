@@ -85,7 +85,14 @@
     }
 }
 
-
+.unstyled-button {
+    display: inline-block;    
+    border: none;
+    z-index: 1; 
+    padding: 0.5em;
+    margin: -0.5em;
+    background: none;
+  }
 
 .mb-0,
 .my-0 {

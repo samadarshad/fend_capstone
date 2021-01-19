@@ -163,11 +163,11 @@ export function createSavedTrips(savedTrips) {
                 <div class="card-body">
                     <div class="row">
                         <div class="col-1 card-votes">
-                            <a href="#"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+                            <button type="button" class="unstyled-button"><i class="fa fa-angle-up" aria-hidden="true"></i></button>
                             <br>
                             <span>${data.votes}</span>
                             <br>
-                            <a href="#"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                            <button type="button" class="unstyled-button"><i class="fa fa-angle-down" aria-hidden="true"></i></button>
                         </div>
                         <div class="col-9 card-text">
                             <h4 class="card-title">${data.city_name}, ${data.country_code}</h4>
