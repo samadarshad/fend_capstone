@@ -33,6 +33,7 @@
     "follow-redirects": "^1.13.1",
     "node-fetch": "^2.6.1",
     "regenerator-runtime": "^0.13.7",
+    "sanitize-html": "^2.3.0",
     "store2": "^2.12.0",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5"

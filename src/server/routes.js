@@ -11,6 +11,8 @@ const savedTrips = require('./store.js')
 const storeUtilsClass = require('./storeUtils.js')
 const savedTripsUtils = new storeUtilsClass(savedTrips)
 
+const sanitizeHtml = require('sanitize-html');
+
 function sendErrorToClient(error, res) {
     res.status(error.message).send(error)  
 }
@@ -68,7 +70,11 @@ router.get('/saved_trips', async function (req, res) {
 router.post('/saved_trips', async function (req, res) {
     try {
         const input = req.body;
-        const object = savedTripsUtils.append(input)
+        let cleanInput = {}
+        for (const [key, value] of Object.entries(input)) {
+            cleanInput[key] = sanitizeHtml(value)
+        }
+        const object = savedTripsUtils.append(cleanInput)
         res.send(object)
     } catch (error) {
         console.log("routes error", error);

@@ -149,7 +149,7 @@ export function createSavedTrips(savedTrips) {
     <div class="row">
     `;
     
-    Client.reverseForIn(savedTrips, function(id) {
+    Client.reverseForIn(savedTrips, function(id) { //TODO order by date or id, instead of just reversing the keys, because theres no gaurantee of keys being in order
         const data = this[id]
         saved_trips_section += `
         <div class="col-md-6 col-lg-4" id=${IdToHtmlId(id)}>
