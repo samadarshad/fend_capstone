@@ -22,7 +22,7 @@ export async function sendForm(jsonMessage) {
 export async function save (event, document) {
     try {
         event.preventDefault()
-        console.log(event)
+        
         const city_name = document.getElementById("city_name").innerHTML
         const country_code = document.getElementById("country_code").innerHTML
         const from_city_name = document.getElementById("from_city_name").innerHTML
@@ -30,11 +30,27 @@ export async function save (event, document) {
         const departure_date = document.getElementById("departure_date").innerHTML
         const user_input_notes = document.getElementById("user-input-notes").value
         const date_added = new Date()
-        console.log(city_name, country_code, user_input_notes, from_city_name, from_country_code, departure_date, date_added)
- 
+        
+        const jsonMessage = new Client.storeDataScheme().getJson(
+            city_name,
+            country_code,
+            departure_date,
+            from_city_name,
+            from_country_code,
+            user_input_notes,
+            date_added,
+            null
+        )
+
+        const response = await Client.saveForm(jsonMessage)
+        console.log(response)
     } catch (error) {
         console.log("save error", error);
     }
 }
 
-
+export async function saveForm(jsonMessage) {
+    const requests = new Client.requestsServiceClass(Client.getFetch());
+    const res = await requests.postData(`/api/saved_trips`, jsonMessage);
+    return res
+}

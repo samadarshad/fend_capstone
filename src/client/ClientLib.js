@@ -1,4 +1,4 @@
-import { search, sendForm, save } from './js/formHandler'
+import { search, sendForm, save, saveForm } from './js/formHandler'
 import { updateUI } from './js/ui'
 import requestsServiceClass from 'Shared/requests.js'
 import { setFetch, getFetch } from './js/client-side-requests'
@@ -6,6 +6,8 @@ import requestMessageScheme from 'Shared/requestMessageScheme.js'
 import pictureMessageScheme from 'Shared/pictureMessageScheme.js'
 import weatherMessageScheme from 'Shared/weatherMessageScheme.js'
 import responseMessageScheme from 'Shared/responseMessageScheme.js'
+import storeDataScheme from 'Shared/storeDataScheme.js'
+import storeScheme from 'Shared/storeScheme.js'
 import { validate } from './js/validate-input'
 import { createResults } from './js/htmlBuilder.js'
 
@@ -20,6 +22,7 @@ export {
     save,
     updateUI,
     sendForm,
+    saveForm,
     requestsServiceClass,
     setFetch,
     getFetch,
@@ -27,6 +30,8 @@ export {
     responseMessageScheme,
     pictureMessageScheme,
     weatherMessageScheme,
+    storeDataScheme,
+    storeScheme,
     validate,
     createResults,
     weatherIcons
