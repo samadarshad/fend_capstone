@@ -1,13 +1,14 @@
 export async function search (event, document) {
     try {
         event.preventDefault()
+        console.log("date input:", event.target['date-input'].value)
         const jsonMessage = new Client.requestMessageScheme().getJson(
             event.target['destination-input'].value, 
             event.target['travelling-from-input'].value, 
             event.target['date-input'].value
             )
         const response = await Client.sendForm(jsonMessage)
-        await Client.updateUI(response, document);
+        await Client.updateUI(response, jsonMessage, document);
     } catch (error) {
         console.log("search error", error);
     }
@@ -94,7 +95,7 @@ export async function viewTrip(trip_id) {
         storeDataSchemeClass.get_date(tripData)
         )
     const response = await Client.sendForm(jsonMessage)
-    await Client.updateUI(response, document);
+    await Client.updateUI(response, jsonMessage, document);
 }
 
 export async function deleteTrip(trip_id) {

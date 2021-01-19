@@ -11,7 +11,7 @@ import storeScheme from 'Shared/storeScheme.js'
 import patchSavedTripsScheme from 'Shared/patchSavedTripsScheme.js'
 
 import { validate } from './js/validate-input'
-import { createResults, createSavedTrips, IdToHtmlId, HtmlIdToId, vote_up, vote_down, createVoteDownHtml, createVoteUpHtml } from './js/htmlBuilder.js'
+import { createResults, createSavedTrips, createVoteDownHtml, createVoteUpHtml } from './js/htmlBuilder.js'
 
 import "regenerator-runtime/runtime";
 import { importAll } from './js/importImages.js'
@@ -45,10 +45,6 @@ export {
     
     createResults,
     createSavedTrips,
-    IdToHtmlId,
-    HtmlIdToId,
-    vote_up,
-    vote_down,
     createVoteDownHtml,
     createVoteUpHtml,
 

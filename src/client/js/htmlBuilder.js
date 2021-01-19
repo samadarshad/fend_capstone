@@ -1,4 +1,6 @@
-export function createResults(city_name, country_code, weather, pictures) {
+import { formatDistance, parseISO, compareAsc } from 'date-fns'
+
+export function createResults(city_name, country_code, weather, pictures, date) {
     console.log("createResults")
     const results_section = document.getElementById('results')
     results_section.innerHTML = '';
@@ -33,6 +35,10 @@ export function createResults(city_name, country_code, weather, pictures) {
     let weekly_weather_innerHTML = '';
     for (const day of weather) {
         const dayDate = weatherMessage.get_date(day)
+        // if (compareAsc(dayDate, date)) {
+        //     // forecast date is before departure date, so dont need to show
+        // }
+
         const shortDate = new Date(dayDate).toLocaleDateString(undefined,  { weekday: 'short' })
         const shortDateNum = new Date(dayDate).toLocaleDateString(undefined,  {day: 'numeric' })
 
@@ -134,24 +140,6 @@ export function createResults(city_name, country_code, weather, pictures) {
 
 }
 
-export function IdToHtmlId(id) {
-    return `saved-trip-id-${id}`
-}
-
-export function HtmlIdToId(htmlId) {
-    return 1 //TODO parse the integer from the id
-}
-
-import { formatDistance, parseISO } from 'date-fns'
-
-export function vote_up(id) {
-    console.log("vote_up", id)
-}
-
-export function vote_down(id) {
-    console.log("vote_down", id)
-}
-
 export function createVoteUpHtml(id) {
     if (localStorage.getItem(id) != null && localStorage.getItem(id) == 1) {
         return `<button type="button" class="unstyled-button" onClick="Client.vote(-1, ${id})"><i class="fa fa-angle-up greyed-out" aria-hidden="true"></i></button>`
@@ -182,7 +170,7 @@ export function createSavedTrips(savedTrips) {
         const id = savedTripsScheme.get_id(trip)
         const data = savedTripsScheme.get_data(trip)
         saved_trips_section += `
-        <div class="col-md-6 col-lg-4" id=${IdToHtmlId(id)}>
+        <div class="col-md-6 col-lg-4">
             <div class="card">
                 <div class="card-body">
                     <div class="row">

@@ -30,5 +30,3 @@ document.addEventListener('submit', function(e) {
     }
 });
 
-$('.input-group.date').datepicker({
-});
