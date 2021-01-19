@@ -82,8 +82,8 @@ export function createResults(city_name, country_code, weather, pictures) {
                         </div>
                     </div>
                         <div class="card-text col-lg-8">
-                            <h3>${city_name}, ${country_code}</h3>
-                            <p>Departing from London, UK, on Wednesday 1/1/2021.</p>
+                            <h3><span id="city_name">${city_name}</span>, <span id="country_code">${country_code}</span></h3>
+                            <p>Departing from <span id="from_city_name">London</span>, <span id="from_country_code">UK</span>, on <span id="departure_date">Wednesday 1/1/2021</span>.</p>
 
                             <div class="weather">
                                 ${week_weather_forecast_innerHTML}
@@ -98,10 +98,10 @@ export function createResults(city_name, country_code, weather, pictures) {
                         <div id="chart"></div>
                     </div>
 
-                    <form class="col-12 form-group">
+                    <form class="col-12 form-group" id="save-user">
                         <label for="user-input-notes">Notes</label>
                         <textarea class="form-control" id="user-input-notes" rows="3"></textarea>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">Save (will be publically visible)</button>
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">Save (will be publically visible)</button>
                     </form>
 
                 </div>

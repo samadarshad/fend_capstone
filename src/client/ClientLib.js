@@ -1,4 +1,4 @@
-import { respondToSubmit, sendForm } from './js/formHandler'
+import { search, sendForm, save } from './js/formHandler'
 import { updateUI } from './js/ui'
 import requestsServiceClass from 'Shared/requests.js'
 import { setFetch, getFetch } from './js/client-side-requests'
@@ -16,7 +16,8 @@ import { importAll } from './js/importImages.js'
 const weatherIcons = importAll(require.context('./views/weatherIcons/', false, /\.(png|jpe?g|svg)$/));
 
 export {
-    respondToSubmit,    
+    search,
+    save,
     updateUI,
     sendForm,
     requestsServiceClass,

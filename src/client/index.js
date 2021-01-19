@@ -12,8 +12,18 @@ import ApexCharts from 'apexcharts'
 import axios from 'axios';
 Client.setFetch(axios)
 
-let entry_form = document.getElementById('entry-form');
-entry_form.addEventListener("submit", e => Client.respondToSubmit(e, document));
+document.addEventListener('submit', function(e) {
+    console.log("submit fired")
+    if(e.target && e.target.id == 'entry-form'){
+        Client.search(e, document)
+    }
+
+    if(e.target && e.target.id == 'save-user'){
+        e.preventDefault()
+        console.log("user save fired")
+        Client.save(e, document)
+    }
+});
 
 $('.input-group.date').datepicker({
 });
