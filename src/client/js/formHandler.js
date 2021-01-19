@@ -95,7 +95,6 @@ export async function viewTrip(trip_id) {
         )
     const response = await Client.sendForm(jsonMessage)
     await Client.updateUI(response, document);
-    return res
 }
 
 export async function deleteTrip(trip_id) {
