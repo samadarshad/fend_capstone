@@ -142,6 +142,8 @@ export function HtmlIdToId(htmlId) {
     return 1 //TODO parse the integer from the id
 }
 
+import { formatDistance, parseISO } from 'date-fns'
+
 export function createSavedTrips(savedTrips) {
     
     let saved_trips_section = `
@@ -180,7 +182,7 @@ export function createSavedTrips(savedTrips) {
                             <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                             <button type="button" class="btn btn-sm btn-danger">Delete</button>
                         </div>
-                        <small class="text-muted pl-2">Added ${data.date_added}</small>
+                        <small class="text-muted pl-2">Added ${formatDistance(parseISO(data.date_added), new Date())} ago</small>
                     </div>
 
                 </div>
