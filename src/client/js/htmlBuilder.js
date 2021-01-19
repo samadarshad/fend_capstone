@@ -152,6 +152,22 @@ export function vote_down(id) {
     console.log("vote_down", id)
 }
 
+export function createVoteUpHtml(id) {
+    if (localStorage.getItem(id) != null && localStorage.getItem(id) == 1) {
+        return `<button type="button" class="unstyled-button" onClick="Client.vote(-1, ${id})"><i class="fa fa-angle-up greyed-out" aria-hidden="true"></i></button>`
+    }
+
+    return `<button type="button" class="unstyled-button" onClick="Client.vote(1, ${id})"><i class="fa fa-angle-up" aria-hidden="true"></i></button>`
+}
+
+export function createVoteDownHtml(id) {
+    if (localStorage.getItem(id) != null && localStorage.getItem(id) == -1) {
+        return `<button type="button" class="unstyled-button" onClick="Client.vote(1, ${id})"><i class="fa fa-angle-down greyed-out" aria-hidden="true"></i></button>`
+    }
+
+    return `<button type="button" class="unstyled-button" onClick="Client.vote(-1, ${id})"><i class="fa fa-angle-down" aria-hidden="true"></i></button>`
+}
+
 export function createSavedTrips(savedTrips) {
     
     let saved_trips_section = `
@@ -171,11 +187,11 @@ export function createSavedTrips(savedTrips) {
                 <div class="card-body">
                     <div class="row">
                         <div class="col-1 card-votes">
-                            <button type="button" class="unstyled-button" onClick="Client.vote(1, ${id})"><i class="fa fa-angle-up" aria-hidden="true"></i></button>
+                            ${Client.createVoteUpHtml(id)}
                             <br>
                             <span class="vote-number">${data.votes}</span>
                             <br>
-                            <button type="button" class="unstyled-button" onClick="Client.vote(-1, ${id})"><i class="fa fa-angle-down" aria-hidden="true"></i></button>
+                            ${Client.createVoteDownHtml(id)}
                         </div>
                         <div class="col-9 card-text">
                             <h4 class="card-title">${data.city_name}, ${data.country_code}</h4>

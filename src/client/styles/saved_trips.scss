@@ -37,6 +37,10 @@
             margin-left: -0.2em;
             white-space: nowrap;
         }
+
+        .greyed-out {
+            color: rgb(179, 179, 179)
+        }
     }
 
     @include media-breakpoint-down(md) {

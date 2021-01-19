@@ -66,6 +66,15 @@ export async function getSavedTrips() {
 }
 
 export async function vote(change, trip_id) {
+    let newVal = change
+    if (localStorage.getItem(trip_id) != null) {
+        newVal = parseInt(localStorage.getItem(trip_id)) + parseInt(change)
+    }
+    localStorage.setItem(trip_id, newVal)
+    if (parseInt(localStorage.getItem(trip_id)) == 0) {
+        localStorage.removeItem(trip_id)
+    }
+
     const requests = new Client.requestsServiceClass(Client.getFetch());
 
     const jsonMessage = new Client.patchSavedTripsScheme().getJson(
@@ -80,6 +89,7 @@ export async function vote(change, trip_id) {
 }
 
 export async function deleteTrip(trip_id) {
+    localStorage.removeItem(trip_id)
     const requests = new Client.requestsServiceClass(Client.getFetch());
     const res = await requests.delete(`/api/saved_trips/${trip_id}`);
 
