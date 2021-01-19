@@ -148,9 +148,9 @@ export function createSavedTrips(savedTrips) {
     <div class="container-fluid">
     <div class="row">
     `;    
-
-    const orderedSavedTrips = savedTrips.sort(function(a, b) {
-        return b[0] - a[0];
+    const savedTripsScheme = new Client.storeScheme()
+    const orderedSavedTrips = savedTrips.sort(function(a, b) {        
+        return savedTripsScheme.get_id(b) - savedTripsScheme.get_id(a);
     })
     for (const trip of orderedSavedTrips) {
         const id = trip[0]

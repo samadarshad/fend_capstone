@@ -1,16 +1,9 @@
 class storeScheme {
-    getJson = function (id, data) {
-        return {
-             'id': id,
-             'data': data
-        }
-    }
-
-    get_id = function (jsonData) {
-        return jsonData.id
+    get_id = function (objectData) {
+        return objectData[0]
     }  
     get_data = function (jsonData) {
-        return jsonData.data
+        return objectData[1]
     }
 
 }; 
