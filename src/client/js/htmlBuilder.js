@@ -153,8 +153,8 @@ export function createSavedTrips(savedTrips) {
         return savedTripsScheme.get_id(b) - savedTripsScheme.get_id(a);
     })
     for (const trip of orderedSavedTrips) {
-        const id = trip[0]
-        const data = trip[1]
+        const id = savedTripsScheme.get_id(trip)
+        const data = savedTripsScheme.get_data(trip)
         saved_trips_section += `
         <div class="col-md-6 col-lg-4" id=${IdToHtmlId(id)}>
             <div class="card">

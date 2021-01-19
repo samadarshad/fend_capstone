@@ -2,7 +2,7 @@ class storeScheme {
     get_id = function (objectData) {
         return objectData[0]
     }  
-    get_data = function (jsonData) {
+    get_data = function (objectData) {
         return objectData[1]
     }
 
