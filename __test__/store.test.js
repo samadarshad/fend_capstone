@@ -25,6 +25,14 @@ describe('store', () => {
         expect(store(0)).toStrictEqual({data: "world0", id: 0})
         expect(store(1)).toStrictEqual({data: "world1", id: 1})
         done()
-    })   
+    }) 
+
+    it('when append item then it returns data with ID', done => {
+        expect(storeUtils.append({data: "world"}).id).toBe(0)
+        expect(storeUtils.append({data: "world"}).id).toBe(1)
+        expect(storeUtils.append({data: "world"}).id).toBe(2)
+        expect(storeUtils.append({data: "world"}).id).toBe(3)
+        done()
+    })
 
 })
