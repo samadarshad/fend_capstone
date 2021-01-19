@@ -82,5 +82,13 @@ router.post('/saved_trips', async function (req, res) {
     }    
 })
 
+router.post('/saved_trips/:id', async function (req, res) {
+    try {
+        console.log("saved_trips:id", req.params.id)
+    } catch (error) {
+        console.log("routes error", error);
+        sendErrorToClient(error, res);
+    }    
+})
 
 module.exports = router;

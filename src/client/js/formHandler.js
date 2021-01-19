@@ -64,3 +64,9 @@ export async function getSavedTrips() {
     const res = await requests.getData(`/api/saved_trips`);    
     return res
 }
+
+export async function vote(change, trip_id) {
+    const requests = new Client.requestsServiceClass(Client.getFetch());
+    const res = await requests.postData(`/api/saved_trips/${trip_id}`, {"change": change});    
+    return res
+}

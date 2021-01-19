@@ -1,4 +1,4 @@
-import { search, sendForm, save, saveForm, getSavedTrips } from './js/formHandler'
+import { search, sendForm, save, saveForm, getSavedTrips, vote } from './js/formHandler'
 import { updateUI, updateSavedTrips } from './js/ui'
 import requestsServiceClass from 'Shared/requests.js'
 import { setFetch, getFetch } from './js/client-side-requests'
@@ -24,6 +24,7 @@ export {
     sendForm,
     saveForm,
     getSavedTrips,
+    vote,
 
     requestsServiceClass,
     setFetch,
