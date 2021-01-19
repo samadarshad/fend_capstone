@@ -9,7 +9,7 @@ import responseMessageScheme from 'Shared/responseMessageScheme.js'
 import storeDataScheme from 'Shared/storeDataScheme.js'
 import storeScheme from 'Shared/storeScheme.js'
 import { validate } from './js/validate-input'
-import { createResults, createSavedTrips, IdToHtmlId, HtmlIdToId } from './js/htmlBuilder.js'
+import { createResults, createSavedTrips, IdToHtmlId, HtmlIdToId, vote_up, vote_down } from './js/htmlBuilder.js'
 
 import "regenerator-runtime/runtime";
 import { importAll } from './js/importImages.js'
@@ -40,6 +40,8 @@ export {
     createSavedTrips,
     IdToHtmlId,
     HtmlIdToId,
+    vote_up,
+    vote_down,
 
     weatherIcons,
 

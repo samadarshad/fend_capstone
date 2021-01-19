@@ -144,6 +144,14 @@ export function HtmlIdToId(htmlId) {
 
 import { formatDistance, parseISO } from 'date-fns'
 
+export function vote_up(id) {
+    console.log("vote_up", id)
+}
+
+export function vote_down(id) {
+    console.log("vote_down", id)
+}
+
 export function createSavedTrips(savedTrips) {
     
     let saved_trips_section = `
@@ -163,11 +171,11 @@ export function createSavedTrips(savedTrips) {
                 <div class="card-body">
                     <div class="row">
                         <div class="col-1 card-votes">
-                            <button type="button" class="unstyled-button"><i class="fa fa-angle-up" aria-hidden="true"></i></button>
+                            <button type="button" class="unstyled-button" onClick="Client.vote_up(${id})"><i class="fa fa-angle-up" aria-hidden="true"></i></button>
                             <br>
                             <span>${data.votes}</span>
                             <br>
-                            <button type="button" class="unstyled-button"><i class="fa fa-angle-down" aria-hidden="true"></i></button>
+                            <button type="button" class="unstyled-button" onClick="Client.vote_down(${id})"><i class="fa fa-angle-down" aria-hidden="true"></i></button>
                         </div>
                         <div class="col-9 card-text">
                             <h4 class="card-title">${data.city_name}, ${data.country_code}</h4>
