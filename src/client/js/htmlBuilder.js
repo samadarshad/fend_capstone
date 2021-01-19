@@ -1,6 +1,25 @@
-import { formatDistance, parse, parseISO, compareAsc } from 'date-fns'
+import { formatDistance, parse, parseISO, compareAsc, isValid } from 'date-fns'
+
+export class HtmlBuilder {
+    get_departureDate = function (date, date_scheme) {
+        console.log(date)
+        if (!date)  {
+            return ''
+        }
+        const date_standard = parse(date, date_scheme, new Date())
+        if (!isValid(date_standard)) {
+            return ''
+        }
+        return `, on <span id="departure_date">${new Date(date_standard).toLocaleDateString(undefined,  { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>`
+   }
+}; 
+
+// module.exports = HtmlBuilder
 
 export function createResults(city_name, country_code, weather, pictures, date) {
+
+    const htmlbuilder = new Client.HtmlBuilder()
+
     console.log("createResults")
     console.log("date", date)
     const results_section = document.getElementById('results')
@@ -113,7 +132,7 @@ export function createResults(city_name, country_code, weather, pictures, date) 
                     </div>
                         <div class="card-text col-lg-8">
                             <h3><span id="city_name">${city_name}</span>, <span id="country_code">${country_code}</span></h3>
-                            <p>Departing from <span id="from_city_name">London</span>, <span id="from_country_code">UK</span>, on <span id="departure_date">Wednesday 1/1/2021</span>.</p>
+                            <p>Departing from <span id="from_city_name">London</span>, <span id="from_country_code">UK</span>${htmlbuilder.get_departureDate(date, Client.user_date_scheme)}.</p>
 
                             <div class="weather">
                                 ${week_weather_forecast_innerHTML}
