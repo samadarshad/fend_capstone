@@ -46,8 +46,8 @@ export async function save (event, document) {
         console.log(response)
 
         //get request for all saved trips
-
-        await Client.updateSavedTrips(response, document);
+        const savedTrips = await Client.getSavedTrips()
+        await Client.updateSavedTrips(savedTrips, document);
     } catch (error) {
         console.log("save error", error);
     }
@@ -56,5 +56,11 @@ export async function save (event, document) {
 export async function saveForm(jsonMessage) {
     const requests = new Client.requestsServiceClass(Client.getFetch());
     const res = await requests.postData(`/api/saved_trips`, jsonMessage);
+    return res
+}
+
+export async function getSavedTrips() {
+    const requests = new Client.requestsServiceClass(Client.getFetch());
+    const res = await requests.getData(`/api/saved_trips`);    
     return res
 }

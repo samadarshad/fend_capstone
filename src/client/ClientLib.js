@@ -1,4 +1,4 @@
-import { search, sendForm, save, saveForm } from './js/formHandler'
+import { search, sendForm, save, saveForm, getSavedTrips } from './js/formHandler'
 import { updateUI, updateSavedTrips } from './js/ui'
 import requestsServiceClass from 'Shared/requests.js'
 import { setFetch, getFetch } from './js/client-side-requests'
@@ -9,7 +9,7 @@ import responseMessageScheme from 'Shared/responseMessageScheme.js'
 import storeDataScheme from 'Shared/storeDataScheme.js'
 import storeScheme from 'Shared/storeScheme.js'
 import { validate } from './js/validate-input'
-import { createResults, createSavedTrips } from './js/htmlBuilder.js'
+import { createResults, createSavedTrips, IdToHtmlId, HtmlIdToId } from './js/htmlBuilder.js'
 
 
 import "regenerator-runtime/runtime";
@@ -24,6 +24,8 @@ export {
     updateSavedTrips,
     sendForm,
     saveForm,
+    getSavedTrips,
+
     requestsServiceClass,
     setFetch,
     getFetch,
@@ -34,7 +36,11 @@ export {
     storeDataScheme,
     storeScheme,
     validate,
+    
     createResults,
     createSavedTrips,
+    IdToHtmlId,
+    HtmlIdToId,
+
     weatherIcons
 }

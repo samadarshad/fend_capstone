@@ -68,7 +68,6 @@ router.get('/saved_trips', async function (req, res) {
 router.post('/saved_trips', async function (req, res) {
     try {
         const input = req.body;
-        console.log("saved_trips save:", input)
         const object = savedTripsUtils.append(input)
         res.send(object)
     } catch (error) {
