@@ -1,15 +1,11 @@
-const { maxHeaderSize } = require("http");
-
 class StoreUtils {
     constructor(store) {
         this.store = store
     }
     append = function (object) {
         const newId = this.generateId()
-        const newObject = object;
-        newObject['id'] = newId;
-        this.store(newId, newObject)
-        return newObject
+        this.store(newId, object)
+        return this.store(newId)
     }
 
     generateId = function () {
