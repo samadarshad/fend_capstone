@@ -76,15 +76,25 @@ export async function vote(change, trip_id) {
     }
 
     const requests = new Client.requestsServiceClass(Client.getFetch());
-
-    const jsonMessage = new Client.patchSavedTripsScheme().getJson(
-        change
-    )
-
+    const jsonMessage = new Client.patchSavedTripsScheme().getJson(change)
     const res = await requests.postData(`/api/saved_trips/${trip_id}`, jsonMessage);
     
     const savedTrips = await Client.getSavedTrips()        
     await Client.updateSavedTrips(savedTrips, document);    
+    return res
+}
+
+export async function viewTrip(trip_id) {
+    const requests = new Client.requestsServiceClass(Client.getFetch());
+    const tripData = await requests.getData(`/api/saved_trips/${trip_id}`);
+    const storeDataSchemeClass = new Client.storeDataScheme()    
+    const jsonMessage = new Client.requestMessageScheme().getJson(
+        `${storeDataSchemeClass.get_city_name(tripData)} ${storeDataSchemeClass.get_country_code(tripData)}`,
+        `${storeDataSchemeClass.get_travelling_from_city(tripData)} ${storeDataSchemeClass.get_travelling_from_country_code(tripData)}`, 
+        storeDataSchemeClass.get_date(tripData)
+        )
+    const response = await Client.sendForm(jsonMessage)
+    await Client.updateUI(response, document);
     return res
 }
 

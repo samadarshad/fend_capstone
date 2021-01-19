@@ -12,6 +12,22 @@ class storeDataScheme {
         }
     }
 
+    get_city_name = function (obj) {
+        return obj.city_name
+    }  
+    get_country_code = function (obj) {
+        return obj.country_code
+    }  
+    get_date = function (obj) {
+        return obj.date
+    }
+    get_travelling_from_city = function (obj) {
+        return obj.travelling_from_city
+    }  
+    get_travelling_from_country_code = function (obj) {
+        return obj.travelling_from_country_code
+    }  
+
 }; 
 
 module.exports = storeDataScheme

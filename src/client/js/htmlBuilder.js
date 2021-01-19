@@ -203,7 +203,7 @@ export function createSavedTrips(savedTrips) {
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-outline-secondary" >View</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" onClick="Client.viewTrip(${id})">View</button>
                             <button type="button" class="btn btn-sm btn-danger" onClick="Client.deleteTrip(${id})">Delete</button>
                         </div>
                         <small class="text-muted pl-2">Added ${formatDistance(parseISO(data.date_added), new Date())} ago</small>

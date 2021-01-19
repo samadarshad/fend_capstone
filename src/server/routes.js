@@ -83,6 +83,20 @@ router.post('/saved_trips', async function (req, res) {
     }    
 })
 
+router.get('/saved_trips/:id', async function (req, res) {
+    try {
+        const id = req.params.id;
+
+        if (!savedTrips.has(id)) {
+            res.sendStatus(404)
+        }
+        res.send(savedTrips(id))
+    } catch (error) {
+        console.log("routes error", error);
+        sendErrorToClient(error, res);
+    }    
+})
+
 router.post('/saved_trips/:id', async function (req, res) {
     try {
         const id = req.params.id;
