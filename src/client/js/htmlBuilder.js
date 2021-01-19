@@ -72,15 +72,24 @@ export function createResults(city_name, country_code, weather, pictures, date) 
             `
         }
     }
-
-    const week_weather_forecast_innerHTML = `
-    <h5>Week weather forecast</h5>
-    <div class="weather-card p-0">
-        <div class="d-flex weekly-weather">
-            ${weekly_weather_innerHTML}
+    let week_weather_forecast_innerHTML = '<h5>Weather forecast</h5>'
+    if (!weekly_weather_innerHTML) {
+        week_weather_forecast_innerHTML += `
+        <div class="weather-card p-0">
+            <p class="text-center font-italic" >No weather forecast available for given date.</p>
+        </div> 
+        `
+    } else {
+        week_weather_forecast_innerHTML += `
+        <div class="weather-card p-0">
+            <div class="d-flex weekly-weather">
+                ${weekly_weather_innerHTML}
+            </div>
         </div>
-    </div>
-    `
+        `
+    }
+
+
 
     results_card.innerHTML = `
     <div class="card">
