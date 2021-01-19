@@ -144,16 +144,15 @@ export function HtmlIdToId(htmlId) {
 
 export function createSavedTrips(savedTrips) {
     console.log("createSavedTrips")
-    const saved_trips_section = document.getElementById('saved-trips')
-    saved_trips_section.innerHTML = `
+    
+    let saved_trips_section = `
     <div class="container-fluid">
-
     <div class="row">
     `;
 
     for (const [id, data] of Object.entries(savedTrips)) {
         console.log(id, data)
-        saved_trips_section.innerHTML += `
+        saved_trips_section += `
         <div class="col-md-6 col-lg-4" id=${IdToHtmlId(id)}>
             <div class="card">
                 <div class="card-body">
@@ -187,8 +186,10 @@ export function createSavedTrips(savedTrips) {
         `
     }
 
-    saved_trips_section.innerHTML += `
-    </div>
-    </div>  
+    saved_trips_section += `
+    </div>test test
+    </div>  test
     `
+
+    return saved_trips_section
 }

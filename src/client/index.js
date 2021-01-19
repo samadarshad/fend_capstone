@@ -12,6 +12,11 @@ import ApexCharts from 'apexcharts'
 import axios from 'axios';
 Client.setFetch(axios)
 
+document.addEventListener('DOMContentLoaded', async function(event) {
+    const savedTrips = await Client.getSavedTrips()
+    await Client.updateSavedTrips(savedTrips, document);
+});
+
 document.addEventListener('submit', function(e) {
     console.log("submit fired")
     if(e.target && e.target.id == 'entry-form'){
