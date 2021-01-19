@@ -30,6 +30,7 @@ export async function save (event, document) {
         const departure_date = document.getElementById("departure_date").innerHTML
         const user_input_notes = document.getElementById("user-input-notes").value
         const date_added = new Date()
+        const votes = 0;
         
         const jsonMessage = new Client.storeDataScheme().getJson(
             city_name,
@@ -39,13 +40,12 @@ export async function save (event, document) {
             from_country_code,
             user_input_notes,
             date_added,
-            0
+            votes
         )
 
         const response = await Client.saveForm(jsonMessage)
         console.log(response)
 
-        //get request for all saved trips
         const savedTrips = await Client.getSavedTrips()
         await Client.updateSavedTrips(savedTrips, document);
     } catch (error) {
