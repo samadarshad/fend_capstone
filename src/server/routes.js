@@ -7,6 +7,7 @@ const pixabayApi = require('./pixabay_api.js');
 
 const requestMessageScheme = require('../shared/requestMessageScheme');
 const responseMessageScheme = require('../shared/responseMessageScheme');
+const patchSavedTripsScheme = require('../shared/patchSavedTripsScheme');
 const savedTrips = require('./store.js')
 const storeUtilsClass = require('./storeUtils.js')
 const savedTripsUtils = new storeUtilsClass(savedTrips)
@@ -84,7 +85,19 @@ router.post('/saved_trips', async function (req, res) {
 
 router.post('/saved_trips/:id', async function (req, res) {
     try {
+        const id = req.params.id;
         console.log("saved_trips:id", req.params.id)
+        const input = req.body;
+        console.log("Search term:", input)
+        const change = new patchSavedTripsScheme().get_change(input);
+
+        if (!savedTrips.has(id)) {
+            res.sendStatus(404)
+        }
+        const updatedTrip = savedTrips(id)
+        updatedTrip.votes = parseInt(updatedTrip.votes) + parseInt(change);
+        savedTrips.set(id, updatedTrip)
+        res.sendStatus(200)
     } catch (error) {
         console.log("routes error", error);
         sendErrorToClient(error, res);

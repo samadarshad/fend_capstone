@@ -8,6 +8,8 @@ import weatherMessageScheme from 'Shared/weatherMessageScheme.js'
 import responseMessageScheme from 'Shared/responseMessageScheme.js'
 import storeDataScheme from 'Shared/storeDataScheme.js'
 import storeScheme from 'Shared/storeScheme.js'
+import patchSavedTripsScheme from 'Shared/patchSavedTripsScheme.js'
+
 import { validate } from './js/validate-input'
 import { createResults, createSavedTrips, IdToHtmlId, HtmlIdToId, vote_up, vote_down } from './js/htmlBuilder.js'
 
@@ -35,6 +37,8 @@ export {
     weatherMessageScheme,
     storeDataScheme,
     storeScheme,
+    patchSavedTripsScheme,
+    
     validate,
     
     createResults,
