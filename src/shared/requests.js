@@ -29,7 +29,21 @@ class requestsServiceClass {
           }); 
           const newData = response.data;
           return newData
-     };     
+     };
+
+     delete = async function ( url = '') {
+          const response = await this.axios({
+               method: 'DELETE',
+               url: url,
+               credentials: 'same-origin'
+          })       
+          .catch(function(error) {
+               console.log("caught error error.response.status", error.response.status)
+               return Promise.reject(new Error(error.response.status));
+          }); 
+          const newData = response.data;
+          return newData
+     };   
 }; 
 
 module.exports = requestsServiceClass

@@ -86,9 +86,7 @@ router.post('/saved_trips', async function (req, res) {
 router.post('/saved_trips/:id', async function (req, res) {
     try {
         const id = req.params.id;
-        console.log("saved_trips:id", req.params.id)
         const input = req.body;
-        console.log("Search term:", input)
         const change = new patchSavedTripsScheme().get_change(input);
 
         if (!savedTrips.has(id)) {
@@ -97,6 +95,22 @@ router.post('/saved_trips/:id', async function (req, res) {
         const updatedTrip = savedTrips(id)
         updatedTrip.votes = parseInt(updatedTrip.votes) + parseInt(change);
         savedTrips.set(id, updatedTrip)
+        res.sendStatus(200)
+    } catch (error) {
+        console.log("routes error", error);
+        sendErrorToClient(error, res);
+    }    
+})
+
+router.delete('/saved_trips/:id', async function (req, res) {
+    try {
+        const id = req.params.id;        
+
+        if (!savedTrips.has(id)) {
+            res.sendStatus(404)
+        }
+        
+        savedTrips.remove(id)
         res.sendStatus(200)
     } catch (error) {
         console.log("routes error", error);
