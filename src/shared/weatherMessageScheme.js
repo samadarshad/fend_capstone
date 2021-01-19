@@ -20,7 +20,7 @@ class weatherMessageScheme {
       get_weatherDescription = function (jsonData) {
         return jsonData.weatherDescription
       }
-      get_weather_date_scheme = () =>  'yyyy-mm-dd'
+      get_weather_date_scheme = 'yyyy-mm-dd'
     
 
 }; 

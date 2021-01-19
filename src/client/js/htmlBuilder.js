@@ -1,7 +1,8 @@
-import { formatDistance, parseISO, compareAsc } from 'date-fns'
+import { formatDistance, parse, parseISO, compareAsc } from 'date-fns'
 
 export function createResults(city_name, country_code, weather, pictures, date) {
     console.log("createResults")
+    console.log("date", date)
     const results_section = document.getElementById('results')
     results_section.innerHTML = '';
     
@@ -30,32 +31,46 @@ export function createResults(city_name, country_code, weather, pictures, date) 
         }
  
     })  
+    console.log("user date", date)
+    console.log("Client.userDateScheme", Client.user_date_scheme)
+    const user_date_standard = parse(date, Client.user_date_scheme, new Date())
+    console.log("user_date_standard", user_date_standard)
 
     const weatherMessage = new Client.weatherMessageScheme()
+    
     let weekly_weather_innerHTML = '';
     for (const day of weather) {
         const dayDate = weatherMessage.get_date(day)
-        // if (compareAsc(dayDate, date)) {
-        //     // forecast date is before departure date, so dont need to show
-        // }
 
-        const shortDate = new Date(dayDate).toLocaleDateString(undefined,  { weekday: 'short' })
-        const shortDateNum = new Date(dayDate).toLocaleDateString(undefined,  {day: 'numeric' })
+        let departureDateIsLater = false
+        if (date != undefined) {            
+            const dayDateStandard = parse(dayDate, weatherMessage.get_weather_date_scheme, new Date())
+            console.log("dayDateStandard", dayDateStandard)
+            departureDateIsLater = compareAsc(dayDateStandard, user_date_standard)
+            console.log("departureDateIsLater", departureDateIsLater)
+        }        
+        if (departureDateIsLater < 0) {
+            // dont render weather
+            console.log("departure date is later, not rendering weather for this date")
+        } else {
+            const shortDate = new Date(dayDate).toLocaleDateString(undefined,  { weekday: 'short' })
+            const shortDateNum = new Date(dayDate).toLocaleDateString(undefined,  {day: 'numeric' })
 
-        const dayTempC = weatherMessage.get_temp_celcius(day)
-        const dayWeatherIcon = weatherMessage.get_weatherIcon(day)
-        const weatherIcon = Client.weatherIcons[`${dayWeatherIcon}.png`]
-        const dayWeatherDescription = weatherMessage.get_weatherDescription(day)
+            const dayTempC = weatherMessage.get_temp_celcius(day)
+            const dayWeatherIcon = weatherMessage.get_weatherIcon(day)
+            const weatherIcon = Client.weatherIcons[`${dayWeatherIcon}.png`]
+            const dayWeatherDescription = weatherMessage.get_weatherDescription(day)
 
-        weekly_weather_innerHTML += 
-        `
-        <div class="weekly-weather-item">
-            <p class="mb-0"> ${shortDate} </p> 
-            <p class="mb-0"> ${shortDateNum} </p> 
-            <img class="w-100" src="${weatherIcon}" alt="${dayWeatherDescription}" title="${dayWeatherDescription}">
-            <p class="mb-0"> ${dayTempC}° </p>
-        </div>
-        `
+            weekly_weather_innerHTML += 
+            `
+            <div class="weekly-weather-item">
+                <p class="mb-0"> ${shortDate} </p> 
+                <p class="mb-0"> ${shortDateNum} </p> 
+                <img class="w-100" src="${weatherIcon}" alt="${dayWeatherDescription}" title="${dayWeatherDescription}">
+                <p class="mb-0"> ${dayTempC}° </p>
+            </div>
+            `
+        }
     }
 
     const week_weather_forecast_innerHTML = `

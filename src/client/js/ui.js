@@ -1,13 +1,13 @@
-export async function updateUI(response, input, document) {
+export async function updateUI(response, input, document) {    
     const responseMessageScheme = new Client.responseMessageScheme()
     const requestMessageScheme = new Client.requestMessageScheme()
-
     Client.createResults(
         responseMessageScheme.get_city_name(response),
         responseMessageScheme.get_country_code(response),
         responseMessageScheme.get_weather_forecast(response),
-        responseMessageScheme.get_pictures(response)),
+        responseMessageScheme.get_pictures(response),
         requestMessageScheme.get_date(input)
+        )
 }
 
 export async function updateSavedTrips(data, document) {
