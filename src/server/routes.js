@@ -7,7 +7,9 @@ const pixabayApi = require('./pixabay_api.js');
 
 const requestMessageScheme = require('../shared/requestMessageScheme');
 const responseMessageScheme = require('../shared/responseMessageScheme');
-const saved_trips = require('./store.js')
+const savedTrips = require('./store.js')
+const storeUtilsClass = require('./storeUtils.js')
+const savedTripsUtils = new storeUtilsClass(savedTrips)
 
 function sendErrorToClient(error, res) {
     res.status(error.message).send(error)  
@@ -55,7 +57,7 @@ router.post('/search', async function (req, res) {
 
 router.get('/saved_trips', async function (req, res) {
     try {
-        const items = saved_trips();
+        const items = savedTrips();
         res.send(items)
     } catch (error) {
         console.log("routes error", error);
@@ -66,10 +68,9 @@ router.get('/saved_trips', async function (req, res) {
 router.post('/saved_trips', async function (req, res) {
     try {
         const input = req.body;
-        console.log("Search term:", input)
-        saved_trips(input.id, input.data)
-        // store.getStore().setItem('1', JSON.stringify(input))
-        res.sendStatus(200)
+        console.log("saved_trips save:", input)
+        const object = savedTripsUtils.append(input)
+        res.send(object)
     } catch (error) {
         console.log("routes error", error);
         sendErrorToClient(error, res);
