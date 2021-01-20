@@ -11,7 +11,7 @@ class skyscannerApi {
         return {
             "placeFrom": placeFrom,
             "placeTo": placeTo,
-            "dateprice": dateprice
+            "datePrice": dateprice
         }
     }
     getJsonDatePrice = function (date, price) {
@@ -94,10 +94,10 @@ class skyscannerApi {
         for (let i = 1; i <= 12; i++) {
             const month = i.toString().padStart(2, '0')
             const date = `2021-${month}`
-            const price = await skyscanner.getQuote(placeFrom.placeId, placeTo.placeId, date)
-            datePrices += getJsonDatePrice(date, price)
+            const price = await this.getQuote(placeFrom.placeId, placeTo.placeId, date)
+            datePrices.push(this.getJsonDatePrice(date, price))
         }
-        return getJsonSkyscanner(placeFrom, placeTo, datePrices)
+        return this.getJsonSkyscanner(placeFrom, placeTo, datePrices)
     }
 }
 
