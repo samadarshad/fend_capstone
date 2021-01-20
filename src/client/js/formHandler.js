@@ -36,6 +36,8 @@ export async function save (event, document) {
         const user_input_notes = getValueOfNull(document.getElementById("user-input-notes"), 'value')
         const date_added = new Date()
         const votes = 0;
+
+        console.log("save date", departure_date)
         
         const jsonMessage = new Client.storeDataScheme().getJson(
             city_name,

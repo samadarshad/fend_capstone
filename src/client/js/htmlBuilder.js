@@ -160,9 +160,10 @@ export class HtmlBuilder {
     }
 
     _create_saved_trip_card(id, data) {
+        console.log("_create_saved_trip_card", data.departure_date)
         const vote_down_button_html = this._createVoteDownHtml(id)
         const vote_up_button_html = this._createVoteUpHtml(id)
-        const subfields_html = this._create_saved_trip_card_subfields(data.travelling_from_city, data.travelling_from_country_code, data.departure_date,data.notes)
+        const subfields_html = this._create_saved_trip_card_subfields(data.travelling_from_city, data.travelling_from_country_code, data.date, data.notes)
 
         return `
         <div class="col-md-6 col-lg-4">
@@ -264,7 +265,7 @@ export class HtmlBuilder {
         for (const trip of orderedSavedTrips) {
             const id = savedTripsScheme.get_id(trip)
             const data = savedTripsScheme.get_data(trip)
-    
+            console.log("data date", data.date)
             saved_trips_section += this._create_saved_trip_card(id, data)       
         }
     
