@@ -18,10 +18,11 @@ export async function updateUI(response, input, document) {
     const responseMessageScheme = new Client.responseMessageScheme()
     const requestMessageScheme = new Client.requestMessageScheme()
     const htmlBuilder = new Client.HtmlBuilder()
-
+    console.log("city_name", responseMessageScheme.get_city_name(response))
+    
     const resultsHtml = htmlBuilder.createResults(
         responseMessageScheme.get_city_name(response),
-        responseMessageScheme.get_country_code(response),
+        responseMessageScheme.get_countryName(response),
         responseMessageScheme.get_weather_forecast(response),
         responseMessageScheme.get_pictures(response),
         requestMessageScheme.get_date(input),
@@ -61,3 +62,4 @@ export async function updateSavedTrips(data, document) {
 }
 
 export const user_date_scheme = 'dd/MM/yyyy';
+export const user_date_scheme_locale = 'en-GB';

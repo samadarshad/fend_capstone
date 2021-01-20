@@ -29,9 +29,9 @@ export async function save (event, document) {
           }
 
         const city_name = getValueOfNull(document.getElementById("city_name"), 'innerHTML')
-        const country_code = getValueOfNull(document.getElementById("country_code"), 'innerHTML')
+        const countryName = getValueOfNull(document.getElementById("countryName"), 'innerHTML')
         const from_city_name = getValueOfNull(document.getElementById("from_city_name"), 'innerHTML')
-        const from_country_code = getValueOfNull(document.getElementById("from_country_code"), 'innerHTML')
+        const from_countryName = getValueOfNull(document.getElementById("from_countryName"), 'innerHTML')
         const departure_date = getValueOfNull(document.getElementById("departure_date"), 'innerHTML')
         const user_input_notes = getValueOfNull(document.getElementById("user-input-notes"), 'value')
         const date_added = new Date()
@@ -41,10 +41,10 @@ export async function save (event, document) {
         
         const jsonMessage = new Client.storeDataScheme().getJson(
             city_name,
-            country_code,
+            countryName,
             departure_date,
             from_city_name,
-            from_country_code,
+            from_countryName,
             user_input_notes,
             date_added,
             votes
@@ -97,7 +97,7 @@ export async function viewTrip(trip_id) {
     const tripData = await requests.getData(`/api/saved_trips/${trip_id}`);
     const storeDataSchemeClass = new Client.storeDataScheme()
 
-    const date_formatted = new Date(storeDataSchemeClass.get_date(tripData)).toLocaleDateString('en-GB')
+    const date_formatted = new Date(storeDataSchemeClass.get_date(tripData)).toLocaleDateString(Client.user_date_scheme_locale)
     const jsonMessage = new Client.requestMessageScheme().getJson(
         storeDataSchemeClass.get_city_name(tripData),
         storeDataSchemeClass.get_travelling_from_city(tripData),

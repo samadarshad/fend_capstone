@@ -21,7 +21,7 @@ class pixabayApi {
         const url = `${base_url}?key=${api_key}&&q=${searchTermUtf8}&image_type=photo&per_page=${numPictures}`
         const response = await requests.getData(url);
         if (response.total == 0) {
-            return Promise.reject(new Error(404));
+            return '';
         }
         const pictureMessage = new pictureMessageScheme();
         const pictures = response.hits.map(picture => pictureMessage.getJsonPicture(picture.webformatURL, picture.webformatHeight, picture.webformatWidth))

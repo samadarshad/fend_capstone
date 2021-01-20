@@ -8,19 +8,19 @@ const weatherMessageScheme = require('../shared/weatherMessageScheme');
 const weatherMessage = new weatherMessageScheme();
 
 class weatherbitApi {
-    getJson = function (name, countryCode, weatherForecast) {
+    getJson = function (name, countryName, weatherForecast) {
          return {
               'weatherForecast': weatherForecast,
               'name': name,
-              'countryCode': countryCode
+              'countryName': countryName
          }
     }
 
     get_name = function (jsonData) {
         return jsonData.name
     }  
-    get_countryCode = function (jsonData) {
-        return jsonData.countryCode
+    get_countryName = function (jsonData) {
+        return jsonData.countryName
     }
     get_weatherForecast = function (jsonData) {
         return jsonData.weatherForecast
@@ -44,7 +44,7 @@ class weatherbitApi {
         const weatherForecast = response.data.map(day => weatherMessage.getJsonWeatherForecast(day.valid_date, day.temp, day.weather.icon, day.weather.description))
         const weather = this.getJson(
             response.city_name,
-            response.country_code, 
+            response.countryName, 
             weatherForecast
         )
         return weather

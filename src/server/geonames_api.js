@@ -6,12 +6,12 @@ const base_url = `http://api.geonames.org/searchJSON`//process.env.GEONAMES_API_
 const requests = require('./server-side-requests');
 
 class geonamesApi {
-    getJson = function (lat, lon, name, countryCode) {
+    getJson = function (lat, lon, name, countryName) {
          return {
               'lat': lat,
               'lon': lon,
               'name': name,
-              'countryCode': countryCode
+              'countryName': countryName
          }
     }
 
@@ -24,8 +24,8 @@ class geonamesApi {
     get_name = function (jsonData) {
         return jsonData.name
     }  
-    get_countryCode = function (jsonData) {
-        return jsonData.countryCode
+    get_countryName = function (jsonData) {
+        return jsonData.countryName
     }
     
     getLocation = async function (city) { 
@@ -38,7 +38,7 @@ class geonamesApi {
 
     _getLocation = async function (city) {
         const cityUtf8 = Buffer.from(city, 'utf-8');
-        const url = `${base_url}?formatted=true&q=${cityUtf8}&maxRows=1&lang=en&username=${username}&style=short`
+        const url = `${base_url}?formatted=true&q=${cityUtf8}&maxRows=1&lang=en&username=${username}`
         const data = await requests.getData(url);
         if (data.totalResultsCount == 0) {
             return Promise.reject(new Error(404));
@@ -47,8 +47,9 @@ class geonamesApi {
             data.geonames[0].lat, 
             data.geonames[0].lng, 
             data.geonames[0].name, 
-            data.geonames[0].countryCode
+            data.geonames[0].countryName
             )
+        console.log(data.geonames[0].countryName)
         return locationData;
     }
 }

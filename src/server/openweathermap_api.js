@@ -7,15 +7,15 @@ const requests = require('./server-side-requests');
 
 class openweathermapApi {
     
-    getTemperature = async function (city_name, country_code, month_number) {  
-        const climate = await this._getClimate(city_name, country_code, month_number);
+    getTemperature = async function (city_name, countryName, month_number) {  
+        const climate = await this._getClimate(city_name, countryName, month_number);
         const temperature = climate.result.temp.mean
         return temperature;
     }
 
-    _getClimate = async function (city_name, country_code, month_number)  {
+    _getClimate = async function (city_name, countryName, month_number)  {
         const cityUtf8 = Buffer.from(city_name, 'utf-8');
-        const countryUtf8 = Buffer.from(country_code, 'utf-8');
+        const countryUtf8 = Buffer.from(countryName, 'utf-8');
         const url = `${base_url}/month?q=${cityUtf8},${countryUtf8}&month=${month_number}&units=metric&appid=${api_key}`
         console.log("_getClimate", url)
         const data = await requests.getData(url);

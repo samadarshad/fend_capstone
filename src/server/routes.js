@@ -49,18 +49,25 @@ router.post('/search', async function (req, res) {
             geonames.get_lon(locationData)
             )
         
-        const searchTerm = `${geonames.get_name(locationData)}`
-        const pictures = await pixabay.getPictures(searchTerm, NUM_PICTURES)
-        
+        // const searchTerm = `${geonames.get_name(locationData)}`
+
         const travelling_from = requestMessage.get_travelling_from(input);
         let skyscannerResults = ''
         if (travelling_from) {
             skyscannerResults = await skyscanner.getAnnualFlightPrices(travelling_from, destination)
-        }        
+        }
+
+        let searchTerm = destination
+        let pictures = await pixabay.getPictures(searchTerm, NUM_PICTURES)
+        if (!pictures) {
+            console.log("Could not find pictures for", searchTerm)
+            searchTerm = geonames.get_countryName(locationData)
+            pictures = await pixabay.getPictures(searchTerm, NUM_PICTURES)
+        }
 
         const response = responseMessage.getJson(
-            weatherbit.get_name(weatherData), 
-            weatherbit.get_countryCode(weatherData),
+            geonames.get_name(locationData), 
+            geonames.get_countryName(locationData),
             weatherbit.get_weatherForecast(weatherData),
             pictures,
             skyscannerResults

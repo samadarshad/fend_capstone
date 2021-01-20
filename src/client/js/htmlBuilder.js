@@ -9,11 +9,11 @@ export class HtmlBuilder {
         if (!isValid(date_standard)) {
             return ''
         }
-        return `<span id="departure_date">${new Date(date_standard).toLocaleDateString('en-GB',  { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>`
+        return `<span id="departure_date">${new Date(date_standard).toLocaleDateString(Client.user_date_scheme_locale,  { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>`
    }
 
-   _get_departureCity = function (departure_city_name, departure_country_code) {
-        return `<span id="from_city_name">${departure_city_name}</span>, <span id="from_country_code">${departure_country_code}</span>`
+   _get_departureCity = function (departure_city_name, departure_countryName) {
+        return `<span id="from_city_name">${departure_city_name}</span>, <span id="from_countryName">${departure_countryName}</span>`
    }
 
    _get_departure = function (departure_city_name, date, date_scheme) {
@@ -69,8 +69,8 @@ export class HtmlBuilder {
    }
 
    _get_weather_day_html(dayDate, dayTempC, dayWeatherIcon, dayWeatherDescription) {
-        const shortDate = new Date(dayDate).toLocaleDateString('en-GB',  { weekday: 'short' })
-        const shortDateNum = new Date(dayDate).toLocaleDateString('en-GB',  {day: 'numeric' })
+        const shortDate = new Date(dayDate).toLocaleDateString(Client.user_date_scheme_locale,  { weekday: 'short' })
+        const shortDateNum = new Date(dayDate).toLocaleDateString(Client.user_date_scheme_locale,  {day: 'numeric' })
 
         const weatherIcon = Client.weatherIcons[`${dayWeatherIcon}.png`]
 
@@ -137,15 +137,15 @@ export class HtmlBuilder {
         return `<button type="button" class="unstyled-button" onClick="Client.vote(1, ${id})"><i class="fa fa-angle-up" aria-hidden="true"></i></button>`
     }
 
-    _create_saved_trip_card_subfields(travelling_from_city, travelling_from_country_code, departure_date, notes) {
+    _create_saved_trip_card_subfields(travelling_from_city, travelling_from_countryName, departure_date, notes) {
         let subfields = ''
-        if (travelling_from_city || travelling_from_country_code) {
+        if (travelling_from_city || travelling_from_countryName) {
             subfields += `<p class="card-text">From `
         }
         if (travelling_from_city) {
             subfields += `${travelling_from_city}`
-            if (travelling_from_country_code) {
-                subfields += `, ${travelling_from_country_code}`
+            if (travelling_from_countryName) {
+                subfields += `, ${travelling_from_countryName}`
             }
             subfields += `</p>`
         }
@@ -163,7 +163,7 @@ export class HtmlBuilder {
         console.log("_create_saved_trip_card", data.departure_date)
         const vote_down_button_html = this._createVoteDownHtml(id)
         const vote_up_button_html = this._createVoteUpHtml(id)
-        const subfields_html = this._create_saved_trip_card_subfields(data.travelling_from_city, data.travelling_from_country_code, data.date, data.notes)
+        const subfields_html = this._create_saved_trip_card_subfields(data.travelling_from_city, data.travelling_from_countryName, data.date, data.notes)
 
         return `
         <div class="col-md-6 col-lg-4">
@@ -178,7 +178,7 @@ export class HtmlBuilder {
                             ${vote_down_button_html}
                         </div>
                         <div class="col-9 card-text">
-                            <h4 class="card-title">${data.city_name}, ${data.country_code}</h4>
+                            <h4 class="card-title">${data.city_name}, ${data.countryName}</h4>
                             ${subfields_html}
                         </div>
                     </div>
@@ -196,7 +196,7 @@ export class HtmlBuilder {
         `
     }
 
-    createResults(city_name, country_code, weather, pictures, date, departure_city_name) {
+    createResults(city_name, countryName, weather, pictures, date, departure_city_name) {
     
         let carousel_inner_innerHTML = this._get_carousel(pictures);
         let week_weather_forecast_innerHTML = this._get_weather(weather, date);
@@ -223,7 +223,7 @@ export class HtmlBuilder {
                             </div>
                         </div>
                             <div class="card-text col-lg-8">
-                                <h3><span id="city_name">${city_name}</span>, <span id="country_code">${country_code}</span></h3>
+                                <h3><span id="city_name">${city_name}</span>, <span id="countryName">${countryName}</span></h3>
                                 ${departure_innerHTML}
     
                                 <div class="weather">

@@ -1,8 +1,8 @@
 class responseMessageScheme {
-     getJson = function (city_name, country_code, weather_forecast, pictures, flightprices) {
+     getJson = function (city_name, countryName, weather_forecast, pictures, flightprices) {
           return {
                'city_name': city_name,
-               'country_code': country_code,
+               'countryName': countryName,
                'weather_forecast': weather_forecast,
                'pictures': pictures,
                'flightprices': flightprices
@@ -12,8 +12,8 @@ class responseMessageScheme {
      get_city_name = function (jsonData) {
           return jsonData.city_name
      }
-     get_country_code = function (jsonData) {
-          return jsonData.country_code
+     get_countryName = function (jsonData) {
+          return jsonData.countryName
      }
      get_weather_forecast = function (jsonData) {
           return jsonData.weather_forecast
