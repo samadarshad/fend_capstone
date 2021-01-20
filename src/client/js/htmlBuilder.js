@@ -1,7 +1,7 @@
 import { formatDistance, parse, parseISO, compareAsc, isValid } from 'date-fns'
 
 export class HtmlBuilder {
-    get_departureDate = function (date, date_scheme) {
+    _get_departureDate = function (date, date_scheme) {
         if (!date)  {
             return ''
         }
@@ -12,12 +12,12 @@ export class HtmlBuilder {
         return `<span id="departure_date">${new Date(date_standard).toLocaleDateString(undefined,  { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>`
    }
 
-   get_departureCity = function (departure_city_name, departure_country_code) {
+   _get_departureCity = function (departure_city_name, departure_country_code) {
         return `<span id="from_city_name">${departure_city_name}</span>, <span id="from_country_code">${departure_country_code}</span>`
    }
 
-   get_departure = function (departure_city_name, date, date_scheme) {
-    const departureDateHtml = this.get_departureDate(date, date_scheme)   
+   _get_departure = function (departure_city_name, date, date_scheme) {
+    const departureDateHtml = this._get_departureDate(date, date_scheme)   
     let departureHtml = ''
        if (departure_city_name || departureDateHtml) {
         departureHtml += `<p>Departing `
@@ -42,7 +42,7 @@ export class HtmlBuilder {
        return departureHtml
    }
 
-   get_carousel = function (pictures) {
+   _get_carousel = function (pictures) {
         const pictureMessage = new Client.pictureMessageScheme()
         let carousel_inner_innerHTML = '';
         pictures.forEach(function(picture, i) {
@@ -68,7 +68,7 @@ export class HtmlBuilder {
         return carousel_inner_innerHTML
    }
 
-   get_weather_day_html(dayDate, dayTempC, dayWeatherIcon, dayWeatherDescription) {
+   _get_weather_day_html(dayDate, dayTempC, dayWeatherIcon, dayWeatherDescription) {
         const shortDate = new Date(dayDate).toLocaleDateString(undefined,  { weekday: 'short' })
         const shortDateNum = new Date(dayDate).toLocaleDateString(undefined,  {day: 'numeric' })
 
@@ -84,7 +84,7 @@ export class HtmlBuilder {
         `
    }
 
-   get_weather(weather, user_date) {
+   _get_weather(weather, user_date) {
         const user_date_standard = parse(user_date, Client.user_date_scheme, new Date())
         const weatherMessage = new Client.weatherMessageScheme()
 
@@ -100,7 +100,7 @@ export class HtmlBuilder {
             if (departureDateIsLater < 0) {
                 // dont render weather
             } else {
-                weekly_weather_innerHTML += this.get_weather_day_html(weatherMessage.get_date(day), weatherMessage.get_temp_celcius(day), weatherMessage.get_weatherIcon(day), weatherMessage.get_weatherDescription(day))
+                weekly_weather_innerHTML += this._get_weather_day_html(weatherMessage.get_date(day), weatherMessage.get_temp_celcius(day), weatherMessage.get_weatherIcon(day), weatherMessage.get_weatherDescription(day))
             }
         }
         let week_weather_forecast_innerHTML = '<h5>Weather forecast</h5>'
@@ -122,14 +122,14 @@ export class HtmlBuilder {
         return week_weather_forecast_innerHTML
    }
 
-   createVoteDownHtml(id) {
+   _createVoteDownHtml(id) {
     if (localStorage.getItem(id) != null && localStorage.getItem(id) == -1) {
         return `<button type="button" class="unstyled-button" onClick="Client.vote(1, ${id})"><i class="fa fa-angle-down greyed-out" aria-hidden="true"></i></button>`
     }
         return `<button type="button" class="unstyled-button" onClick="Client.vote(-1, ${id})"><i class="fa fa-angle-down" aria-hidden="true"></i></button>`
     }
 
-    createVoteUpHtml(id) {
+    _createVoteUpHtml(id) {
         if (localStorage.getItem(id) != null && localStorage.getItem(id) == 1) {
             return `<button type="button" class="unstyled-button" onClick="Client.vote(-1, ${id})"><i class="fa fa-angle-up greyed-out" aria-hidden="true"></i></button>`
         }
@@ -137,7 +137,7 @@ export class HtmlBuilder {
         return `<button type="button" class="unstyled-button" onClick="Client.vote(1, ${id})"><i class="fa fa-angle-up" aria-hidden="true"></i></button>`
     }
 
-    create_saved_trip_card_subfields(travelling_from_city, travelling_from_country_code, departure_date, notes) {
+    _create_saved_trip_card_subfields(travelling_from_city, travelling_from_country_code, departure_date, notes) {
         let subfields = ''
         if (travelling_from_city || travelling_from_country_code) {
             subfields += `<p class="card-text">From `
@@ -159,10 +159,10 @@ export class HtmlBuilder {
         return subfields
     }
 
-    create_saved_trip_card(id, data) {
-        const vote_down_button_html = this.createVoteDownHtml(id)
-        const vote_up_button_html = this.createVoteUpHtml(id)
-        const subfields_html = this.create_saved_trip_card_subfields(data.travelling_from_city, data.travelling_from_country_code, data.departure_date,data.notes)
+    _create_saved_trip_card(id, data) {
+        const vote_down_button_html = this._createVoteDownHtml(id)
+        const vote_up_button_html = this._createVoteUpHtml(id)
+        const subfields_html = this._create_saved_trip_card_subfields(data.travelling_from_city, data.travelling_from_country_code, data.departure_date,data.notes)
 
         return `
         <div class="col-md-6 col-lg-4">
@@ -197,9 +197,9 @@ export class HtmlBuilder {
 
     createResults(city_name, country_code, weather, pictures, date, departure_city_name) {
     
-        let carousel_inner_innerHTML = this.get_carousel(pictures);
-        let week_weather_forecast_innerHTML = this.get_weather(weather, date);
-        let departure_innerHTML = this.get_departure(departure_city_name, date, Client.user_date_scheme)
+        let carousel_inner_innerHTML = this._get_carousel(pictures);
+        let week_weather_forecast_innerHTML = this._get_weather(weather, date);
+        let departure_innerHTML = this._get_departure(departure_city_name, date, Client.user_date_scheme)
     
         return `
         <div class="card">
@@ -265,7 +265,7 @@ export class HtmlBuilder {
             const id = savedTripsScheme.get_id(trip)
             const data = savedTripsScheme.get_data(trip)
     
-            saved_trips_section += this.create_saved_trip_card(id, data)       
+            saved_trips_section += this._create_saved_trip_card(id, data)       
         }
     
         saved_trips_section += `
