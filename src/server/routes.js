@@ -144,19 +144,12 @@ router.get('/clear_saved_trips', async function (req, res) {
 
 router.get('/test', async function (req, res) {
     const skyscanner = new skyscannerApi()
-    const placeFrom = await skyscanner.getPlace("london")
-    console.log(placeFrom)
-
-    const placeTo = await skyscanner.getPlace("paris")
-    console.log(placeTo)
-    let datePrices = []
-    for (let i = 1; i <= 12; i++) {
-        const month = i.toString().padStart(2, '0')
-        const date = `2021-${month}`
-        const price = await skyscanner.getQuote(placeFrom.placeId, placeTo.placeId, date)
-        datePrices += {"date": date, "price": price}
-    }
-    console.log(datePrices)
+    const results = await skyscanner.getAnnualFlightPrices("london", "paris")
+    
+    console.log(results)
+    console.log(results.placeFrom.name)
+    console.log(results.placeTo.name)
+    console.log(results.datePrice[0].price)
 
     res.sendStatus(200)
 })
