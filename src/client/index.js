@@ -18,14 +18,12 @@ document.addEventListener('DOMContentLoaded', async function(event) {
 });
 
 document.addEventListener('submit', function(e) {
-    console.log("submit fired")
     if(e.target && e.target.id == 'entry-form'){
         Client.search(e, document)
     }
 
     if(e.target && e.target.id == 'save-user'){
         e.preventDefault()
-        console.log("user save fired")
         Client.save(e, document)
     }
 });

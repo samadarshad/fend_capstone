@@ -1,7 +1,6 @@
 export async function search (event, document) {
     try {
         event.preventDefault()
-        console.log("date input:", event.target['date-input'].value)
         const jsonMessage = new Client.requestMessageScheme().getJson(
             event.target['destination-input'].value, 
             event.target['travelling-from-input'].value, 
@@ -50,7 +49,6 @@ export async function save (event, document) {
         )
 
         const response = await Client.saveForm(jsonMessage)
-        console.log(response)
 
         const savedTrips = await Client.getSavedTrips()        
         await Client.updateSavedTrips(savedTrips, document);

@@ -1,7 +1,6 @@
 import { parse } from 'date-fns'
 
 export function showSpinner() {
-    console.log("showing spinner")
     const results_section = document.getElementById('results')
     results_section.innerHTML = `
     <div class="d-flex justify-content-center">
@@ -50,8 +49,6 @@ export async function updateUI(response, input, document) {
         flightprices.innerHTML = htmlBuilder.createFlightPricesError()
     }
   
-    console.log("rendered")
-
 }
 
 export async function updateSavedTrips(data, document) {
