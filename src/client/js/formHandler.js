@@ -102,8 +102,8 @@ export async function viewTrip(trip_id) {
     }
 
     const jsonMessage = new Client.requestMessageScheme().getJson(
-        `${storeDataSchemeClass.get_city_name(tripData)} ${storeDataSchemeClass.get_country_code(tripData)}`,
-        travelling_from,
+        storeDataSchemeClass.get_city_name(tripData),
+        storeDataSchemeClass.get_travelling_from_city(tripData),
         storeDataSchemeClass.get_date(tripData)
         )
     const response = await Client.sendForm(jsonMessage)
