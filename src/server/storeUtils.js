@@ -1,6 +1,8 @@
 class StoreUtils {
+
     constructor(store) {
         this.store = store
+        this.store_counter = 0;
     }
     append = function (object) {
         const newId = this.generateId()
@@ -9,15 +11,14 @@ class StoreUtils {
     }
 
     generateId = function () {
-        //find the biggest key in this.store, return the next value
-        const arrayKeys = this.store.keys();
-        if (arrayKeys.length == 0) {
-            return 0;
-        }
-        
-        let maxValue = Math.max(...arrayKeys)       
-        return maxValue + 1
+        return this.store_counter++
     }
+
+    reset = function () {
+        this.store(false)
+        this.store_counter = 0
+    }
+
 }
 
 module.exports = StoreUtils

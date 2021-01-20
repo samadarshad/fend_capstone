@@ -6,7 +6,7 @@ const storeScheme = new storeSchemeClass()
 
 describe('store', () => {
     afterEach(() => {
-        store(false)
+        storeUtils.reset()
     });
 
     it('when add item to store then it should show in list', done => {
