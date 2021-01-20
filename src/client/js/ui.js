@@ -14,23 +14,32 @@ export async function updateUI(response, input, document) {
     const results_section = document.getElementById('results')
     results_section.innerHTML = resultsHtml;
 
+    const flightprices = responseMessageScheme.get_flightprices(response)
+    if (flightprices) {
+        const prices = flightprices.datePrice.map(dateprice => dateprice.price)
+        const dates = flightprices.datePrice.map(dateprice => dateprice.date)
+        console.log(prices)
+        console.log(dates)
 
-    var options = {
-        chart: {
-            type: 'line'
-        },
-        series: [{
-            name: 'sales',
-            data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
-        }],
-        xaxis: {
-            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+        var options = {
+            chart: {
+                type: 'line'
+            },
+            series: [{
+                name: '£ GBP',
+                data: prices
+            }],
+            xaxis: {
+                categories: dates
+            }
         }
+        
+        var chart = new ApexCharts(document.getElementById("chart"), options);
+        
+        chart.render();
     }
-    
-    var chart = new ApexCharts(document.getElementById("chart"), options);
-    
-    chart.render();
+  
+
     console.log("rendered")
 
 }

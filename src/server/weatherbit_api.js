@@ -5,6 +5,7 @@ const base_url = `http://api.weatherbit.io/v2.0/forecast/daily`//process.env.GEO
 
 const requests = require('./server-side-requests');
 const weatherMessageScheme = require('../shared/weatherMessageScheme');
+const weatherMessage = new weatherMessageScheme();
 
 class weatherbitApi {
     getJson = function (name, countryCode, weatherForecast) {
@@ -39,7 +40,7 @@ class weatherbitApi {
         if (response === undefined) {
             return Promise.reject(new Error(404));
         }
-        const weatherMessage = new weatherMessageScheme();
+        
         const weatherForecast = response.data.map(day => weatherMessage.getJsonWeatherForecast(day.valid_date, day.temp, day.weather.icon, day.weather.description))
         const weather = this.getJson(
             response.city_name,

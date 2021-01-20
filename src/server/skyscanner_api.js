@@ -5,39 +5,10 @@ const x_rapidapi_host = 'skyscanner-skyscanner-flight-search-v1.p.rapidapi.com'
 const base_url = `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices`//process.env.GEONAMES_API_ENDPOINT;
 
 const requests = require('./server-side-requests');
+const flightPricesMessageScheme = require('../shared/flightPricesMessageScheme.js');
+const flightPricesMessage = new flightPricesMessageScheme();
 
-class skyscannerApi {
-    getJsonSkyscanner = function (placeFrom, placeTo, dateprice) {
-        return {
-            "placeFrom": placeFrom,
-            "placeTo": placeTo,
-            "datePrice": dateprice
-        }
-    }
-    getJsonDatePrice = function (date, price) {
-        return {
-                'date': date,
-                'price': price
-        }
-    }
-
-    getJsonPlace = function (name, country, placeId) {
-        return {
-                'name': name,
-                'country': country,
-                'placeId': placeId
-        }
-    }
-
-   get_name = function (jsonData) {
-       return jsonData.name
-   }  
-   get_country = function (jsonData) {
-       return jsonData.country
-   }
-   get_placeId = function (jsonData) {
-       return jsonData.placeId
-   }
+class skyscannerApi {   
 
     getQuote = async function (from_place_id, to_place_id, date) { 
         const quotes = await this._getQuotes(from_place_id, to_place_id, date);
@@ -50,7 +21,7 @@ class skyscannerApi {
 
     getPlace = async function (place_query) { 
         const places = await this._getPlacesId(place_query);
-        const place = this.getJsonPlace(
+        const place = flightPricesMessage.getJsonPlace(
             places.Places[0].PlaceName,
             places.Places[0].CountryName, 
             places.Places[0].PlaceId
@@ -68,6 +39,7 @@ class skyscannerApi {
             'x-rapidapi-host': x_rapidapi_host
         }
         const response = await requests.getData(url, headers);        
+        console.log("_getPlacesId", response)
         if (response === undefined) {
             return Promise.reject(new Error(404));
         }
@@ -95,9 +67,9 @@ class skyscannerApi {
             const month = i.toString().padStart(2, '0')
             const date = `2021-${month}`
             const price = await this.getQuote(placeFrom.placeId, placeTo.placeId, date)
-            datePrices.push(this.getJsonDatePrice(date, price))
+            datePrices.push(flightPricesMessage.getJsonDatePrice(date, price))
         }
-        return this.getJsonSkyscanner(placeFrom, placeTo, datePrices)
+        return flightPricesMessage.getJsonSkyscanner(placeFrom, placeTo, datePrices)
     }
 }
 

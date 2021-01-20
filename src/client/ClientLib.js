@@ -5,6 +5,7 @@ import { setFetch, getFetch } from './js/client-side-requests'
 import requestMessageScheme from 'Shared/requestMessageScheme.js'
 import pictureMessageScheme from 'Shared/pictureMessageScheme.js'
 import weatherMessageScheme from 'Shared/weatherMessageScheme.js'
+import flightPricesMessageScheme from 'Shared/flightPricesMessageScheme.js'
 import responseMessageScheme from 'Shared/responseMessageScheme.js'
 import storeDataScheme from 'Shared/storeDataScheme.js'
 import storeScheme from 'Shared/storeScheme.js'
@@ -39,6 +40,7 @@ export {
     responseMessageScheme,
     pictureMessageScheme,
     weatherMessageScheme,
+    flightPricesMessageScheme,
     storeDataScheme,
     storeScheme,
     patchSavedTripsScheme,
