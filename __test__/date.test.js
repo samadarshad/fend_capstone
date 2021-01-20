@@ -2,7 +2,8 @@ import { compareAsc, parse } from 'date-fns'
 const weatherSchemeClass = require('../src/shared/weatherMessageScheme.js')
 const weatherDateScheme = new weatherSchemeClass().get_weather_date_scheme
 global.Client = require('../dist/lib/ClientLib')
-const userDateScheme = new Client.ui.user_date_scheme()
+const dateScheme = new Client.dateScheme()
+const userDateScheme = dateScheme.user_date_scheme
 
 describe('compare dates', () => {
     it('compare dates of same format', done => {

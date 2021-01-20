@@ -3,6 +3,7 @@ const MockAcapter = require('axios-mock-adapter');
 const mock = new MockAcapter(axios);
 
 global.Client = require('../dist/lib/ClientLib')
+const userActions = new Client.UserActions()
 
 describe('formHandler', () => {
     it('when sendForm then expect /api/search to be called', async done => {
@@ -11,7 +12,7 @@ describe('formHandler', () => {
         })
         Client.setFetch(axios)
 
-        const res = await Client.sendForm("Hello")
+        const res = await userActions._sendForm("Hello")
 
         expect(mock.history.post.length).toBe(1)
         expect(mock.history.post[0].url).toBe('/api/search')
