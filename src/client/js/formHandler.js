@@ -92,10 +92,18 @@ export async function vote(change, trip_id) {
 export async function viewTrip(trip_id) {
     const requests = new Client.requestsServiceClass(Client.getFetch());
     const tripData = await requests.getData(`/api/saved_trips/${trip_id}`);
-    const storeDataSchemeClass = new Client.storeDataScheme()    
+    const storeDataSchemeClass = new Client.storeDataScheme()
+    let travelling_from = '';
+    if (storeDataSchemeClass.get_travelling_from_city(tripData)) {
+        travelling_from += `${storeDataSchemeClass.get_travelling_from_city(tripData)}`
+    }
+    if (storeDataSchemeClass.get_travelling_from_country_code(tripData)) {
+        travelling_from += `${storeDataSchemeClass.get_travelling_from_country_code(tripData)}`
+    }
+
     const jsonMessage = new Client.requestMessageScheme().getJson(
         `${storeDataSchemeClass.get_city_name(tripData)} ${storeDataSchemeClass.get_country_code(tripData)}`,
-        `${storeDataSchemeClass.get_travelling_from_city(tripData)} ${storeDataSchemeClass.get_travelling_from_country_code(tripData)}`, 
+        travelling_from,
         storeDataSchemeClass.get_date(tripData)
         )
     const response = await Client.sendForm(jsonMessage)
