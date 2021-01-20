@@ -9,7 +9,6 @@ export class HtmlBuilder {
         if (!isValid(date_standard)) {
             return ''
         }
-        // return `, on <span id="departure_date">${new Date(date_standard).toLocaleDateString(undefined,  { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>`
         return `<span id="departure_date">${new Date(date_standard).toLocaleDateString(undefined,  { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>`
    }
 
@@ -126,6 +125,59 @@ export class HtmlBuilder {
         }
         return week_weather_forecast_innerHTML
    }
+
+   createVoteDownHtml(id) {
+    if (localStorage.getItem(id) != null && localStorage.getItem(id) == -1) {
+        return `<button type="button" class="unstyled-button" onClick="Client.vote(1, ${id})"><i class="fa fa-angle-down greyed-out" aria-hidden="true"></i></button>`
+    }
+        return `<button type="button" class="unstyled-button" onClick="Client.vote(-1, ${id})"><i class="fa fa-angle-down" aria-hidden="true"></i></button>`
+    }
+
+    createVoteUpHtml(id) {
+        if (localStorage.getItem(id) != null && localStorage.getItem(id) == 1) {
+            return `<button type="button" class="unstyled-button" onClick="Client.vote(-1, ${id})"><i class="fa fa-angle-up greyed-out" aria-hidden="true"></i></button>`
+        }
+    
+        return `<button type="button" class="unstyled-button" onClick="Client.vote(1, ${id})"><i class="fa fa-angle-up" aria-hidden="true"></i></button>`
+    }
+
+    create_saved_trip_card(id, data) {
+        const vote_down_button_html = this.createVoteDownHtml(id)
+        const vote_up_button_html = this.createVoteUpHtml(id)
+
+        return `
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-1 card-votes">
+                            ${vote_up_button_html}
+                            <br>
+                            <span class="vote-number">${data.votes}</span>
+                            <br>
+                            ${vote_down_button_html}
+                        </div>
+                        <div class="col-9 card-text">
+                            <h4 class="card-title">${data.city_name}, ${data.country_code}</h4>
+                            <p class="card-text">From ${data.travelling_from_city}, ${data.travelling_from_country_code}</p>
+                            <p class="card-text">${data.departure_date}</p>
+                            <p class="card-text">${data.notes}</p>
+
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" onClick="Client.viewTrip(${id})">View</button>
+                            <button type="button" class="btn btn-sm btn-danger" onClick="Client.deleteTrip(${id})">Delete</button>
+                        </div>
+                        <small class="text-muted pl-2">Added ${formatDistance(parseISO(data.date_added), new Date())} ago</small>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        `
+    }
 }; 
 
 export function createResults(city_name, country_code, weather, pictures, date, departure_city_name) {
@@ -186,23 +238,8 @@ export function createResults(city_name, country_code, weather, pictures, date, 
     `
 }
 
-export function createVoteUpHtml(id) {
-    if (localStorage.getItem(id) != null && localStorage.getItem(id) == 1) {
-        return `<button type="button" class="unstyled-button" onClick="Client.vote(-1, ${id})"><i class="fa fa-angle-up greyed-out" aria-hidden="true"></i></button>`
-    }
-
-    return `<button type="button" class="unstyled-button" onClick="Client.vote(1, ${id})"><i class="fa fa-angle-up" aria-hidden="true"></i></button>`
-}
-
-export function createVoteDownHtml(id) {
-    if (localStorage.getItem(id) != null && localStorage.getItem(id) == -1) {
-        return `<button type="button" class="unstyled-button" onClick="Client.vote(1, ${id})"><i class="fa fa-angle-down greyed-out" aria-hidden="true"></i></button>`
-    }
-
-    return `<button type="button" class="unstyled-button" onClick="Client.vote(-1, ${id})"><i class="fa fa-angle-down" aria-hidden="true"></i></button>`
-}
-
 export function createSavedTrips(savedTrips) {
+    const htmlbuilder = new Client.HtmlBuilder()
     
     let saved_trips_section = `
     <div class="container-fluid">
@@ -215,38 +252,8 @@ export function createSavedTrips(savedTrips) {
     for (const trip of orderedSavedTrips) {
         const id = savedTripsScheme.get_id(trip)
         const data = savedTripsScheme.get_data(trip)
-        saved_trips_section += `
-        <div class="col-md-6 col-lg-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-1 card-votes">
-                            ${Client.createVoteUpHtml(id)}
-                            <br>
-                            <span class="vote-number">${data.votes}</span>
-                            <br>
-                            ${Client.createVoteDownHtml(id)}
-                        </div>
-                        <div class="col-9 card-text">
-                            <h4 class="card-title">${data.city_name}, ${data.country_code}</h4>
-                            <p class="card-text">From ${data.travelling_from_city}, ${data.travelling_from_country_code}</p>
-                            <p class="card-text">${data.departure_date}</p>
-                            <p class="card-text">${data.notes}</p>
 
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-outline-secondary" onClick="Client.viewTrip(${id})">View</button>
-                            <button type="button" class="btn btn-sm btn-danger" onClick="Client.deleteTrip(${id})">Delete</button>
-                        </div>
-                        <small class="text-muted pl-2">Added ${formatDistance(parseISO(data.date_added), new Date())} ago</small>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        `
+        saved_trips_section += htmlbuilder.create_saved_trip_card(id, data)       
     }
 
     saved_trips_section += `
