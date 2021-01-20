@@ -24,7 +24,6 @@ export class ui {
 
     scrollToSavedTrips() {
         const section = this.document.getElementById('saved-trips')
-        console.log(section)
         this._scrollToElement(section, 0);
     }
 
@@ -97,7 +96,6 @@ export class ui {
 
     updateSavedTrips = async function(data) {
         const saved_trips_section = this.document.getElementById('saved-trips')
-        console.log(data)
         if (data.length == 0) {
             console.log("resetting localStorage")
             localStorage.clear()
