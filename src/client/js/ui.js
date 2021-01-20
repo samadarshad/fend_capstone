@@ -21,6 +21,13 @@ export class ui {
         this._scrollToElement(results_section, 0);
     }
 
+    scrollToSavedTrips() {
+        const section = this.document.getElementById('saved-trips')
+        console.log(section)
+        this._scrollToElement(section, 0);
+    }
+
+
     showSpinner() {
         const results_section = this.document.getElementById('results')
         results_section.innerHTML = `
@@ -56,7 +63,6 @@ export class ui {
 
     updateUI = async function(response) {    
         const responseMessageScheme = new Client.responseMessageScheme()
-        // const requestMessageScheme = new Client.requestMessageScheme()
         const htmlBuilder = new Client.HtmlBuilder()
         console.log("city_name", responseMessageScheme.get_city_name(response))
         console.log("dep date", response.departureDate)
