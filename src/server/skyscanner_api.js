@@ -11,11 +11,12 @@ const flightPricesMessage = new flightPricesMessageScheme();
 class skyscannerApi {   
 
     getQuote = async function (from_place_id, to_place_id, date) { 
-        const quotes = await this._getQuotes(from_place_id, to_place_id, date);
-        const quote = quotes.Quotes[0].MinPrice
-        if (quote === undefined) {
-            return Promise.reject(new Error(404));
+        const quotes = await this._getQuotes(from_place_id, to_place_id, date);        
+        if (quotes.Quotes[0] === undefined) {
+            console.log("No results for", from_place_id, to_place_id, date)
+            return null;
         }
+        const quote = quotes.Quotes[0].MinPrice
         return quote;
     }
 
