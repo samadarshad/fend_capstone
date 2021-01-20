@@ -1,4 +1,4 @@
-import { search, sendForm, save, saveForm, getSavedTrips, vote, deleteTrip, viewTrip } from './js/formHandler'
+import { search, save, vote, deleteTrip, viewTrip } from './js/formHandler'
 import { ui } from './js/ui'
 import { UserActions } from './js/userActions.js'
 import requestsServiceClass from 'Shared/requests.js'
@@ -29,9 +29,6 @@ export {
     ui,
     UserActions,
     
-    sendForm,
-    saveForm,
-    getSavedTrips,
     vote,
     deleteTrip,
     viewTrip,

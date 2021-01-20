@@ -11,16 +11,16 @@ import ApexCharts from 'apexcharts'
 
 import axios from 'axios';
 Client.setFetch(axios)
-
+const ui = new Client.ui(document)
+const userActions = new Client.UserActions()
 document.addEventListener('DOMContentLoaded', async function(event) {
-    const savedTrips = await Client.getSavedTrips()
-    const ui = new Client.ui(document)
-    await ui.updateSavedTrips(savedTrips);
-
     $('#input-group-datepicker').datepicker({
         todayBtn: "linked",
         todayHighlight: true
     });
+
+    const savedTrips = await userActions.getSavedTrips()
+    await ui.updateSavedTrips(savedTrips);
 });
 
 document.addEventListener('submit', function(e) {

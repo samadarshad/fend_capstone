@@ -3,7 +3,7 @@
 export async function search (event, document) {
     event.preventDefault()
     const ui = new Client.ui(document)
-    const userActions = new Client.UserActions(document) 
+    const userActions = new Client.UserActions() 
     try {
         ui.showSpinner();        
         ui.scrollToResults();
@@ -14,12 +14,6 @@ export async function search (event, document) {
         ui.clearResults();
         console.log("search error", error);
     }
-}
-
-export async function sendForm(jsonMessage) {
-    const requests = new Client.requestsServiceClass(Client.getFetch());
-    const res = await requests.postData(`/api/search`, jsonMessage);
-    return res
 }
 
 export async function save (event, document) {
@@ -39,8 +33,6 @@ export async function save (event, document) {
         const user_input_notes = getValueOfNull(document.getElementById("user-input-notes"), 'value')
         const date_added = new Date()
         const votes = 0;
-
-        console.log("save date", departure_date)
         
         const jsonMessage = new Client.storeDataScheme().getJson(
             city_name,
@@ -63,36 +55,20 @@ export async function save (event, document) {
     }
 }
 
-export async function saveForm(jsonMessage) {
-    const requests = new Client.requestsServiceClass(Client.getFetch());
-    const res = await requests.postData(`/api/saved_trips`, jsonMessage);
-    return res
-}
 
-export async function getSavedTrips() {
-    const requests = new Client.requestsServiceClass(Client.getFetch());
-    const res = await requests.getData(`/api/saved_trips`);    
-    return res
-}
+// export async function getSavedTrips() {
+//     const requests = new Client.requestsServiceClass(Client.getFetch());
+//     const res = await requests.getData(`/api/saved_trips`);    
+//     return res
+// }
 
 export async function vote(change, trip_id) {
-    let newVal = change
-    if (localStorage.getItem(trip_id) != null) {
-        newVal = parseInt(localStorage.getItem(trip_id)) + parseInt(change)
-    }
-    localStorage.setItem(trip_id, newVal)
-    if (parseInt(localStorage.getItem(trip_id)) == 0) {
-        localStorage.removeItem(trip_id)
-    }
-
-    const requests = new Client.requestsServiceClass(Client.getFetch());
-    const jsonMessage = new Client.patchSavedTripsScheme().getJson(change)
-    const res = await requests.postData(`/api/saved_trips/${trip_id}`, jsonMessage);
+    const userActions = new Client.UserActions() 
+    await userActions.vote(change, trip_id)  
     
-    const savedTrips = await Client.getSavedTrips()    
+    const savedTrips = await userActions.getSavedTrips()    
     const ui = new Client.ui(document)      
-    await ui.updateSavedTrips(savedTrips);    
-    return res
+    await ui.updateSavedTrips(savedTrips);
 }
 
 export async function viewTrip(trip_id) {    
