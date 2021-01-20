@@ -1,5 +1,5 @@
 import { search, sendForm, save, saveForm, getSavedTrips, vote, deleteTrip, viewTrip } from './js/formHandler'
-import { updateUI, updateSavedTrips, user_date_scheme, user_date_scheme_locale, showSpinner, showToastTripSaved } from './js/ui'
+import { ui } from './js/ui'
 import requestsServiceClass from 'Shared/requests.js'
 import { setFetch, getFetch } from './js/client-side-requests'
 import requestMessageScheme from 'Shared/requestMessageScheme.js'
@@ -23,12 +23,8 @@ const weatherIcons = importAll(require.context('./views/weatherIcons/', false, /
 export {
     search,
     save,
-    updateUI,
-    updateSavedTrips,
-    user_date_scheme,
-    user_date_scheme_locale,
-    showSpinner,
-    showToastTripSaved,
+    
+    ui,
     
     sendForm,
     saveForm,

@@ -1,6 +1,7 @@
 import { formatDistance, parse, parseISO, compareAsc, isValid } from 'date-fns'
 
 export class HtmlBuilder {
+    
     _get_departureDate = function (date, date_scheme) {
         if (!date)  {
             return ''
@@ -9,7 +10,8 @@ export class HtmlBuilder {
         if (!isValid(date_standard)) {
             return ''
         }
-        return `<span id="departure_date">${new Date(date_standard).toLocaleDateString(Client.user_date_scheme_locale,  { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>`
+        const ui = new Client.ui()  
+        return `<span id="departure_date">${new Date(date_standard).toLocaleDateString(ui.user_date_scheme_locale,  { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>`
    }
 
    _get_departureCity = function (departure_city_name, departure_countryName) {
@@ -69,8 +71,9 @@ export class HtmlBuilder {
    }
 
    _get_weather_day_html(dayDate, dayTempC, dayWeatherIcon, dayWeatherDescription) {
-        const shortDate = new Date(dayDate).toLocaleDateString(Client.user_date_scheme_locale,  { weekday: 'short' })
-        const shortDateNum = new Date(dayDate).toLocaleDateString(Client.user_date_scheme_locale,  {day: 'numeric' })
+        const ui = new Client.ui()  
+        const shortDate = new Date(dayDate).toLocaleDateString(ui.user_date_scheme_locale,  { weekday: 'short' })
+        const shortDateNum = new Date(dayDate).toLocaleDateString(ui.user_date_scheme_locale,  {day: 'numeric' })
 
         const weatherIcon = Client.weatherIcons[`${dayWeatherIcon}.png`]
 
@@ -85,7 +88,8 @@ export class HtmlBuilder {
    }
 
    _get_weather(weather, user_date) {
-        const user_date_standard = parse(user_date, Client.user_date_scheme, new Date())
+        const ui = new Client.ui()  
+        const user_date_standard = parse(user_date, ui.user_date_scheme, new Date())
         const weatherMessage = new Client.weatherMessageScheme()
 
         let weekly_weather_innerHTML = '';
@@ -197,10 +201,10 @@ export class HtmlBuilder {
     }
 
     createResults(city_name, countryName, weather, pictures, date, departure_city_name) {
-    
+        const ui = new Client.ui()  
         let carousel_inner_innerHTML = this._get_carousel(pictures);
         let week_weather_forecast_innerHTML = this._get_weather(weather, date);
-        let departure_innerHTML = this._get_departure(departure_city_name, date, Client.user_date_scheme)
+        let departure_innerHTML = this._get_departure(departure_city_name, date, ui.user_date_scheme)
     
         return `
         <div class="card">
