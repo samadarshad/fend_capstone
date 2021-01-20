@@ -53,7 +53,7 @@ router.post('/search', async function (req, res) {
         const travelling_from = requestMessage.get_travelling_from(input);
         let skyscannerResults = ''
         if (travelling_from) {
-            skyscannerResults = await skyscanner.getAnnualFlightPrices(travelling_from, weatherbit.get_name(weatherData))
+            skyscannerResults = await skyscanner.getAnnualFlightPrices(travelling_from, destination)
         }        
 
         const response = responseMessage.getJson(

@@ -21,25 +21,25 @@ class skyscannerApi {
 
     getPlace = async function (place_query) { 
         const places = await this._getPlacesId(place_query);
+        if (places.Places[0] === undefined) {
+            console.log("No results for", place_query)
+            return '';
+        }
         const place = flightPricesMessage.getJsonPlace(
             places.Places[0].PlaceName,
             places.Places[0].CountryName, 
             places.Places[0].PlaceId
         )
-        if (place === undefined) {
-            return Promise.reject(new Error(404));
-        }
         return place;
     }
 
     _getPlacesId = async function (place_query) {
-        const url = `${base_url}/autosuggest/v1.0/GB/GBP/en-GB/?query=${place_query}`
+        const url = `${base_url}/autosuggest/v1.0/UK/GBP/en-GB/?query=${place_query}`
         const headers = {
             'x-rapidapi-key': x_rapidapi_key,
             'x-rapidapi-host': x_rapidapi_host
         }
-        const response = await requests.getData(url, headers);        
-        console.log("_getPlacesId", response)
+        const response = await requests.getData(url, headers);
         if (response === undefined) {
             return Promise.reject(new Error(404));
         }
@@ -47,7 +47,7 @@ class skyscannerApi {
     }
 
     _getQuotes = async function (from_place_id, to_place_id, date) {
-        const url = `${base_url}/browsequotes/v1.0/GB/GBP/en-GB/${from_place_id}/${to_place_id}/${date}`
+        const url = `${base_url}/browsequotes/v1.0/UK/GBP/en-GB/${from_place_id}/${to_place_id}/${date}`
         const headers = {
             'x-rapidapi-key': x_rapidapi_key,
             'x-rapidapi-host': x_rapidapi_host
@@ -60,8 +60,11 @@ class skyscannerApi {
     }
 
     getAnnualFlightPrices = async function (from_query, to_query) {
-        const placeFrom = await this.getPlace(from_query)    
+        const placeFrom = await this.getPlace(from_query)  
         const placeTo = await this.getPlace(to_query)
+        if (!placeFrom || !placeTo) {
+            return ''
+        }
         let datePrices = []
         for (let i = 1; i <= 12; i++) {
             const month = i.toString().padStart(2, '0')
