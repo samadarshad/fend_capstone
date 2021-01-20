@@ -3,6 +3,7 @@ import { parse } from 'date-fns'
 export class ui {
     constructor(document) {
         this.document = document
+        this.htmlBuilder = new Client.HtmlBuilder()
     }
 
     _scrollToElement(element, offset) {
@@ -61,16 +62,12 @@ export class ui {
         results_section.innerHTML = '';
     }
 
-    updateUI = async function(response) {    
-        const responseMessageScheme = new Client.responseMessageScheme()
-        const htmlBuilder = new Client.HtmlBuilder()
-        console.log("city_name", responseMessageScheme.get_city_name(response))
-        console.log("dep date", response.departureDate)
-        const resultsHtml = htmlBuilder.createResults(
-            responseMessageScheme.get_city_name(response),
-            responseMessageScheme.get_countryName(response),
-            responseMessageScheme.get_weather_forecast(response),
-            responseMessageScheme.get_pictures(response),
+    updateUI = async function(response) {
+        const resultsHtml = this.htmlBuilder.createResults(
+            response.city_name,
+            response.countryName,
+            response.weather_forecast,
+            response.pictures,
             response.departureDate,
             response.city_from
             )
@@ -79,7 +76,7 @@ export class ui {
     
         const chartBuilder = new Client.ChartBuilder()
     
-        const flightprices = responseMessageScheme.get_flightprices(response)
+        const flightprices = response.flightprices
         const flightPricesMessage = new Client.flightPricesMessageScheme()
     
         if (flightprices) {
@@ -93,7 +90,7 @@ export class ui {
         } else {
             console.log("no flight prices")
             const flightprices = this.document.getElementById('flightprices')
-            flightprices.innerHTML = htmlBuilder.createFlightPricesError()
+            flightprices.innerHTML = this.htmlBuilder.createFlightPricesError()
         }
       
     }
@@ -105,8 +102,7 @@ export class ui {
             console.log("resetting localStorage")
             localStorage.clear()
         }
-        const htmlBuilder = new Client.HtmlBuilder()
-        saved_trips_section.innerHTML = htmlBuilder.createSavedTrips(data);
+        saved_trips_section.innerHTML = this.htmlBuilder.createSavedTrips(data);
     }
 
 }

@@ -11,9 +11,7 @@ export class ChartBuilder {
                 name: 'Temperature °C',
                 type: 'column',
                 data: climate
-              }],
-    
-    
+              }],  
                 chart: {
                 height: 350,
                 type: 'line',
@@ -35,7 +33,6 @@ export class ChartBuilder {
                 title: {
                   text: 'Flight Prices £GBP',
                 },
-              
               }, {
                 opposite: true,
                 title: {
@@ -43,7 +40,7 @@ export class ChartBuilder {
                 }
               }]
               }
-        } else if(climate) {
+        } else if (climate) {
             options =  {
                 chart: {
                     type: 'column'
@@ -56,7 +53,7 @@ export class ChartBuilder {
                     categories: dates
                 }
             }
-        } else if(prices) {
+        } else if (prices) {
             options =  {
                 chart: {
                     type: 'line'
@@ -70,10 +67,7 @@ export class ChartBuilder {
                 }
             }
         }
-
+        
         return options
     }
-
-
-
 }; 
