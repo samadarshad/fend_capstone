@@ -10,6 +10,8 @@ const pixabay = new pixabayApi()
 const NUM_PICTURES = 3
 const skyscannerApi = require('./skyscanner_api.js')
 const skyscanner = new skyscannerApi()
+const openweatherApi = require('./openweathermap_api.js')
+const openweather = new openweatherApi()
 
 const requestMessageScheme = require('../shared/requestMessageScheme');
 const requestMessage = new requestMessageScheme();
@@ -155,7 +157,7 @@ router.get('/clear_saved_trips', async function (req, res) {
     }    
 })
 
-router.get('/test', async function (req, res) {
+router.get('/testskyscanner', async function (req, res) {
     const skyscanner = new skyscannerApi()
     const results = await skyscanner.getAnnualFlightPrices("london", "paris")
     
@@ -163,6 +165,14 @@ router.get('/test', async function (req, res) {
     console.log(results.placeFrom.name)
     console.log(results.placeTo.name)
     console.log(results.datePrice[0].price)
+
+    res.sendStatus(200)
+})
+
+router.get('/testopenweather', async function (req, res) {
+    const results = await openweather.getTemperature("london", "GB", 1)
+    
+    console.log(results)
 
     res.sendStatus(200)
 })
