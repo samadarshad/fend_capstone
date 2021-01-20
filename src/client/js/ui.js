@@ -68,7 +68,8 @@ export class ui {
             response.weather_forecast,
             response.pictures,
             response.departureDate,
-            response.city_from
+            response.city_from,
+            response.countryName_from
             )
         const results_section = this.document.getElementById('results')
         results_section.innerHTML = resultsHtml;

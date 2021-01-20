@@ -14,11 +14,7 @@ export class HtmlBuilder {
         return `<span id="departure_date">${new Date(date_standard).toLocaleDateString(dateScheme.user_date_scheme_locale,  { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>`
    }
 
-   _get_departureCity = function (departure_city_name, departure_countryName) {
-        return `<span id="from_city_name">${departure_city_name}</span>, <span id="from_countryName">${departure_countryName}</span>`
-   }
-
-   _get_departure = function (departure_city_name, date, date_scheme) {
+   _get_departure = function (departure_city_name, departure_country_name, date, date_scheme) {
     const departureDateHtml = this._get_departureDate(date, date_scheme)   
     let departureHtml = ''
        if (departure_city_name || departureDateHtml) {
@@ -29,6 +25,9 @@ export class HtmlBuilder {
 
        if (departure_city_name) {
         departureHtml += `from <span id="from_city_name">${departure_city_name}</span>`
+        if (departure_country_name) {
+            departureHtml += `, <span id="from_countryName"">${departure_country_name}</span>`
+        }
         if (departureDateHtml) {
             departureHtml += `, `        
            }
@@ -199,12 +198,12 @@ export class HtmlBuilder {
         `
     }
 
-    createResults(city_name, countryName, weather, pictures, date, departure_city_name) {
+    createResults(city_name, countryName, weather, pictures, date, departure_city_name, departure_country_name) {
         const dateScheme = new Client.dateScheme()
         
         let carousel_inner_innerHTML = this._get_carousel(pictures);
         let week_weather_forecast_innerHTML = this._get_weather(weather, date);
-        let departure_innerHTML = this._get_departure(departure_city_name, date, dateScheme.user_date_scheme)
+        let departure_innerHTML = this._get_departure(departure_city_name, departure_country_name, date, dateScheme.user_date_scheme)
     
         return `
         <div class="card">
