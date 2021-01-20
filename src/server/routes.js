@@ -2,16 +2,27 @@ const express = require('express');
 const router = express.Router();
 
 const geonamesApi = require('./geonames_api.js');
+const geonames = new geonamesApi()
 const weatherbitApi = require('./weatherbit_api.js');
+const weatherbit = new weatherbitApi()
 const pixabayApi = require('./pixabay_api.js');
+const pixabay = new pixabayApi()
+const NUM_PICTURES = 3
 const skyscannerApi = require('./skyscanner_api.js')
+const skyscanner = new skyscannerApi()
 
 const requestMessageScheme = require('../shared/requestMessageScheme');
+const requestMessage = new requestMessageScheme();
+
 const responseMessageScheme = require('../shared/responseMessageScheme');
+const responseMessage = new responseMessageScheme();
+
 const patchSavedTripsScheme = require('../shared/patchSavedTripsScheme');
 const savedTrips = require('./store.js')
 const storeUtilsClass = require('./storeUtils.js')
 const savedTripsUtils = new storeUtilsClass(savedTrips)
+
+
 
 const sanitizeHtml = require('sanitize-html');
 
@@ -28,28 +39,30 @@ router.post('/search', async function (req, res) {
         const input = req.body;
         console.log("Search term:", input)
 
-        const destination = new requestMessageScheme().get_destination(input);
-        const geonames = new geonamesApi()
+        const destination = requestMessage.get_destination(input);        
         const locationData = await geonames.getLocation(destination);
-
-        const weatherbit = new weatherbitApi()
+        
         const weatherData = await weatherbit.getWeather(
             geonames.get_lat(locationData), 
             geonames.get_lon(locationData)
             )
-
-        const pixabay = new pixabayApi()
+        
         const searchTerm = `${geonames.get_name(locationData)}`
-        const pictures = await pixabay.getPictures(searchTerm, 3)
+        const pictures = await pixabay.getPictures(searchTerm, NUM_PICTURES)
+        
+        const travelling_from = requestMessage.get_travelling_from(input);
+        let skyscannerResults = ''
+        if (travelling_from) {
+            skyscannerResults = await skyscanner.getAnnualFlightPrices(travelling_from, weatherbit.get_name(weatherData))
+        }        
 
-        const response = new responseMessageScheme().getJson(
+        const response = responseMessage.getJson(
             weatherbit.get_name(weatherData), 
             weatherbit.get_countryCode(weatherData),
             weatherbit.get_weatherForecast(weatherData),
-            pictures
+            pictures,
+            skyscannerResults
         )
-        
-        
         res.send(response)
 
     } catch (error) {
