@@ -53,8 +53,10 @@ router.post('/search', async function (req, res) {
 
         const travelling_from = requestMessage.get_travelling_from(input);
         let skyscannerResults = ''
+        let travellingFromlocationData = ''
         if (travelling_from) {
-            skyscannerResults = await skyscanner.getAnnualFlightPrices(travelling_from, destination)
+            travellingFromlocationData = await geonames.getLocation(travelling_from);
+            skyscannerResults = await skyscanner.getAnnualFlightPrices(travellingFromlocationData.name, locationData.name)
         }
 
         let searchTerm = destination
@@ -70,7 +72,10 @@ router.post('/search', async function (req, res) {
             geonames.get_countryName(locationData),
             weatherbit.get_weatherForecast(weatherData),
             pictures,
-            skyscannerResults
+            skyscannerResults,
+            geonames.get_name(travellingFromlocationData),
+            geonames.get_countryName(travellingFromlocationData),
+            requestMessage.get_date(input)
         )
         res.send(response)
 

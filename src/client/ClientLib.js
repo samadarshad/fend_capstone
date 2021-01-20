@@ -10,6 +10,7 @@ import flightPricesMessageScheme from 'Shared/flightPricesMessageScheme.js'
 import responseMessageScheme from 'Shared/responseMessageScheme.js'
 import storeDataScheme from 'Shared/storeDataScheme.js'
 import storeScheme from 'Shared/storeScheme.js'
+import dateScheme from 'Shared/dateScheme.js'
 import patchSavedTripsScheme from 'Shared/patchSavedTripsScheme.js'
 
 import { validate } from './js/validate-input'
@@ -46,6 +47,7 @@ export {
     storeDataScheme,
     storeScheme,
     patchSavedTripsScheme,
+    dateScheme,
     
     validate,
     

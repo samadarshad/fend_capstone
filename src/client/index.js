@@ -14,8 +14,8 @@ Client.setFetch(axios)
 
 document.addEventListener('DOMContentLoaded', async function(event) {
     const savedTrips = await Client.getSavedTrips()
-    const ui = new Client.ui()
-    await ui.updateSavedTrips(savedTrips, document);
+    const ui = new Client.ui(document)
+    await ui.updateSavedTrips(savedTrips);
 
     $('#input-group-datepicker').datepicker({
         todayBtn: "linked",
