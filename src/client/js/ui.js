@@ -9,6 +9,10 @@ export function showSpinner() {
     `
 }
 
+export function showToastTripSaved() {
+    $('.save-trip').toast('show')
+}
+
 export async function updateUI(response, input, document) {    
     const responseMessageScheme = new Client.responseMessageScheme()
     const requestMessageScheme = new Client.requestMessageScheme()

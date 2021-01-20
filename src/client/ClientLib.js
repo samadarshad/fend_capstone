@@ -1,5 +1,5 @@
 import { search, sendForm, save, saveForm, getSavedTrips, vote, deleteTrip, viewTrip } from './js/formHandler'
-import { updateUI, updateSavedTrips, user_date_scheme, showSpinner } from './js/ui'
+import { updateUI, updateSavedTrips, user_date_scheme, showSpinner, showToastTripSaved } from './js/ui'
 import requestsServiceClass from 'Shared/requests.js'
 import { setFetch, getFetch } from './js/client-side-requests'
 import requestMessageScheme from 'Shared/requestMessageScheme.js'
@@ -26,6 +26,7 @@ export {
     updateSavedTrips,
     user_date_scheme,
     showSpinner,
+    showToastTripSaved,
     
     sendForm,
     saveForm,

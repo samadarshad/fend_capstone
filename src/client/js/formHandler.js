@@ -54,6 +54,7 @@ export async function save (event, document) {
 
         const savedTrips = await Client.getSavedTrips()        
         await Client.updateSavedTrips(savedTrips, document);
+        Client.showToastTripSaved()
     } catch (error) {
         console.log("save error", error);
     }

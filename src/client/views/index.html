@@ -41,10 +41,8 @@
     </header>
 
 
-    <main>
 
- 
-          
+    <main>          
         <div class="entry">
             <div class="fixed-wrap">
                 <div id="fixed"></div>
@@ -53,7 +51,6 @@
                 <div class="row">
                     <div class="col-12">
                         <h1 class="fw-light">When is the best time to visit...</h1>
-
                     </div>
                     <form class="col-lg-6 col-md-8 col-sm-10 mx-auto" id="entry-form">
                         <div class="row">
@@ -96,7 +93,13 @@
         <div class="results py-4 container" id="results">           
         </div>
 
-        <br> 
+        <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" >
+            <div class="toast save-trip" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+            <div class="toast-body">
+                Trip saved.
+            </div>
+            </div>
+        </div>
         
         <div class="container">
             <div class="row text-center">
