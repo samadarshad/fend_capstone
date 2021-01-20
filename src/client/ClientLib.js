@@ -13,6 +13,7 @@ import patchSavedTripsScheme from 'Shared/patchSavedTripsScheme.js'
 
 import { validate } from './js/validate-input'
 import { HtmlBuilder } from './js/htmlBuilder.js'
+import { ChartBuilder } from './js/chartBuilder.js'
 
 import "regenerator-runtime/runtime";
 import { importAll } from './js/importImages.js'
@@ -50,6 +51,7 @@ export {
     validate,
     
     HtmlBuilder,
+    ChartBuilder,
 
     weatherIcons,
 

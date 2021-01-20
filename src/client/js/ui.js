@@ -29,28 +29,14 @@ export async function updateUI(response, input, document) {
     const results_section = document.getElementById('results')
     results_section.innerHTML = resultsHtml;
 
+    const chartBuilder = new Client.ChartBuilder()
+
     const flightprices = responseMessageScheme.get_flightprices(response)
     if (flightprices) {
         const prices = flightprices.datePrice.map(dateprice => dateprice.price)
         const dates = flightprices.datePrice.map(dateprice => dateprice.date)
-        console.log(prices)
-        console.log(dates)
-
-        var options = {
-            chart: {
-                type: 'line'
-            },
-            series: [{
-                name: '£ GBP',
-                data: prices
-            }],
-            xaxis: {
-                categories: dates
-            }
-        }
-        
-        var chart = new ApexCharts(document.getElementById("flightprices"), options);
-        
+        const options = chartBuilder.get_options(dates, prices, null)
+        const chart = new ApexCharts(document.getElementById("flightprices"), options);        
         chart.render();
     } else {
         console.log("no flight prices")
@@ -58,7 +44,6 @@ export async function updateUI(response, input, document) {
         flightprices.innerHTML = htmlBuilder.createFlightPricesError()
     }
   
-
     console.log("rendered")
 
 }

@@ -31,6 +31,9 @@ class flightPricesMessageScheme {
        return jsonData.placeId
    }
 
+   get_flight_date_scheme = 'yyyy-MM'
+
+
 }; 
 
 module.exports = flightPricesMessageScheme
