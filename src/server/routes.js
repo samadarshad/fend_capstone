@@ -4,6 +4,7 @@ const router = express.Router();
 const geonamesApi = require('./geonames_api.js');
 const weatherbitApi = require('./weatherbit_api.js');
 const pixabayApi = require('./pixabay_api.js');
+const skyscannerApi = require('./skyscanner_api.js')
 
 const requestMessageScheme = require('../shared/requestMessageScheme');
 const responseMessageScheme = require('../shared/responseMessageScheme');
@@ -26,7 +27,6 @@ router.post('/search', async function (req, res) {
     try {
         const input = req.body;
         console.log("Search term:", input)
-        // store.setItem('1', JSON.stringify(input))
 
         const destination = new requestMessageScheme().get_destination(input);
         const geonames = new geonamesApi()
@@ -141,5 +141,25 @@ router.get('/clear_saved_trips', async function (req, res) {
         sendErrorToClient(error, res);
     }    
 })
+
+router.get('/test', async function (req, res) {
+    const skyscanner = new skyscannerApi()
+    const placeFrom = await skyscanner.getPlace("london")
+    console.log(placeFrom)
+
+    const placeTo = await skyscanner.getPlace("paris")
+    console.log(placeTo)
+    let datePrices = []
+    for (let i = 1; i <= 12; i++) {
+        const month = i.toString().padStart(2, '0')
+        const date = `2021-${month}`
+        const price = await skyscanner.getQuote(placeFrom.placeId, placeTo.placeId, date)
+        datePrices += {"date": date, "price": price}
+    }
+    console.log(datePrices)
+
+    res.sendStatus(200)
+})
+
 
 module.exports = router;

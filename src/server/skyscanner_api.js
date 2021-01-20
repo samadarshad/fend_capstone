@@ -27,7 +27,7 @@ class skyscannerApi {
 
     getQuote = async function (from_place_id, to_place_id, date) { 
         const quotes = await this._getQuotes(from_place_id, to_place_id, date);
-        const quote = quotes[0].MinPrice
+        const quote = quotes.Quotes[0].MinPrice
         if (quote === undefined) {
             return Promise.reject(new Error(404));
         }
@@ -37,9 +37,9 @@ class skyscannerApi {
     getPlace = async function (place_query) { 
         const places = await this._getPlacesId(place_query);
         const place = this.getJson(
-            places[0].PlaceName,
-            places[0].CountryName, 
-            places[0].PlaceId
+            places.Places[0].PlaceName,
+            places.Places[0].CountryName, 
+            places.Places[0].PlaceId
         )
         if (place === undefined) {
             return Promise.reject(new Error(404));
@@ -53,7 +53,7 @@ class skyscannerApi {
             'x-rapidapi-key': x_rapidapi_key,
             'x-rapidapi-host': x_rapidapi_host
         }
-        const response = await requests.getData(url, headers);
+        const response = await requests.getData(url, headers);        
         if (response === undefined) {
             return Promise.reject(new Error(404));
         }
