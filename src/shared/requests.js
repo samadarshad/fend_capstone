@@ -3,8 +3,13 @@ class requestsServiceClass {
           this.axios = axios
      }
 
-     getData = async function ( url = '' ) {
-          const response = await this.axios.get(url)
+     getData = async function ( url = '', headers = {}) {
+          const response = await this.axios({
+               method: 'GET',
+               url: url,
+               credentials: 'same-origin',
+               headers: headers
+          })    
           .catch(function(error) {
                console.log("caught error error.response.status", error.response.status)
                return Promise.reject(new Error(error.response.status));
