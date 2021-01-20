@@ -1,5 +1,6 @@
 import { search, sendForm, save, saveForm, getSavedTrips, vote, deleteTrip, viewTrip } from './js/formHandler'
 import { ui } from './js/ui'
+import { UserActions } from './js/userActions.js'
 import requestsServiceClass from 'Shared/requests.js'
 import { setFetch, getFetch } from './js/client-side-requests'
 import requestMessageScheme from 'Shared/requestMessageScheme.js'
@@ -23,8 +24,9 @@ const weatherIcons = importAll(require.context('./views/weatherIcons/', false, /
 export {
     search,
     save,
-    
+
     ui,
+    UserActions,
     
     sendForm,
     saveForm,

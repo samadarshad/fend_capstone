@@ -1,18 +1,11 @@
 
 
 export async function search (event, document) {
+    event.preventDefault()
     const ui = new Client.ui()
+    const userActions = new Client.UserActions() 
     try {
-        event.preventDefault()
-        const jsonMessage = new Client.requestMessageScheme().getJson(
-            event.target['destination-input'].value, 
-            event.target['travelling-from-input'].value, 
-            event.target['date-input'].value
-            )        
-        ui.showSpinner();        
-        ui.scrollToResults();
-        const response = await Client.sendForm(jsonMessage)
-        await ui.updateUI(response, jsonMessage, document);
+        await userActions.searchAndShowResults(event.target['destination-input'].value, event.target['travelling-from-input'].value, event.target['date-input'].value, document)
     } catch (error) {
         ui.errorToast(error);  
         ui.clearResults();
