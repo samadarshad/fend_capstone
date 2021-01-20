@@ -1,19 +1,21 @@
 
 
 export async function search (event, document) {
+    const ui = new Client.ui()
     try {
         event.preventDefault()
         const jsonMessage = new Client.requestMessageScheme().getJson(
             event.target['destination-input'].value, 
             event.target['travelling-from-input'].value, 
             event.target['date-input'].value
-            )
-        const ui = new Client.ui()
+            )        
         ui.showSpinner();        
         ui.scrollToResults();
         const response = await Client.sendForm(jsonMessage)
         await ui.updateUI(response, jsonMessage, document);
     } catch (error) {
+        ui.errorToast(error);  
+        ui.clearResults();
         console.log("search error", error);
     }
 }
@@ -61,6 +63,7 @@ export async function save (event, document) {
         await ui.updateSavedTrips(savedTrips, document);
         ui.showToastTripSaved()
     } catch (error) {
+        ui.errorToast(error);
         console.log("save error", error);
     }
 }
@@ -97,23 +100,30 @@ export async function vote(change, trip_id) {
     return res
 }
 
-export async function viewTrip(trip_id) {
-    const ui = new Client.ui()  
-    ui.showSpinner();    
-    ui.scrollToResults();
-
-    const requests = new Client.requestsServiceClass(Client.getFetch());
-    const tripData = await requests.getData(`/api/saved_trips/${trip_id}`);
-    const storeDataSchemeClass = new Client.storeDataScheme()
-
-    const date_formatted = new Date(storeDataSchemeClass.get_date(tripData)).toLocaleDateString(ui.user_date_scheme_locale)
-    const jsonMessage = new Client.requestMessageScheme().getJson(
-        storeDataSchemeClass.get_city_name(tripData),
-        storeDataSchemeClass.get_travelling_from_city(tripData),
-        date_formatted
-        )
-    const response = await Client.sendForm(jsonMessage)
-    await ui.updateUI(response, jsonMessage, document);
+export async function viewTrip(trip_id) {    
+    const ui = new Client.ui() 
+    try {
+        ui.showSpinner();    
+        ui.scrollToResults();
+    
+        const requests = new Client.requestsServiceClass(Client.getFetch());
+        const tripData = await requests.getData(`/api/saved_trips/${trip_id}`);
+        const storeDataSchemeClass = new Client.storeDataScheme()
+    
+        const date_formatted = new Date(storeDataSchemeClass.get_date(tripData)).toLocaleDateString(ui.user_date_scheme_locale)
+        const jsonMessage = new Client.requestMessageScheme().getJson(
+            storeDataSchemeClass.get_city_name(tripData),
+            storeDataSchemeClass.get_travelling_from_city(tripData),
+            date_formatted
+            )
+        const response = await Client.sendForm(jsonMessage)
+        await ui.updateUI(response, jsonMessage, document);
+    } catch (error) {
+        ui.errorToast(error);
+        ui.clearResults();
+        console.log("view error", error);
+    } 
+    
 }
 
 export async function deleteTrip(trip_id) {

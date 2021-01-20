@@ -28,8 +28,27 @@ export class ui {
         `
     }
 
-    showToastTripSaved() {
-        $('.save-trip').toast('show')
+    _showToast(message) {
+        const toast = document.getElementById('toast')
+        toast.innerHTML = `
+        <div class="toast-body">
+        ${message}
+        </div>
+        `
+        $('#toast').toast('show')
+    }
+
+    showToastTripSaved() {        
+        this._showToast("Trip Saved.")
+    }
+
+    errorToast(error) {
+        this._showToast(error)
+    }
+
+    clearResults() {
+        const results_section = document.getElementById('results')
+        results_section.innerHTML = '';
     }
 
     updateUI = async function(response, input, document) {    
