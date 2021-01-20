@@ -137,9 +137,32 @@ export class HtmlBuilder {
         return `<button type="button" class="unstyled-button" onClick="Client.vote(1, ${id})"><i class="fa fa-angle-up" aria-hidden="true"></i></button>`
     }
 
+    create_saved_trip_card_subfields(travelling_from_city, travelling_from_country_code, departure_date, notes) {
+        let subfields = ''
+        if (travelling_from_city || travelling_from_country_code) {
+            subfields += `<p class="card-text">From `
+        }
+        if (travelling_from_city) {
+            subfields += `${travelling_from_city}`
+            if (travelling_from_country_code) {
+                subfields += `, ${travelling_from_country_code}`
+            }
+            subfields += `</p>`
+        }
+
+        if (departure_date) {
+            subfields += `<p class="card-text">${departure_date}</p>`
+        }
+        if (notes) {
+            subfields += `<p class="card-text">${notes}</p>`
+        }
+        return subfields
+    }
+
     create_saved_trip_card(id, data) {
         const vote_down_button_html = this.createVoteDownHtml(id)
         const vote_up_button_html = this.createVoteUpHtml(id)
+        const subfields_html = this.create_saved_trip_card_subfields(data.travelling_from_city, data.travelling_from_country_code, data.departure_date,data.notes)
 
         return `
         <div class="col-md-6 col-lg-4">
@@ -155,10 +178,7 @@ export class HtmlBuilder {
                         </div>
                         <div class="col-9 card-text">
                             <h4 class="card-title">${data.city_name}, ${data.country_code}</h4>
-                            <p class="card-text">From ${data.travelling_from_city}, ${data.travelling_from_country_code}</p>
-                            <p class="card-text">${data.departure_date}</p>
-                            <p class="card-text">${data.notes}</p>
-
+                            ${subfields_html}
                         </div>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
