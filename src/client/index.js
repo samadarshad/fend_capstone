@@ -15,6 +15,11 @@ Client.setFetch(axios)
 document.addEventListener('DOMContentLoaded', async function(event) {
     const savedTrips = await Client.getSavedTrips()
     await Client.updateSavedTrips(savedTrips, document);
+
+    $('#input-group-datepicker').datepicker({
+        todayBtn: "linked",
+        todayHighlight: true
+    });
 });
 
 document.addEventListener('submit', function(e) {
@@ -27,4 +32,5 @@ document.addEventListener('submit', function(e) {
         Client.save(e, document)
     }
 });
+
 
