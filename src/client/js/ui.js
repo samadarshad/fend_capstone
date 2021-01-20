@@ -1,3 +1,5 @@
+import { parse } from 'date-fns'
+
 export function showSpinner() {
     console.log("showing spinner")
     const results_section = document.getElementById('results')
@@ -32,10 +34,14 @@ export async function updateUI(response, input, document) {
     const chartBuilder = new Client.ChartBuilder()
 
     const flightprices = responseMessageScheme.get_flightprices(response)
+    const flightPricesMessage = new Client.flightPricesMessageScheme()
+
     if (flightprices) {
         const prices = flightprices.datePrice.map(dateprice => dateprice.price)
         const dates = flightprices.datePrice.map(dateprice => dateprice.date)
-        const options = chartBuilder.get_options(dates, prices, null)
+        const dates_standard = dates.map(date => parse(date, flightPricesMessage.get_flight_date_scheme, new Date()))
+        const dates_mo = dates_standard.map(date => new Date(date).toLocaleDateString(undefined,  { month: 'short', year: '2-digit' }))
+        const options = chartBuilder.get_options(dates_mo, prices, null)
         const chart = new ApexCharts(document.getElementById("flightprices"), options);        
         chart.render();
     } else {
