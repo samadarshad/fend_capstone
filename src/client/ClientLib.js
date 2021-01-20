@@ -1,4 +1,4 @@
-import { search, save, vote, deleteTrip, viewTrip } from './js/formHandler'
+import { search, save, vote, deleteTrip, viewTrip } from './js/eventHandler'
 import { ui } from './js/ui'
 import { UserActions } from './js/userActions.js'
 import requestsServiceClass from 'Shared/requests.js'
@@ -13,7 +13,6 @@ import storeScheme from 'Shared/storeScheme.js'
 import dateScheme from 'Shared/dateScheme.js'
 import patchSavedTripsScheme from 'Shared/patchSavedTripsScheme.js'
 
-import { validate } from './js/validate-input'
 import { HtmlBuilder } from './js/htmlBuilder.js'
 import { ChartBuilder } from './js/chartBuilder.js'
 
@@ -46,7 +45,6 @@ export {
     patchSavedTripsScheme,
     dateScheme,
     
-    validate,
     
     HtmlBuilder,
     ChartBuilder,

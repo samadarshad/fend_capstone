@@ -1,5 +1,3 @@
-
-
 export async function search (event, document) {
     event.preventDefault()
     const ui = new Client.ui(document)
