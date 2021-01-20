@@ -34,9 +34,13 @@ export async function updateUI(response, input, document) {
             }
         }
         
-        var chart = new ApexCharts(document.getElementById("chart"), options);
+        var chart = new ApexCharts(document.getElementById("flightprices"), options);
         
         chart.render();
+    } else {
+        console.log("no flight prices")
+        const flightprices = document.getElementById('flightprices')
+        flightprices.innerHTML = htmlBuilder.createFlightPricesError()
     }
   
 

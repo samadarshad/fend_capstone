@@ -235,7 +235,7 @@ export class HtmlBuilder {
                         
                         <div class="col-12 climate-flight-graph">
                             <h5 class="text-center">Monthly climate and flight prices</h5>
-                            <div id="chart"></div>
+                            <div id="flightprices"></div>
                         </div>
     
                         <form class="col-12 form-group" id="save-user">
@@ -274,5 +274,9 @@ export class HtmlBuilder {
         `
     
         return saved_trips_section
+    }
+
+    createFlightPricesError () {
+        return `<p class="text-center font-italic" >No flight data available for given locations.</p>`
     }
 }; 
