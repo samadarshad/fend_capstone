@@ -9,7 +9,7 @@ export class HtmlBuilder {
         if (!isValid(date_standard)) {
             return ''
         }
-        return `<span id="departure_date">${new Date(date_standard).toLocaleDateString(undefined,  { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>`
+        return `<span id="departure_date">${new Date(date_standard).toLocaleDateString('en-GB',  { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>`
    }
 
    _get_departureCity = function (departure_city_name, departure_country_code) {
@@ -69,8 +69,8 @@ export class HtmlBuilder {
    }
 
    _get_weather_day_html(dayDate, dayTempC, dayWeatherIcon, dayWeatherDescription) {
-        const shortDate = new Date(dayDate).toLocaleDateString(undefined,  { weekday: 'short' })
-        const shortDateNum = new Date(dayDate).toLocaleDateString(undefined,  {day: 'numeric' })
+        const shortDate = new Date(dayDate).toLocaleDateString('en-GB',  { weekday: 'short' })
+        const shortDateNum = new Date(dayDate).toLocaleDateString('en-GB',  {day: 'numeric' })
 
         const weatherIcon = Client.weatherIcons[`${dayWeatherIcon}.png`]
 
