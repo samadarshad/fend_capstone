@@ -2,7 +2,6 @@ import { formatDistance, parse, parseISO, compareAsc, isValid } from 'date-fns'
 
 export class HtmlBuilder {
     get_departureDate = function (date, date_scheme) {
-        console.log(date)
         if (!date)  {
             return ''
         }
@@ -10,107 +9,134 @@ export class HtmlBuilder {
         if (!isValid(date_standard)) {
             return ''
         }
-        return `, on <span id="departure_date">${new Date(date_standard).toLocaleDateString(undefined,  { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>`
+        // return `, on <span id="departure_date">${new Date(date_standard).toLocaleDateString(undefined,  { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>`
+        return `<span id="departure_date">${new Date(date_standard).toLocaleDateString(undefined,  { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>`
+   }
+
+   get_departureCity = function (departure_city_name, departure_country_code) {
+        return `<span id="from_city_name">${departure_city_name}</span>, <span id="from_country_code">${departure_country_code}</span>`
+   }
+
+   get_departure = function (departure_city_name, date, date_scheme) {
+    const departureDateHtml = this.get_departureDate(date, date_scheme)   
+    let departureHtml = ''
+       if (departure_city_name || departureDateHtml) {
+        departureHtml += `<p>Departing `
+       } else {
+           return ''
+       }
+
+       if (departure_city_name) {
+        departureHtml += `from <span id="from_city_name">${departure_city_name}</span>`
+        if (departureDateHtml) {
+            departureHtml += `, `        
+           }
+       }
+
+    //    if (departure_country_code) {
+    //     departureHtml += `, <span id="from_country_code">${departure_country_code}</span>`
+    //    }
+       
+       if (departureDateHtml) {
+            departureHtml += `on ${departureDateHtml}`        
+       }
+
+        departureHtml += `.</p>`
+
+       
+       return departureHtml
+   }
+
+   get_carousel = function (pictures) {
+        const pictureMessage = new Client.pictureMessageScheme()
+        let carousel_inner_innerHTML = '';
+        pictures.forEach(function(picture, i) {
+            const pictureUrl = pictureMessage.get_url(picture)
+
+            if (i == 0) {
+                carousel_inner_innerHTML += 
+                `
+                    <div class="carousel-item active">
+                        <img class="w-100" src="${pictureUrl}" alt="Slide ${i}">
+                    </div>
+                `
+            } else {
+                carousel_inner_innerHTML += 
+                `
+                    <div class="carousel-item">
+                        <img class="w-100" src="${pictureUrl}" alt="Slide ${i}">
+                    </div>
+                `
+            }
+
+        })
+        return carousel_inner_innerHTML
+   }
+
+   get_weather_day_html(dayDate, dayTempC, dayWeatherIcon, dayWeatherDescription) {
+        const shortDate = new Date(dayDate).toLocaleDateString(undefined,  { weekday: 'short' })
+        const shortDateNum = new Date(dayDate).toLocaleDateString(undefined,  {day: 'numeric' })
+
+        const weatherIcon = Client.weatherIcons[`${dayWeatherIcon}.png`]
+
+        return `
+        <div class="weekly-weather-item">
+            <p class="mb-0"> ${shortDate} </p> 
+            <p class="mb-0"> ${shortDateNum} </p> 
+            <img class="w-100" src="${weatherIcon}" alt="${dayWeatherDescription}" title="${dayWeatherDescription}">
+            <p class="mb-0"> ${dayTempC}° </p>
+        </div>
+        `
+   }
+
+   get_weather(weather, user_date) {
+        const user_date_standard = parse(user_date, Client.user_date_scheme, new Date())
+        const weatherMessage = new Client.weatherMessageScheme()
+
+        let weekly_weather_innerHTML = '';
+        for (const day of weather) {
+            const dayDate = weatherMessage.get_date(day)
+
+            let departureDateIsLater = 0
+            if (user_date) {            
+                const dayDateStandard = parse(dayDate, weatherMessage.get_weather_date_scheme, new Date())
+                departureDateIsLater = compareAsc(dayDateStandard, user_date_standard)
+            }        
+            if (departureDateIsLater < 0) {
+                // dont render weather
+            } else {
+                weekly_weather_innerHTML += this.get_weather_day_html(weatherMessage.get_date(day), weatherMessage.get_temp_celcius(day), weatherMessage.get_weatherIcon(day), weatherMessage.get_weatherDescription(day))
+            }
+        }
+        let week_weather_forecast_innerHTML = '<h5>Weather forecast</h5>'
+        if (!weekly_weather_innerHTML) {
+            week_weather_forecast_innerHTML += `
+            <div class="weather-card p-0">
+                <p class="text-center font-italic" >No weather forecast available for given date.</p>
+            </div> 
+            `
+        } else {
+            week_weather_forecast_innerHTML += `
+            <div class="weather-card p-0">
+                <div class="d-flex weekly-weather">
+                    ${weekly_weather_innerHTML}
+                </div>
+            </div>
+            `
+        }
+        return week_weather_forecast_innerHTML
    }
 }; 
 
-// module.exports = HtmlBuilder
-
-export function createResults(city_name, country_code, weather, pictures, date) {
+export function createResults(city_name, country_code, weather, pictures, date, departure_city_name) {
 
     const htmlbuilder = new Client.HtmlBuilder()
 
-    console.log("createResults")
-    console.log("date", date)
-    const results_section = document.getElementById('results')
-    results_section.innerHTML = '';
-    
-    const frag = document.createDocumentFragment();
-    const results_card = document.createElement('div');
+    let carousel_inner_innerHTML = htmlbuilder.get_carousel(pictures);
+    let week_weather_forecast_innerHTML = htmlbuilder.get_weather(weather, date);
+    let departure_innerHTML = htmlbuilder.get_departure(departure_city_name, date, Client.user_date_scheme)
 
-    const pictureMessage = new Client.pictureMessageScheme()
-    let carousel_inner_innerHTML = '';
-    pictures.forEach(function(picture, i) {
-        const pictureUrl = pictureMessage.get_url(picture)
-
-        if (i == 0) {
-            carousel_inner_innerHTML += 
-            `
-                <div class="carousel-item active">
-                    <img class="w-100" src="${pictureUrl}" alt="Slide ${i}">
-                </div>
-            `
-        } else {
-            carousel_inner_innerHTML += 
-            `
-                <div class="carousel-item">
-                    <img class="w-100" src="${pictureUrl}" alt="Slide ${i}">
-                </div>
-            `
-        }
- 
-    })  
-    console.log("user date", date)
-    console.log("Client.userDateScheme", Client.user_date_scheme)
-    const user_date_standard = parse(date, Client.user_date_scheme, new Date())
-    console.log("user_date_standard", user_date_standard)
-
-    const weatherMessage = new Client.weatherMessageScheme()
-    
-    let weekly_weather_innerHTML = '';
-    for (const day of weather) {
-        const dayDate = weatherMessage.get_date(day)
-
-        let departureDateIsLater = false
-        if (date) {            
-            const dayDateStandard = parse(dayDate, weatherMessage.get_weather_date_scheme, new Date())
-            console.log("dayDateStandard", dayDateStandard)
-            departureDateIsLater = compareAsc(dayDateStandard, user_date_standard)
-            console.log("departureDateIsLater", departureDateIsLater)
-        }        
-        if (departureDateIsLater < 0) {
-            // dont render weather
-            console.log("departure date is later, not rendering weather for this date")
-        } else {
-            const shortDate = new Date(dayDate).toLocaleDateString(undefined,  { weekday: 'short' })
-            const shortDateNum = new Date(dayDate).toLocaleDateString(undefined,  {day: 'numeric' })
-
-            const dayTempC = weatherMessage.get_temp_celcius(day)
-            const dayWeatherIcon = weatherMessage.get_weatherIcon(day)
-            const weatherIcon = Client.weatherIcons[`${dayWeatherIcon}.png`]
-            const dayWeatherDescription = weatherMessage.get_weatherDescription(day)
-
-            weekly_weather_innerHTML += 
-            `
-            <div class="weekly-weather-item">
-                <p class="mb-0"> ${shortDate} </p> 
-                <p class="mb-0"> ${shortDateNum} </p> 
-                <img class="w-100" src="${weatherIcon}" alt="${dayWeatherDescription}" title="${dayWeatherDescription}">
-                <p class="mb-0"> ${dayTempC}° </p>
-            </div>
-            `
-        }
-    }
-    let week_weather_forecast_innerHTML = '<h5>Weather forecast</h5>'
-    if (!weekly_weather_innerHTML) {
-        week_weather_forecast_innerHTML += `
-        <div class="weather-card p-0">
-            <p class="text-center font-italic" >No weather forecast available for given date.</p>
-        </div> 
-        `
-    } else {
-        week_weather_forecast_innerHTML += `
-        <div class="weather-card p-0">
-            <div class="d-flex weekly-weather">
-                ${weekly_weather_innerHTML}
-            </div>
-        </div>
-        `
-    }
-
-
-
-    results_card.innerHTML = `
+    return `
     <div class="card">
                     <div class="row">
                         <div class="col-lg-4">
@@ -132,7 +158,7 @@ export function createResults(city_name, country_code, weather, pictures, date) 
                     </div>
                         <div class="card-text col-lg-8">
                             <h3><span id="city_name">${city_name}</span>, <span id="country_code">${country_code}</span></h3>
-                            <p>Departing from <span id="from_city_name">London</span>, <span id="from_country_code">UK</span>${htmlbuilder.get_departureDate(date, Client.user_date_scheme)}.</p>
+                            ${departure_innerHTML}
 
                             <div class="weather">
                                 ${week_weather_forecast_innerHTML}
@@ -158,29 +184,6 @@ export function createResults(city_name, country_code, weather, pictures, date) 
 
             </div>
     `
-
-    frag.appendChild(results_card)
-    results_section.appendChild(frag)
-
-    var options = {
-        chart: {
-            type: 'line'
-        },
-        series: [{
-            name: 'sales',
-            data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
-        }],
-        xaxis: {
-            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-        }
-    }
-    
-    var chart = new ApexCharts(document.getElementById("chart"), options);
-    
-    chart.render();
-    console.log("rendered")
-
-
 }
 
 export function createVoteUpHtml(id) {
