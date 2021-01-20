@@ -7,6 +7,7 @@ export async function search (event, document) {
             event.target['travelling-from-input'].value, 
             event.target['date-input'].value
             )
+        Client.showSpinner();
         const response = await Client.sendForm(jsonMessage)
         await Client.updateUI(response, jsonMessage, document);
     } catch (error) {
@@ -90,6 +91,7 @@ export async function vote(change, trip_id) {
 }
 
 export async function viewTrip(trip_id) {
+    Client.showSpinner();
     const requests = new Client.requestsServiceClass(Client.getFetch());
     const tripData = await requests.getData(`/api/saved_trips/${trip_id}`);
     const storeDataSchemeClass = new Client.storeDataScheme()

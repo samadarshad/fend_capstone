@@ -1,3 +1,14 @@
+export function showSpinner() {
+    console.log("showing spinner")
+    const results_section = document.getElementById('results')
+    results_section.innerHTML = `
+    <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status"></div>                            
+    </div>
+    <p class="text-center">Loading...</p>
+    `
+}
+
 export async function updateUI(response, input, document) {    
     const responseMessageScheme = new Client.responseMessageScheme()
     const requestMessageScheme = new Client.requestMessageScheme()
