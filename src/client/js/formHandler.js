@@ -17,13 +17,14 @@ export async function search (event, document) {
 }
 
 export async function save (event, document) {
-    const ui = new Client.ui(document)  
-    try {
-        event.preventDefault()
+    event.preventDefault()
+    const ui = new Client.ui(document)
+    const userActions = new Client.UserActions()
+    try { 
 
         function getValueOfNull(obj, prop) {
             return( obj == null ? undefined : obj[prop] );
-          }
+        }
 
         const city_name = getValueOfNull(document.getElementById("city_name"), 'innerHTML')
         const countryName = getValueOfNull(document.getElementById("countryName"), 'innerHTML')
@@ -44,9 +45,8 @@ export async function save (event, document) {
             date_added,
             votes
         )
-        const userActions = new Client.UserActions() 
-        const savedTrips = await userActions.save(jsonMessage)
-            
+         
+        const savedTrips = await userActions.save(jsonMessage)            
         await ui.updateSavedTrips(savedTrips, this.document);
         ui.showToastTripSaved()       
     } catch (error) {
@@ -55,26 +55,22 @@ export async function save (event, document) {
     }
 }
 
-
-// export async function getSavedTrips() {
-//     const requests = new Client.requestsServiceClass(Client.getFetch());
-//     const res = await requests.getData(`/api/saved_trips`);    
-//     return res
-// }
-
 export async function vote(change, trip_id) {
+    const ui = new Client.ui(document)
     const userActions = new Client.UserActions() 
-    await userActions.vote(change, trip_id)  
-    
-    const savedTrips = await userActions.getSavedTrips()    
-    const ui = new Client.ui(document)      
-    await ui.updateSavedTrips(savedTrips);
+    try {
+        await userActions.vote(change, trip_id)  
+        const savedTrips = await userActions.getSavedTrips()       
+        await ui.updateSavedTrips(savedTrips);
+    } catch (error) {
+        ui.errorToast(error);
+        console.log("vote error", error);
+    } 
 }
 
 export async function viewTrip(trip_id) {    
     const ui = new Client.ui(document)
     const userActions = new Client.UserActions() 
-
     try {
         ui.showSpinner();    
         ui.scrollToResults();        
@@ -83,18 +79,19 @@ export async function viewTrip(trip_id) {
     } catch (error) {
         ui.errorToast(error);
         ui.clearResults();
-        console.log("view error", error);
-    } 
-    
+        console.log("viewTrip error", error);
+    }     
 }
 
 export async function deleteTrip(trip_id) {
-    localStorage.removeItem(trip_id)
-    const requests = new Client.requestsServiceClass(Client.getFetch());
-    const res = await requests.delete(`/api/saved_trips/${trip_id}`);
-
-    const savedTrips = await Client.getSavedTrips()    
-    const ui = new Client.ui(document)      
-    await ui.updateSavedTrips(savedTrips);
-    return res
+    const ui = new Client.ui(document)
+    const userActions = new Client.UserActions() 
+    try {
+        await userActions.deleteTrip(trip_id)
+        const savedTrips = await userActions.getSavedTrips()  
+        await ui.updateSavedTrips(savedTrips);
+    } catch (error) {
+        ui.errorToast(error);
+        console.log("deleteTrip error", error);
+    } 
 }

@@ -64,4 +64,11 @@ export class UserActions {
         return res
     }
 
+    deleteTrip = async function (trip_id) {
+        localStorage.removeItem(trip_id)
+        const requests = new Client.requestsServiceClass(Client.getFetch());
+        const res = await requests.delete(`/api/saved_trips/${trip_id}`);         
+        return res
+    }
+
 }
