@@ -11,7 +11,7 @@ import storeScheme from 'Shared/storeScheme.js'
 import patchSavedTripsScheme from 'Shared/patchSavedTripsScheme.js'
 
 import { validate } from './js/validate-input'
-import { createResults, createSavedTrips, HtmlBuilder } from './js/htmlBuilder.js'
+import { HtmlBuilder } from './js/htmlBuilder.js'
 
 import "regenerator-runtime/runtime";
 import { importAll } from './js/importImages.js'
@@ -45,8 +45,6 @@ export {
     
     validate,
     
-    createResults,
-    createSavedTrips,
     HtmlBuilder,
 
     weatherIcons,

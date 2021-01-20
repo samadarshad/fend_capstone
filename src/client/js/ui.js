@@ -1,8 +1,9 @@
 export async function updateUI(response, input, document) {    
     const responseMessageScheme = new Client.responseMessageScheme()
     const requestMessageScheme = new Client.requestMessageScheme()
+    const htmlBuilder = new Client.HtmlBuilder()
 
-    const resultsHtml = Client.createResults(
+    const resultsHtml = htmlBuilder.createResults(
         responseMessageScheme.get_city_name(response),
         responseMessageScheme.get_country_code(response),
         responseMessageScheme.get_weather_forecast(response),
@@ -39,7 +40,8 @@ export async function updateSavedTrips(data, document) {
     if (data.length == 0) {
         localStorage.clear()
     }
-    saved_trips_section.innerHTML = Client.createSavedTrips(data);
+    const htmlBuilder = new Client.HtmlBuilder()
+    saved_trips_section.innerHTML = htmlBuilder.createSavedTrips(data);
 }
 
 export const user_date_scheme = 'dd/MM/yyyy';

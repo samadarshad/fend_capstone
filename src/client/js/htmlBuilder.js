@@ -31,10 +31,6 @@ export class HtmlBuilder {
             departureHtml += `, `        
            }
        }
-
-    //    if (departure_country_code) {
-    //     departureHtml += `, <span id="from_country_code">${departure_country_code}</span>`
-    //    }
        
        if (departureDateHtml) {
             departureHtml += `on ${departureDateHtml}`        
@@ -178,88 +174,85 @@ export class HtmlBuilder {
         </div>
         `
     }
-}; 
 
-export function createResults(city_name, country_code, weather, pictures, date, departure_city_name) {
-
-    const htmlbuilder = new Client.HtmlBuilder()
-
-    let carousel_inner_innerHTML = htmlbuilder.get_carousel(pictures);
-    let week_weather_forecast_innerHTML = htmlbuilder.get_weather(weather, date);
-    let departure_innerHTML = htmlbuilder.get_departure(departure_city_name, date, Client.user_date_scheme)
-
-    return `
-    <div class="card">
-                    <div class="row">
-                        <div class="col-lg-4">
-                        <div id="countryCarousel" class="carousel slide" data-ride="carousel">
-
-
-                            <div class="carousel-inner">
-                            ${carousel_inner_innerHTML}
-                            </div>
-                            <a class="carousel-control-prev" href="#countryCarousel" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#countryCarousel" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-                    </div>
-                        <div class="card-text col-lg-8">
-                            <h3><span id="city_name">${city_name}</span>, <span id="country_code">${country_code}</span></h3>
-                            ${departure_innerHTML}
-
-                            <div class="weather">
-                                ${week_weather_forecast_innerHTML}
-                            </div>
-                        </div>
-
-                <div class="card-body">
-                    <div class="row">
-                    
-                    <div class="col-12 climate-flight-graph">
-                        <h5 class="text-center">Monthly climate and flight prices</h5>
-                        <div id="chart"></div>
-                    </div>
-
-                    <form class="col-12 form-group" id="save-user">
-                        <label for="user-input-notes">Notes</label>
-                        <textarea class="form-control" id="user-input-notes" rows="3"></textarea>
-                        <button type="submit" class="btn btn-sm btn-outline-secondary">Save (will be publically visible)</button>
-                    </form>
-
-                </div>
-                </div>
-
-            </div>
-    `
-}
-
-export function createSavedTrips(savedTrips) {
-    const htmlbuilder = new Client.HtmlBuilder()
+    createResults(city_name, country_code, weather, pictures, date, departure_city_name) {
     
-    let saved_trips_section = `
-    <div class="container-fluid">
-    <div class="row">
-    `;    
-    const savedTripsScheme = new Client.storeScheme()
-    const orderedSavedTrips = savedTrips.sort(function(a, b) {        
-        return savedTripsScheme.get_id(b) - savedTripsScheme.get_id(a);
-    })
-    for (const trip of orderedSavedTrips) {
-        const id = savedTripsScheme.get_id(trip)
-        const data = savedTripsScheme.get_data(trip)
-
-        saved_trips_section += htmlbuilder.create_saved_trip_card(id, data)       
+        let carousel_inner_innerHTML = this.get_carousel(pictures);
+        let week_weather_forecast_innerHTML = this.get_weather(weather, date);
+        let departure_innerHTML = this.get_departure(departure_city_name, date, Client.user_date_scheme)
+    
+        return `
+        <div class="card">
+                        <div class="row">
+                            <div class="col-lg-4">
+                            <div id="countryCarousel" class="carousel slide" data-ride="carousel">
+    
+    
+                                <div class="carousel-inner">
+                                ${carousel_inner_innerHTML}
+                                </div>
+                                <a class="carousel-control-prev" href="#countryCarousel" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#countryCarousel" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                            <div class="card-text col-lg-8">
+                                <h3><span id="city_name">${city_name}</span>, <span id="country_code">${country_code}</span></h3>
+                                ${departure_innerHTML}
+    
+                                <div class="weather">
+                                    ${week_weather_forecast_innerHTML}
+                                </div>
+                            </div>
+    
+                    <div class="card-body">
+                        <div class="row">
+                        
+                        <div class="col-12 climate-flight-graph">
+                            <h5 class="text-center">Monthly climate and flight prices</h5>
+                            <div id="chart"></div>
+                        </div>
+    
+                        <form class="col-12 form-group" id="save-user">
+                            <label for="user-input-notes">Notes</label>
+                            <textarea class="form-control" id="user-input-notes" rows="3"></textarea>
+                            <button type="submit" class="btn btn-sm btn-outline-secondary">Save (will be publically visible)</button>
+                        </form>
+    
+                    </div>
+                    </div>
+    
+                </div>
+        `
     }
 
-    saved_trips_section += `
-    </div> 
-    </div> 
-    `
-
-    return saved_trips_section
-}
+    createSavedTrips(savedTrips) {
+        
+        let saved_trips_section = `
+        <div class="container-fluid">
+        <div class="row">
+        `;    
+        const savedTripsScheme = new Client.storeScheme()
+        const orderedSavedTrips = savedTrips.sort(function(a, b) {        
+            return savedTripsScheme.get_id(b) - savedTripsScheme.get_id(a);
+        })
+        for (const trip of orderedSavedTrips) {
+            const id = savedTripsScheme.get_id(trip)
+            const data = savedTripsScheme.get_data(trip)
+    
+            saved_trips_section += this.create_saved_trip_card(id, data)       
+        }
+    
+        saved_trips_section += `
+        </div> 
+        </div> 
+        `
+    
+        return saved_trips_section
+    }
+}; 
