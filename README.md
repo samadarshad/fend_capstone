@@ -1,9 +1,9 @@
 # Evaluate NLP Project
 
 ## Overview
-A web app which uses a Natural Language Processing API to display sentiment information for input text.
+A web app which uses multiple travel APIs to display travel information for input destination, source, and dates.
 
-The project is hosted at https://evaluate-nlp-abdus-samad.herokuapp.com/
+The project is hosted at ...
 
 ## Prerequisite
 This project was tested on:
@@ -39,3 +39,11 @@ Note the tests rely on https://beeceptor.com/console/abdus-samad-weather-journal
 
 ## Errors
 Errors are handled by logging to the server console, and sending to the client in the form `Error: <status_code>`.
+
+## Things to improve
+- The Pixabay API cannot distinguish between say, London UK and London Canada, because only the city name is used
+- The Weatherbit API also returns a city-name, this city-name may be different to the city-name given by Geonames API, so which one is the source of truth?
+- The Openweathermap API requires payment, so I cannot put climate data into my app.
+- The free Skyscanner API has a 50/minute limit, which means 3/minute when doing 14-requests per user interaction.
+- Several variables are hard-coded into the server, which should be parameters from the client call i.e. number of pictures, flight dates 
+- The offline mode of the website (using service workers) doesn't respond to user events i.e. clicking on "Show saved trips" shouldn't require the server, so should still work offline, but it doesnt

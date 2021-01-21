@@ -134,10 +134,16 @@
 
 
 
-
-    <!-- <script src="../assets/dist/js/bootstrap.bundle.min.js"></script> -->
     <script type="text/javascript" src="lib/ClientLib.js"></script>
-
+    <script>
+        // Check that service workers are supported
+        if ('serviceWorker' in navigator) {
+          // Use the window load event to keep the page load performant
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js');
+          });
+        }
+    </script>
 </body>
 
 </html>
