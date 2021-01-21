@@ -49,7 +49,6 @@ class geonamesApi {
             data.geonames[0].name, 
             data.geonames[0].countryName
             )
-        console.log(data.geonames[0].countryName)
         return locationData;
     }
 }
