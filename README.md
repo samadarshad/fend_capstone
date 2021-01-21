@@ -3,7 +3,7 @@
 ## Overview
 A web app which uses multiple travel APIs to display travel information for input destination, source, and dates.
 
-The project is hosted at ...
+The project is hosted at https://travel-app-abdus-samad-fend.herokuapp.com/
 
 ## Prerequisite
 This project was tested on:
