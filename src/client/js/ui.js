@@ -1,4 +1,5 @@
 import { parse } from 'date-fns'
+import { getReasonPhrase } from 'http-status-codes';
 
 export class ui {
     constructor(document) {
@@ -52,8 +53,8 @@ export class ui {
         this._showToast("Trip Saved.")
     }
 
-    errorToast(error) {
-        this._showToast(error)
+    errorToast(error) {        
+        this._showToast(`${error}, ${getReasonPhrase(error.message)}`)
     }
 
     clearResults() {
