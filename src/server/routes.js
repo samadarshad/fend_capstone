@@ -1,32 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const geonamesApi = require('./geonames_api.js');
-const geonames = new geonamesApi()
-const weatherbitApi = require('./weatherbit_api.js');
-const weatherbit = new weatherbitApi()
-const pixabayApi = require('./pixabay_api.js');
-const pixabay = new pixabayApi()
-const NUM_PICTURES = 3
-const skyscannerApi = require('./skyscanner_api.js')
-const skyscanner = new skyscannerApi()
-const openweatherApi = require('./openweathermap_api.js')
-const openweather = new openweatherApi()
-
-const requestMessageScheme = require('../shared/requestMessageScheme');
-const requestMessage = new requestMessageScheme();
-
-const responseMessageScheme = require('../shared/responseMessageScheme');
-const responseMessage = new responseMessageScheme();
-
-const patchSavedTripsScheme = require('../shared/patchSavedTripsScheme');
-const savedTrips = require('./store.js')
-const storeUtilsClass = require('./storeUtils.js')
-const savedTripsUtils = new storeUtilsClass(savedTrips)
-
-
-
-const sanitizeHtml = require('sanitize-html');
+const serverActionsClass = require('./serverActions.js')
+const serverActions = new serverActionsClass()
 
 function sendErrorToClient(error, res) {
     res.status(error.message).send(error)  
@@ -40,45 +16,8 @@ router.post('/search', async function (req, res) {
     try {
         const input = req.body;
         console.log("Search term:", input)
-
-        const destination = requestMessage.get_destination(input);        
-        const locationData = await geonames.getLocation(destination);
-        
-        const weatherData = await weatherbit.getWeather(
-            geonames.get_lat(locationData), 
-            geonames.get_lon(locationData)
-            )
-        
-        // const searchTerm = `${geonames.get_name(locationData)}`
-
-        const travelling_from = requestMessage.get_travelling_from(input);
-        let skyscannerResults = ''
-        let travellingFromlocationData = ''
-        if (travelling_from) {
-            travellingFromlocationData = await geonames.getLocation(travelling_from);
-            skyscannerResults = await skyscanner.getAnnualFlightPrices(travellingFromlocationData.name, locationData.name)
-        }
-
-        let searchTerm = destination
-        let pictures = await pixabay.getPictures(searchTerm, NUM_PICTURES)
-        if (!pictures) {
-            console.log("Could not find pictures for", searchTerm)
-            searchTerm = geonames.get_countryName(locationData)
-            pictures = await pixabay.getPictures(searchTerm, NUM_PICTURES)
-        }
-
-        const response = responseMessage.getJson(
-            geonames.get_name(locationData), 
-            geonames.get_countryName(locationData),
-            weatherbit.get_weatherForecast(weatherData),
-            pictures,
-            skyscannerResults,
-            geonames.get_name(travellingFromlocationData),
-            geonames.get_countryName(travellingFromlocationData),
-            requestMessage.get_date(input)
-        )
+        const response = await serverActions.search(input)
         res.send(response)
-
     } catch (error) {
         console.log("routes error", error);
         sendErrorToClient(error, res);
@@ -87,7 +26,7 @@ router.post('/search', async function (req, res) {
 
 router.get('/saved_trips', async function (req, res) {
     try {
-        const items = Object.entries(savedTrips())
+        const items = serverActions.getSavedTrips()
         res.send(items)
     } catch (error) {
         console.log("routes error", error);
@@ -98,11 +37,7 @@ router.get('/saved_trips', async function (req, res) {
 router.post('/saved_trips', async function (req, res) {
     try {
         const input = req.body;
-        let cleanInput = {}
-        for (const [key, value] of Object.entries(input)) {
-            cleanInput[key] = sanitizeHtml(value)
-        }
-        const object = savedTripsUtils.append(cleanInput)
+        const object = serverActions.save(input)
         res.send(object)
     } catch (error) {
         console.log("routes error", error);
@@ -113,11 +48,8 @@ router.post('/saved_trips', async function (req, res) {
 router.get('/saved_trips/:id', async function (req, res) {
     try {
         const id = req.params.id;
-
-        if (!savedTrips.has(id)) {
-            res.sendStatus(404)
-        }
-        res.send(savedTrips(id))
+        const object = serverActions.getSavedTrip(id)
+        res.send(object)
     } catch (error) {
         console.log("routes error", error);
         sendErrorToClient(error, res);
@@ -128,14 +60,7 @@ router.post('/saved_trips/:id', async function (req, res) {
     try {
         const id = req.params.id;
         const input = req.body;
-        const change = new patchSavedTripsScheme().get_change(input);
-
-        if (!savedTrips.has(id)) {
-            res.sendStatus(404)
-        }
-        const updatedTrip = savedTrips(id)
-        updatedTrip.votes = parseInt(updatedTrip.votes) + parseInt(change);
-        savedTrips.set(id, updatedTrip)
+        serverActions.updateSavedTrip(id, input)
         res.sendStatus(200)
     } catch (error) {
         console.log("routes error", error);
@@ -146,12 +71,7 @@ router.post('/saved_trips/:id', async function (req, res) {
 router.delete('/saved_trips/:id', async function (req, res) {
     try {
         const id = req.params.id;        
-
-        if (!savedTrips.has(id)) {
-            res.sendStatus(404)
-        }
-        
-        savedTrips.remove(id)
+        serverActions.deleteSavedTrip(id)
         res.sendStatus(200)
     } catch (error) {
         console.log("routes error", error);
@@ -161,7 +81,7 @@ router.delete('/saved_trips/:id', async function (req, res) {
 
 router.get('/clear_saved_trips', async function (req, res) {
     try {
-        savedTripsUtils.reset()
+        serverActions.clearSavedTrips()        
         res.sendStatus(200)
     } catch (error) {
         console.log("routes error", error);
@@ -169,25 +89,25 @@ router.get('/clear_saved_trips', async function (req, res) {
     }    
 })
 
-router.get('/testskyscanner', async function (req, res) {
-    const skyscanner = new skyscannerApi()
-    const results = await skyscanner.getAnnualFlightPrices("london", "paris")
+// router.get('/testskyscanner', async function (req, res) {
+//     const skyscanner = new skyscannerApi()
+//     const results = await skyscanner.getAnnualFlightPrices("london", "paris")
     
-    console.log(results)
-    console.log(results.placeFrom.name)
-    console.log(results.placeTo.name)
-    console.log(results.datePrice[0].price)
+//     console.log(results)
+//     console.log(results.placeFrom.name)
+//     console.log(results.placeTo.name)
+//     console.log(results.datePrice[0].price)
 
-    res.sendStatus(200)
-})
+//     res.sendStatus(200)
+// })
 
-router.get('/testopenweather', async function (req, res) {
-    const results = await openweather.getTemperature("london", "GB", 1)
+// router.get('/testopenweather', async function (req, res) {
+//     const results = await openweather.getTemperature("london", "GB", 1)
     
-    console.log(results)
+//     console.log(results)
 
-    res.sendStatus(200)
-})
+//     res.sendStatus(200)
+// })
 
 
 module.exports = router;
