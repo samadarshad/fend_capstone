@@ -1,7 +1,7 @@
 require('dotenv').config()
 
-const base_url = `https://history.openweathermap.org/data/2.5/aggregated`//process.env.GEONAMES_API_ENDPOINT;
-const api_key = '79f5a90c470fc2487607684f827d1b47'
+const base_url = process.env.OPENWEATHERMAP_BASE_URL;
+const api_key = process.env.OPENWEATHERMAP_API_KEY;
 
 const requests = require('./server-side-requests');
 

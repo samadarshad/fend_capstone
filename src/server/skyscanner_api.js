@@ -1,8 +1,8 @@
 require('dotenv').config()
 
-const x_rapidapi_key = `a523806d4bmshdfa2429aa90aa36p13d104jsnc068c2a98f07`;//process.env.GEONAMES_USERNAME;
-const x_rapidapi_host = 'skyscanner-skyscanner-flight-search-v1.p.rapidapi.com'
-const base_url = `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices`//process.env.GEONAMES_API_ENDPOINT;
+const x_rapidapi_key = process.env.X_RAPIDAPI_KEY;
+const x_rapidapi_host = process.env.X_RAPIDAPI_HOST;
+const base_url = process.env.X_RAPIDAPI_BASE_URL;
 
 const requests = require('./server-side-requests');
 const flightPricesMessageScheme = require('../shared/flightPricesMessageScheme.js');

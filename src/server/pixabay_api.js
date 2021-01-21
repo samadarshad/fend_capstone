@@ -1,7 +1,7 @@
 require('dotenv').config()
 
-const api_key = `19889319-b8f5448a5336428c663231efb`;//process.env.GEONAMES_USERNAME;
-const base_url = `https://pixabay.com/api/`//process.env.GEONAMES_API_ENDPOINT;
+const api_key = process.env.PIXABAY_API_KEY;
+const base_url = process.env.PIXABAY_BASE_URL;
 
 const requests = require('./server-side-requests');
 const pictureMessageScheme = require('../shared/pictureMessageScheme');

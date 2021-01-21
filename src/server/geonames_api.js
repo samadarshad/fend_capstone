@@ -1,7 +1,7 @@
 require('dotenv').config()
 
-const username = `abdussamad`;//process.env.GEONAMES_USERNAME;
-const base_url = `http://api.geonames.org/searchJSON`//process.env.GEONAMES_API_ENDPOINT;
+const username = process.env.GEONAMES_USERNAME;
+const base_url = process.env.GEONAMES_API_ENDPOINT;
 
 const requests = require('./server-side-requests');
 

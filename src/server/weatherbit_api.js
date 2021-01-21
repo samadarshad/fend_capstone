@@ -1,7 +1,7 @@
 require('dotenv').config()
 
-const api_key = `4b0bf63bff8042a19c25bc3eed6c8efc`;//process.env.GEONAMES_USERNAME;
-const base_url = `http://api.weatherbit.io/v2.0/forecast/daily`//process.env.GEONAMES_API_ENDPOINT;
+const api_key = process.env.WEATHERBIT_API_KEY;
+const base_url = process.env.WEATHERBIT_BASE_URL;
 
 const requests = require('./server-side-requests');
 const weatherMessageScheme = require('../shared/weatherMessageScheme');

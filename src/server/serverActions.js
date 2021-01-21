@@ -1,4 +1,3 @@
-const requests = require('./server-side-requests');
 const geonamesApi = require('./geonames_api.js');
 const geonames = new geonamesApi()
 const weatherbitApi = require('./weatherbit_api.js');
