@@ -41,9 +41,11 @@ Note the tests rely on https://beeceptor.com/console/abdus-samad-weather-journal
 Errors are handled by logging to the server console, and sending to the client in the form `Error: <status_code>`.
 
 ## Things to improve
+- The Geonames API sometimes returns strange country names i.e. Africa -> Undefined. Need to handle these cases.
 - The Pixabay API cannot distinguish between say, London UK and London Canada, because only the city name is used
 - The Weatherbit API also returns a city-name, this city-name may be different to the city-name given by Geonames API, so which one is the source of truth?
 - The Openweathermap API requires payment, so I cannot put climate data into my app.
 - The free Skyscanner API has a 50/minute limit, which means 3/minute when doing 14-requests per user interaction.
 - Several variables are hard-coded into the server, which should be parameters from the client call i.e. number of pictures, flight dates 
-- The offline mode of the website (using service workers) doesn't respond to user events i.e. clicking on "Show saved trips" shouldn't require the server, so should still work offline, but it doesnt
+- The offline mode of the website (using service workers) doesn't respond to user events i.e. clicking on "Show saved trips" shouldn't require the server, so should still work offline, but it doesnt. Perhaps I need a blob: https://stackoverflow.com/questions/10343913/how-to-create-a-web-worker-from-a-string
+- Rotate API key and store privately
