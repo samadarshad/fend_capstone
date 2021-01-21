@@ -1,19 +1,54 @@
-import { respondToSubmit, sendForm } from './js/formHandler'
-import { updateUI } from './js/ui'
+import { search, save, vote, deleteTrip, viewTrip } from './js/eventHandler'
+import { ui } from './js/ui'
+import { UserActions } from './js/userActions.js'
 import requestsServiceClass from 'Shared/requests.js'
 import { setFetch, getFetch } from './js/client-side-requests'
-import messageScheme from 'Shared/messageScheme.js'
-import { validate } from './js/validate-input'
+import requestMessageScheme from 'Shared/requestMessageScheme.js'
+import pictureMessageScheme from 'Shared/pictureMessageScheme.js'
+import weatherMessageScheme from 'Shared/weatherMessageScheme.js'
+import flightPricesMessageScheme from 'Shared/flightPricesMessageScheme.js'
+import responseMessageScheme from 'Shared/responseMessageScheme.js'
+import storeDataScheme from 'Shared/storeDataScheme.js'
+import storeScheme from 'Shared/storeScheme.js'
+import dateScheme from 'Shared/dateScheme.js'
+import patchSavedTripsScheme from 'Shared/patchSavedTripsScheme.js'
+
+import { HtmlBuilder } from './js/htmlBuilder.js'
+import { ChartBuilder } from './js/chartBuilder.js'
 
 import "regenerator-runtime/runtime";
+import { importAll } from './js/importImages.js'
+
+const weatherIcons = importAll(require.context('./views/weatherIcons/', false, /\.(png|jpe?g|svg)$/));
 
 export {
-    respondToSubmit,    
-    updateUI,
-    sendForm,
+    search,
+    save,
+
+    ui,
+    UserActions,
+    
+    vote,
+    deleteTrip,
+    viewTrip,
+
     requestsServiceClass,
     setFetch,
     getFetch,
-    messageScheme,
-    validate
+    requestMessageScheme,
+    responseMessageScheme,
+    pictureMessageScheme,
+    weatherMessageScheme,
+    flightPricesMessageScheme,
+    storeDataScheme,
+    storeScheme,
+    patchSavedTripsScheme,
+    dateScheme,
+    
+    
+    HtmlBuilder,
+    ChartBuilder,
+
+    weatherIcons,
+
 }

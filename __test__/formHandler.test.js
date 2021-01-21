@@ -1,16 +1,22 @@
-const fetchMock = require('jest-fetch-mock')
-fetchMock.enableMocks()
-global.Client = require('../dist/ClientLib')
+const axios = require('axios');
+const MockAcapter = require('axios-mock-adapter');
+const mock = new MockAcapter(axios);
+
+global.Client = require('../dist/lib/ClientLib')
+const userActions = new Client.UserActions()
 
 describe('formHandler', () => {
-    it('when sendForm then expect /api/sentiment to be called', async done => {
-        fetchMock.mockResponse(JSON.stringify({ data: '12345' }))
-        Client.setFetch(fetchMock)
-        const res = await Client.sendForm("Hello")
-        
-        expect(fetchMock.mock.calls.length).toEqual(1)
-        expect(fetchMock.mock.calls[0][0]).toEqual('/api/sentiment')
-        expect(fetchMock.mock.calls[0][1].body).toEqual(JSON.stringify({ message: 'Hello' }))
+    it('when sendForm then expect /api/search to be called', async done => {
+        mock.onPost("/api/search").reply(200, {
+            data: '12345'
+        })
+        Client.setFetch(axios)
+
+        const res = await userActions._sendForm("Hello")
+
+        expect(mock.history.post.length).toBe(1)
+        expect(mock.history.post[0].url).toBe('/api/search')
+        expect(mock.history.post[0].data).toBe('Hello')
         expect(res.data).toEqual('12345')
         done()
     })

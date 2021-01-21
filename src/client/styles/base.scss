@@ -1,14 +1,16 @@
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
 main {
-    flex: 2;
+    background-color: #D690A0;
 }
 
-section {
-    max-width: 800px;
-    margin: 50px auto;
+html,
+body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    background-color: #D690A0;
+}
+
+.container hr {
+    border-top: 1px solid #381035;
+    width: 95%;
 }

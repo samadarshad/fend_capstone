@@ -1,0 +1,35 @@
+footer {
+    background-color: #3f3f3f;
+    color: #d5d5d5;
+    padding-top: 2rem;
+
+    a {
+        color: #d5d5d5;
+
+        &:hover {
+            color: #a7a7a7;
+        }
+    }
+}
+
+
+
+.social {
+    transform: translateY(-25%);
+    a {
+        font-size: 2em;
+        padding: 1rem;
+        text-align: center;
+    }
+}
+
+.fa-linkedin {
+    color: #0e76a8;
+    &:hover {
+        color: #d5d5d5;
+    }
+}
+
+.fa-github:hover {
+    color: #d5d5d5;
+}

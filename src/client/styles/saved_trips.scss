@@ -1,0 +1,69 @@
+@import "~bootstrap/scss/_functions.scss";
+@import "~bootstrap/scss/_variables.scss";
+@import "~bootstrap/scss/mixins/_breakpoints.scss";
+
+.saved-trips {
+    background-color: #D690A0;
+    .card {
+        background-color: #ffffff;
+        
+    }
+    .card-body {
+        padding-top: 0vh;
+        padding-bottom: 1vh;
+    } 
+    
+
+    .card-text {
+        margin-left: 0rem;
+        margin-right: -3rem;
+    }
+
+    .card-votes {
+        line-height: 1em;
+        font-size: 30px; 
+        color:#606060;
+
+        a {        
+            color:#606060;
+            &:hover {            
+            color:#006eff;
+            }
+        }
+        .vote-number {
+            // font-size: 10px;
+            text-align: left;
+            // transform: translateX(-200px);
+            margin-left: -0.2em;
+            white-space: nowrap;
+        }
+
+        .greyed-out {
+            color: rgb(179, 179, 179)
+        }
+    }
+
+    @include media-breakpoint-down(md) {
+        .card-text {
+            margin-right: -2rem;
+        }
+
+    }
+    @include media-breakpoint-down(sm) {
+        .card-text {
+            margin-right: -4rem;
+        }
+
+    }
+
+    @include media-breakpoint-down(xs) {
+        .card-text {
+            margin-right: -3rem;
+        }
+
+    }
+}
+// body > main > div.results.py-4.container > div.saved-trips > div > div > div:nth-child(1) > div > div > div.row {
+//     margin-left: -1.5rem;
+//     margin-right: -1.5rem;
+// }

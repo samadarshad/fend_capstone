@@ -1,32 +1,54 @@
 class requestsServiceClass {
-     constructor(fetch) {
-          this.fetch = fetch
+     constructor(axios) {
+          this.axios = axios
      }
 
-     getData = async function ( url = '' ) {
-          const response = await this.fetch(url); 
-          if (!response.ok) {
-               return Promise.reject(new Error(response.status));
-          }
-          const newData = response.json();
+     getData = async function ( url = '', headers = {}) {
+          const response = await this.axios({
+               method: 'GET',
+               url: url,
+               credentials: 'same-origin',
+               headers: headers
+          })    
+          .catch(function(error) {
+               console.log("caught error error.response.status", error.response.status)
+               return Promise.reject(new Error(error.response.status));
+          }); 
+          const newData = response.data;
           return newData
      }
 
      postData = async function ( url = '', data = {}) {
-          const response = await this.fetch(url, {
+          const response = await this.axios({
                method: 'POST',
+               url: url,
                credentials: 'same-origin',
                headers: {
                     'Content-Type': 'application/json',
                },
-               body: JSON.stringify(data),
-          });
-          if (!response.ok) {
-               return Promise.reject(new Error(response.status));
-          }
-          const newData = response.json();
+               data: data,
+          })       
+          .catch(function(error) {
+               console.log("caught error error.response.status", error.response.status)
+               return Promise.reject(new Error(error.response.status));
+          }); 
+          const newData = response.data;
           return newData
-     };     
+     };
+
+     delete = async function ( url = '') {
+          const response = await this.axios({
+               method: 'DELETE',
+               url: url,
+               credentials: 'same-origin'
+          })       
+          .catch(function(error) {
+               console.log("caught error error.response.status", error.response.status)
+               return Promise.reject(new Error(error.response.status));
+          }); 
+          const newData = response.data;
+          return newData
+     };   
 }; 
 
 module.exports = requestsServiceClass

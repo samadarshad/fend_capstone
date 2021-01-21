@@ -1,7 +1,7 @@
 import "regenerator-runtime/runtime";
-const fetch = require('node-fetch');
+const axios = require('axios');
 const requestsServiceClass = require('../src/shared/requests.js');
-const request = new requestsServiceClass(fetch);
+const request = new requestsServiceClass(axios);
 
 // assumed to be always online, only 50 requests per day
 const onlineTestApiEndpoint = 'https://abdus-samad-weather-journal-test.free.beeceptor.com'

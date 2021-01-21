@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,700');
+
+// * {
+//     border: 1px dotted black;
+// }
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.padding {
+    padding-bottom: 2rem;
+}
+
+/*--- Bootstrap Padding Fix --*/
+
+[class*="col-"] {
+    padding: 1rem;
+}

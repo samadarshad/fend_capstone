@@ -7,6 +7,7 @@ module.exports = {
     output: {
         libraryTarget: 'umd',
         library: 'Client',
+        filename: 'lib/[name].js'
     },
     resolve: {
         alias: {
@@ -21,6 +22,18 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: "babel-loader"
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                use: [
+                    {
+                    loader: 'file-loader',
+                    options: {
+                        esModule: false,
+                        name: 'lib/img/[name].[ext]'
+                      }
+                    }
+                ],
             }
         ]
     }
