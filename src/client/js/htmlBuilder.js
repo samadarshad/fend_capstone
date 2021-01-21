@@ -238,7 +238,7 @@ export class HtmlBuilder {
                         <div class="row">
                         
                         <div class="col-12 climate-flight-graph">
-                            <h5 class="text-center">Monthly climate and flight prices</h5>
+                            <h5 class="text-center">Monthly flight prices</h5>
                             <div id="flightprices"></div>
                         </div>
     
