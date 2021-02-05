@@ -1,4 +1,4 @@
-# Evaluate NLP Project
+# Travel App
 
 ## Overview
 A web app which uses multiple travel APIs to display travel information for input destination, source, and dates.
