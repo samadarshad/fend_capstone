@@ -1,4 +1,5 @@
 require('dotenv').config()
+var dateFormat = require('dateformat');
 
 const x_rapidapi_key = process.env.X_RAPIDAPI_KEY;
 const x_rapidapi_host = process.env.X_RAPIDAPI_HOST;
@@ -60,6 +61,15 @@ class skyscannerApi {
         return response
     }
 
+    function addMonths(date, months) {
+        var d = date.getDate();
+        date.setMonth(date.getMonth() + +months);
+        if (date.getDate() != d) {
+          date.setDate(0);
+        }
+        return date;
+    }
+
     getAnnualFlightPrices = async function (from_query, to_query) {
         const placeFrom = await this.getPlace(from_query)  
         const placeTo = await this.getPlace(to_query)
@@ -67,10 +77,16 @@ class skyscannerApi {
             return ''
         }
         let datePrices = []
-        for (let i = 1; i <= 12; i++) {
-            const month = i.toString().padStart(2, '0')
-            const date = `2021-${month}`
+        const today = new Date();
+        const dateFormat = 'yyyy-mm'
+        
+        for (let i = 0; i <= 12; i++) {
+            const date = dateformat(addMonths(today, i), dateFormat);
+            //const month = i.toString().padStart(2, '0')
+            //const date = `2021-${month}`
+            console.log("date", date)
             const price = await this.getQuote(placeFrom.placeId, placeTo.placeId, date)
+            console.log("price", price)
             datePrices.push(flightPricesMessage.getJsonDatePrice(date, price))
         }
         return flightPricesMessage.getJsonSkyscanner(placeFrom, placeTo, datePrices)
