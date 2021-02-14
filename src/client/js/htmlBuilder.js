@@ -245,7 +245,7 @@ export class HtmlBuilder {
                         <form class="col-12 form-group" id="save-user">
                             <label for="user-input-notes">Notes</label>
                             <textarea class="form-control" id="user-input-notes" rows="3"></textarea>
-                            <button type="submit" class="btn btn-sm btn-outline-secondary">Save (will be publically visible)</button>
+                            <button type="submit" class="btn btn-sm btn-outline-secondary">Save (will be publicly visible)</button>
                         </form>
     
                     </div>
