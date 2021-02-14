@@ -78,10 +78,10 @@ class skyscannerApi {
         }
         let datePrices = []
         const today = new Date();
-        const dateFormat = 'yyyy-mm'
+        const format = 'yyyy-mm'
         
         for (let i = 0; i <= 12; i++) {
-            const date = dateformat(this._addMonths(today, i), dateFormat);
+            const date = dateFormat(this._addMonths(today, i), format);
             //const month = i.toString().padStart(2, '0')
             //const date = `2021-${month}`
             console.log("date", date)
