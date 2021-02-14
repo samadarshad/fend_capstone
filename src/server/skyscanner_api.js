@@ -1,5 +1,5 @@
 require('dotenv').config()
-var dateFormat = require('dateformat');
+const dateFormat = require('dateformat');
 
 const x_rapidapi_key = process.env.X_RAPIDAPI_KEY;
 const x_rapidapi_host = process.env.X_RAPIDAPI_HOST;
@@ -61,7 +61,7 @@ class skyscannerApi {
         return response
     }
 
-    function addMonths(date, months) {
+    _addMonths = (date, months) => {
         var d = date.getDate();
         date.setMonth(date.getMonth() + +months);
         if (date.getDate() != d) {
@@ -81,7 +81,7 @@ class skyscannerApi {
         const dateFormat = 'yyyy-mm'
         
         for (let i = 0; i <= 12; i++) {
-            const date = dateformat(addMonths(today, i), dateFormat);
+            const date = dateformat(this._addMonths(today, i), dateFormat);
             //const month = i.toString().padStart(2, '0')
             //const date = `2021-${month}`
             console.log("date", date)
