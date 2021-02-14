@@ -62,12 +62,9 @@ class skyscannerApi {
     }
 
     _addMonths = (date, months) => {
-        var d = date.getDate();
-        date.setMonth(date.getMonth() + +months);
-        if (date.getDate() != d) {
-          date.setDate(0);
-        }
-        return date;
+        let newDate = date.getDate();
+        newDate.setMonth(date.getMonth() + months);        
+        return newDate;
     }
 
     getAnnualFlightPrices = async function (from_query, to_query) {
